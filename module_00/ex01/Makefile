@@ -5,15 +5,16 @@
 NAME	=	useless_contacts
 CXX	=	clang++
 CXXFLAGS	=	-Wall -Werror -Wextra
-CXXLFLAGS	=	-L inc -lm
+CXXLFLAGS	=	-Lm -L inc
 RM	=	rm -rf
 
-SRCS	=	useless_contacts.cpp
+SRCS	=	useless_contacts.cpp	\
+			main.cpp
 SRCDIR	=	./src
 INCDIR	=	./inc
 OBJDIR	=	./obj
 
-OBJS	=	$(SRCS:%cpp=%.o)
+OBJS	=	$(SRCS:.cpp=.o)
 
 all:	$(NAME)
 
@@ -26,8 +27,8 @@ clean:	$(OBJS)
 fclean:	clean
 	$(RM) $(NAME)
 
-re:	fclean all
+re:	fclean $(NAME)
 
 bonus:
 
-.PHONY: bonus clean fclean re
+.PHONY: all bonus clean fclean re
