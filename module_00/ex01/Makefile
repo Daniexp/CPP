@@ -5,24 +5,24 @@
 NAME	=	useless_contacts
 CXX	=	clang++
 CXXFLAGS	=	-Wall -Werror -Wextra
-CXXLFLAGS	=	-Lm -L inc
+CXXLDFLAGS	=	-L inc -lm
 RM	=	rm -rf
 
 SRCS	=	useless_contacts.cpp	\
 			main.cpp
-SRCDIR	=	./src
-INCDIR	=	./inc
-OBJDIR	=	./obj
-
-OBJS	=	$(SRCS:.cpp=.o)
+SRCDIR	=	./src/
+INCDIR	=	./inc/
+DSRC	=	$(addprefix $(SRCDIR), $(SRCS)) 
+.SILENT:
+OBJS	=	$(DSRC:.cpp=.o)
 
 all:	$(NAME)
 
 $(NAME):	$(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(NAME) $^
+	$(CXX) -o $(NAME) $(CXXFLAGS) $^
 
-clean:	$(OBJS)
-	$(RM) $^
+clean:
+	$(RM) $(OBJS)
 
 fclean:	clean
 	$(RM) $(NAME)

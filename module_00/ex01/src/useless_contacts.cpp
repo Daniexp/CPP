@@ -6,10 +6,10 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 16:22:48 by dexposit          #+#    #+#             */
-/*   Updated: 2022/08/14 16:44:10 by dexposit         ###   ########.fr       */
+/*   Updated: 2022/08/15 13:56:15 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "useless_contacts.h"
+#include "../inc/useless_contacts.h"
 
 /*	CLASS CCONTACT DEFINITION	*/
 
