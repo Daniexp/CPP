@@ -12,5 +12,6 @@ class Contact
 		Contact(void);
 		~Contact(void);
 		void	printData(void);
+		void	printDataTruncate(void);
 		std::string		truncateData(std::string data);
 };

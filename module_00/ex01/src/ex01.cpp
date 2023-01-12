@@ -6,4 +6,5 @@ int main(void)
 	ejemplo.printData();
 	PhoneBook agenda;
 	agenda.addContact();
+	agenda.searchContact();
 }

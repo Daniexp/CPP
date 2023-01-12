@@ -15,28 +15,37 @@ std::string PhoneBook::askContactData(std::string message, int phone)
 	bool valid;
 	do{
 		std::cout << message;
-		std::cin >> readline;
+		std::getline(std::cin, readline);
 		std::cout << readline.length();
 		if (phone == 1  && (!std::all_of(readline.begin(), readline.end(), ::isdigit) || readline.length() != 9))
-				//readline.find_first_not_of("0123456789") == std::string::npos)//(std::strspn(readline.c_str(), "0123456789") > 0))
 			valid = false;
-		else //if (phone && std::strspn(readline.c_str(), "0123456789") == 0 && readline.length() == 9)
+		else
 			valid = true;
-	}while (valid == false);//(readline.length() > 0 && (!phone || std::strspn(readline.c_str(), "0123456789")));
+	}while (valid == false);
 	return (readline);
 }
 void PhoneBook::addContact(void)
 {
-	int nmb = 0;
 	std::string name = askContactData("Please enter the first name of the contact: ", 0);
 	std::string last = askContactData("Please enter the last name of the contact: ", 0);
 	std::string nick = askContactData("Please enter a nickname for the contact: ", 0);
-	std::string phone = askContactData("Please enter the phone number of the contact: ", 1);
+	std::string phone = askContactData("Please enter the phone number of the contact without spaces: ", 1);
 	std::string dark = askContactData("Please enter the darkest secret of the contact: ", 0);
-	(this->contacts)[nmb] = Contact(name, last, nick, phone, dark);
+	contacts[saved] = Contact(name, last, nick, phone, dark);
+	saved++;
+	if (saved > 8)
+		saved = 0;
 };
 void PhoneBook::searchContact(void)
 {
+	for (int i=0; i<9; i++)
+		contacts[i].printDataTruncate();
+//	std::cout << "Please enter an index from 1 to 9, to print the Data of the Contact in the index row: ";
+	std::cout << "Enter an index from 1 to 9 " << std::endl;
+	int index;
+	std::cin >> index;
+	index--;
+	contacts[index].printData();
 };
 void PhoneBook::printContactsData(void)
 {
