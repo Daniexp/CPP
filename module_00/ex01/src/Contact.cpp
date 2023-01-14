@@ -35,5 +35,5 @@ void	Contact::printDataTruncate(void)
 }
 void	Contact::printData(void)
 {
-	std::cout << firstname << std::endl << lastname << std::endl << nickname << std::endl << phonenumber << std::endl << darkestsecret << std::endl;
+	std::cout << "Firstname:\t" << firstname << std::endl << "Lastname:\t" << lastname << std::endl << "Nickname:\t" << nickname << std::endl << "Phonenumber:\t" << phonenumber << std::endl << "Secret:\t\t" << darkestsecret << std::endl;
 }
