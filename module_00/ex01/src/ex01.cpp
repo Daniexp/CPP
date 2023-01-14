@@ -1,10 +1,15 @@
 #include <ex01.hpp>
 int main(void)
 {
-	std::cout << "The proyect was created sucessfully." << std::endl;
-	Contact	ejemplo("Nombre", "Segundo nombre", "nickname", "número de telefono", "secreto mas oscuro");
-	ejemplo.printData();
 	PhoneBook agenda;
-	agenda.addContact();
-	agenda.searchContact();
+	std::string line;
+	do{
+		std::cin >> line;
+		if (line == "ADD")
+			agenda.addContact();
+		if (line == "SEARCH")
+			agenda.searchContact();
+	}while (line != "EXIT");
+//	agenda.addContact();
+//	agenda.searchContact();
 }

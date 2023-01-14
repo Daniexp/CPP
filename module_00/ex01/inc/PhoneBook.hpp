@@ -10,7 +10,7 @@ class	PhoneBook
 		~PhoneBook(void);
 		void addContact(void);
 		void searchContact(void);
-		void printContactsData(void);
+		void printContactData(int index);
 		std::string askContactData(std::string message, int phone);
 };
 #endif
