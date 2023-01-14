@@ -17,10 +17,7 @@ std::string PhoneBook::askContactData(std::string message, int phone)
 		std::cout << message;
 		std::getline(std::cin, readline);
 		readline.reserve(readline.length());
-		if (phone == 1  && (!std::all_of(readline.begin(), readline.end(), ::isdigit) || readline.length() != 9))
-			valid = false;
-		else
-			valid = true;
+		valid = (phone == 1  && (!std::all_of(readline.begin(), readline.end(), ::isdigit) || readline.length() != 9)) ? valid = false : valid = true;
 	}while (valid == false);
 	return (readline);
 }
@@ -38,8 +35,6 @@ void PhoneBook::addContact(void)
 	dark.reserve(dark.length());
 		contacts[saved % 8] = Contact(name, last, nick, phone, dark);
 	saved++;
-	//if (saved > 8)
-	//	saved = 0;
 };
 void PhoneBook::searchContact(void)
 {
