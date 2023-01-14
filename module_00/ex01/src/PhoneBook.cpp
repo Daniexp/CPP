@@ -3,7 +3,7 @@
 PhoneBook::PhoneBook(void)
 {
 	std::cout << "PhoneBook Constructor void called." << std::endl;
-	this->saved = 0;
+	saved = 0;
 }
 PhoneBook::~PhoneBook(void)
 {
@@ -29,9 +29,9 @@ void PhoneBook::addContact(void)
 	last.reserve(last.length());
 	std::string nick = askContactData("Please enter a nickname for the contact: ", 0);
 	nick.reserve(nick.length());
-	std::string phone = askContactData("Please enter the phone number of the contact without spaces: ", 1);
+	std::string phone = askContactData("Please enter the phone number of the contact without spaces: ", 0);
 	phone.reserve(phone.length());
-	std::string dark = askContactData("Please enter the darkest secret of the contact: ", 2);
+	std::string dark = askContactData("Please enter the darkest secret of the contact: ", 0);
 	dark.reserve(dark.length());
 		contacts[saved % 8] = Contact(name, last, nick, phone, dark);
 	saved++;
@@ -39,18 +39,16 @@ void PhoneBook::addContact(void)
 void PhoneBook::searchContact(void)
 {
 	int i = 0;
-	for (i=0; i<9; i++)
-	{
-		if (i < saved)
+	for (i=0; i<8 && i < saved; i++)
 		contacts[i].printDataTruncate();
-	}
-//	std::cout << "Please enter an index from 1 to 9, to print the Data of the Contact in the index row: ";
-	std::cout << "Enter an index from 1 to 9 " << std::endl;
-	int index=0;
-	std::cin >> index;
-	index--;
-	if (index >= 0)
-		contacts[index].printData();
+	//std::cin.clear(); // clears the error flags
+	//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::cout << "Enter an index from 1 to 8: ";
+	int index;
+	if (std::cin >> index && index >= 1 && index <= 8 && index <= saved)
+		contacts[index-1].printData();
+	else
+		std::cout << "Invalid index..." << std::endl;
 };
 void PhoneBook::printContactData(int index)
 {
