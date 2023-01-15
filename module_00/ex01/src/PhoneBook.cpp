@@ -39,16 +39,18 @@ void PhoneBook::addContact(void)
 void PhoneBook::searchContact(void)
 {
 	int i = 0;
+	int index;
 	for (i=0; i<8 && i < saved; i++)
 		contacts[i].printDataTruncate();
-	//std::cin.clear(); // clears the error flags
-	//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cout << "Enter an index from 1 to 8: ";
-	int index;
-	if (std::cin >> index && index >= 1 && index <= 8 && index <= saved)
+	if (std::cin >> index && !std::cin.fail() && index >= 1 && index <= 8 && index <= saved)
 		contacts[index-1].printData();
 	else
+	{
 		std::cout << "Invalid index..." << std::endl;
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	}
 };
 void PhoneBook::printContactData(int index)
 {
