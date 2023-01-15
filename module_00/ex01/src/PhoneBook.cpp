@@ -17,7 +17,7 @@ std::string PhoneBook::askContactData(std::string message, int phone)
 		std::cout << message;
 		std::getline(std::cin, readline);
 		readline.reserve(readline.length());
-		valid = (phone == 1  && (!std::all_of(readline.begin(), readline.end(), ::isdigit) || readline.length() != 9)) ? valid = false : valid = true;
+		valid = (phone == 1  && (!std::all_of(readline.begin(), readline.end(), ::isdigit) || readline.length() != 9)) || readline.length() == 0 ? valid = false : valid = true;
 	}while (valid == false);
 	return (readline);
 }
