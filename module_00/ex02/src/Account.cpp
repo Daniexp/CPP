@@ -23,7 +23,7 @@ int Account::getNbWithdrawals(void)
 void Account::displayAccountsInfos(void)
 {
 	_displayTimestamp();
-	std::cout << " accounts:" << getNbAccounts() << ":" << std::endl;
+	std::cout << " accounts:" << getNbAccounts() << ";total:" << getTotalAmount() << ";deposits:" << getNbDeposits() << ";withdrawals:" << getNbWithdrawals() << std::endl;
 }
 void Account::makeDeposit(int deposit)
 {
@@ -40,30 +40,48 @@ bool Account::makeWithdrawal(int withdrawal)
 		_totalAmount -= withdrawal;
 		_nbWithdrawals++;
 		_totalNbWithdrawals++;
+		_displayTimestamp();
+		std::cout <<" index:"<<_accountIndex<<";p_amount:"<< _amount<<";deposits:"<<_nbDeposits<<";withdrawals:"<<_nbWithdrawals<<std::endl;
 		withdrawal = 0;
+	}
+	else
+	{
+		_displayTimestamp();
+		std::cout <<" index:"<<_accountIndex<<";p_amount:"<< withdrawal - _amount<<";withdrawal:refused"<<std::endl;
 	}
 	return (!withdrawal);
 }
 Account::Account(void)
-{}
+{
+	_displayTimestamp();
+	//displayStatus();
+	std::cout <<" index:"<<_accountIndex<<";amount:"<<_amount<<";created"<<std::endl;
+	//displayStatus();
+//	std::cout << ";created" << std::endl;
+}
 Account::Account(int initial_deposit)
 {
 //	_nbAccounts = _totalAmount = _totalNbDeposits = _totalNbWithdrawals = 0;
 	_accountIndex = _amount = _nbDeposits = _nbWithdrawals = 0;
 	_accountIndex = getNbAccounts();
 	_nbAccounts++;
-	makeDeposit(initial_deposit);
+//	makeDeposit(initial_deposit);
+	_totalAmount += initial_deposit;
+	_amount = initial_deposit;
 
 }
 Account::~Account(void)
 {
 	_displayTimestamp();
-	std::cout << " closed" << std::endl;
+	//displayStatus();
+	std::cout <<" index:"<<_accountIndex<<";amount:"<<_amount<<";closed"<<std::endl;
+	//std::cout << ";closed" << std::endl;
+//	std::cout << " index:" << _accountIndex << ";amount:" << _amount <<  ";closed" << std::endl;
 }
 void Account::displayStatus(void) const
 {
 	_displayTimestamp();
-	std::cout << " created" << std::endl;
+	std::cout <<" index:"<<_accountIndex<<";amount:"<<_amount<<";created"<<std::endl;
 }
 int Account::checkAmount(void) const
 {
