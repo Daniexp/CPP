@@ -5,7 +5,7 @@
 ################################################################################
 NAME		=	ex01
 CXX			=	clang++
-CXXFLAGS	=	-Wall -Werror -Wextra -I inc
+CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc
 CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
