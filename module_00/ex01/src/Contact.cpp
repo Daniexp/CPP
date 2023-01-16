@@ -15,11 +15,11 @@ Contact::Contact(std::string fst_nm, std::string lst_nm, std::string nick, std::
 }
 Contact::Contact(void)
 {
-	std::cout << "Called the Contact Constructor" << std::endl;
+	//std::cout << "Called the Contact Constructor" << std::endl;
 }
 Contact::~Contact(void)
 {
-	std::cout << "Called Destructor of the class Contact." << std::endl;
+	//std::cout << "Called Destructor of the class Contact." << std::endl;
 }
 std::string	Contact::truncateData(std::string data)
 {

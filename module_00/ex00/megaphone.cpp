@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 17:34:51 by dexposit          #+#    #+#             */
-/*   Updated: 2022/08/13 15:09:36 by dexposit         ###   ########.fr       */
+/*   Updated: 2023/01/16 13:43:42 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int main(int argc, char **argv)
 			for(int i=1; argv[i]; i++)
 				for(int j=0; argv[i][j]; j++)
 					putchar(toupper(argv[i][j]));
-				//std::cout << argv[1] << "\n";
 	}
     return 0;
 }

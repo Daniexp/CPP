@@ -6,13 +6,13 @@
 #    By: dexposit <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/05 16:43:23 by dexposit          #+#    #+#              #
-#    Updated: 2022/08/13 15:11:58 by dexposit         ###   ########.fr        #
+#    Updated: 2023/01/16 13:47:45 by dexposit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	megaphone
 CXX			=	clang++
-CXXFLAGS	=	-Wall -Werror -Wextra
+CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98
 RM			=	rm -rf
 
 SRCS			=	megaphone.cpp
@@ -32,6 +32,8 @@ clean: $(OBJS)
 fclean: clean
 	$(RM) $(NAME)
 
-re:	fclean all
+re:
+	$(RM) $(NAME) $(OBJS)
+	make
 
 .PHONY:	 re clean fclean bonus

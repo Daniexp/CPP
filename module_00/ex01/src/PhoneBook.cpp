@@ -2,12 +2,12 @@
 
 PhoneBook::PhoneBook(void)
 {
-	std::cout << "PhoneBook Constructor void called." << std::endl;
+//	std::cout << "PhoneBook Constructor void called." << std::endl;
 	saved = 0;
 }
 PhoneBook::~PhoneBook(void)
 {
-	std::cout << "PhoneBook Destructor called." << std::endl;
+//	std::cout << "PhoneBook Destructor called." << std::endl;
 }
 std::string PhoneBook::askContactData(std::string message, int phone)
 {
@@ -29,7 +29,7 @@ void PhoneBook::addContact(void)
 	last.reserve(last.length());
 	std::string nick = askContactData("Please enter a nickname for the contact: ", 0);
 	nick.reserve(nick.length());
-	std::string phone = askContactData("Please enter the phone number of the contact without spaces: ", 0);
+	std::string phone = askContactData("Please enter the phone number of the contact without spaces: ", 1);
 	phone.reserve(phone.length());
 	std::string dark = askContactData("Please enter the darkest secret of the contact: ", 0);
 	dark.reserve(dark.length());
