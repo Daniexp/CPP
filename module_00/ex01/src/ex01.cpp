@@ -5,12 +5,9 @@ int main(void)
 	std::string line;
 	do{
 		std::getline(std::cin, line);
-//		std::cin >> line;
 		if (line == "ADD")
 			agenda.addContact();
 		if (line == "SEARCH")
 			agenda.searchContact();
 	}while (line != "EXIT");
-//	agenda.addContact();
-//	agenda.searchContact();
 }

@@ -12,7 +12,7 @@ Contact::Contact(std::string fst_nm, std::string lst_nm, std::string nick, std::
 	phonenumber.reserve(phonenumber.length());
 	darkestsecret = dks;
 	darkestsecret.reserve(darkestsecret.length());
-};
+}
 Contact::Contact(void)
 {
 	std::cout << "Called the Contact Constructor" << std::endl;
@@ -20,7 +20,7 @@ Contact::Contact(void)
 Contact::~Contact(void)
 {
 	std::cout << "Called Destructor of the class Contact." << std::endl;
-};
+}
 std::string	Contact::truncateData(std::string data)
 {
 	if (data.length() <= 10)

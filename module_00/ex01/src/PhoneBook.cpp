@@ -8,7 +8,7 @@ PhoneBook::PhoneBook(void)
 PhoneBook::~PhoneBook(void)
 {
 	std::cout << "PhoneBook Destructor called." << std::endl;
-};
+}
 std::string PhoneBook::askContactData(std::string message, int phone)
 {
 	std::string readline;
@@ -35,7 +35,7 @@ void PhoneBook::addContact(void)
 	dark.reserve(dark.length());
 		contacts[saved % 8] = Contact(name, last, nick, phone, dark);
 	saved++;
-};
+}
 void PhoneBook::searchContact(void)
 {
 	int i = 0;
@@ -43,18 +43,14 @@ void PhoneBook::searchContact(void)
 	for (i=0; i<8 && i < saved; i++)
 		contacts[i].printDataTruncate();
 	std::cout << "Enter an index from 1 to 8: ";
-	if (std::cin >> index && !std::cin.fail() && index >= 1 && index <= 8 && index <= saved)
+	scanf("%d", &index);
+	if (index >= 1 && index <= 8 && index <= saved)
 		contacts[index-1].printData();
 	else
-	{
 		std::cout << "Invalid index..." << std::endl;
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-	}
-};
+}
 void PhoneBook::printContactData(int index)
 {
 	if (index >= 0)
 		contacts[index].printData();
-};
-
+}
