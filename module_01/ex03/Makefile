@@ -10,6 +10,7 @@ CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
 SRCS		=	\
+			HumanA.cpp	\
 			Weapon.cpp	\
 				main.cpp
 SRCDIR		=	./src/
