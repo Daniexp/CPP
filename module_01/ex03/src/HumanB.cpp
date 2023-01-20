@@ -4,19 +4,18 @@ HumanB::HumanB(std::string nm)
 {
 //Const
 	name = nm;
-	weapon;
+	weapon = new(Weapon);
 }
-HumanA::~HumanA()
+HumanB::~HumanB()
 {
 //Dest
-	delete (wp);
+	delete (weapon);
 }
-void HumanB::setWeapon(const Weapon& wp)
+void HumanB::setWeapon(Weapon& wp)
 {
-	weapon = new(Weapon);
-	weapon = wp;
+	weapon = &wp;
 }
-void HumanA::attack(void)
+void HumanB::attack(void)
 {
-	std::cout << name << " attacks with their " << weapon.getType() << std::endl;
+	std::cout << name << " attacks with their " << weapon->getType() << std::endl;
 }

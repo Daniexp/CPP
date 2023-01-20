@@ -11,6 +11,7 @@ RM			=	rm -rf
 
 SRCS		=	\
 			HumanA.cpp	\
+			HumanB.cpp	\
 			Weapon.cpp	\
 				main.cpp
 SRCDIR		=	./src/
