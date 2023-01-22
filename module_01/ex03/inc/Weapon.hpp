@@ -9,7 +9,7 @@ class	Weapon
 	Weapon();
 	Weapon(const std::string& value);
 	Weapon(const Weapon& x);
-	Weapon* operator = (const Weapon& x);
+//	Weapon* operator = (const Weapon& x);
 	~Weapon();
 	const std::string& getType(void) const;
 	void	setType(const std::string& value);

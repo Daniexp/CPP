@@ -11,6 +11,7 @@ class	HumanB
 	~HumanB();
 	void setWeapon(Weapon& wp);
 	void attack(void);
+//	void	operator = (Weapon& x);
 	private:
 	Weapon*	weapon;
 	std::string name;

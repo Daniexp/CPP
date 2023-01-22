@@ -8,10 +8,12 @@ Weapon::Weapon()
 {
 //Const
 }
+/*
 Weapon* Weapon::operator = (const Weapon& x)
 {
 	return (new Weapon(x));
 }
+*/
 Weapon::Weapon(const std::string& value)
 {
 	type = value;
