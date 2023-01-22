@@ -2,6 +2,7 @@
 #define FILE_H
 #include <iostream>
 #include <string>
+#include <fstream>
 class	File
 {
 	public:
