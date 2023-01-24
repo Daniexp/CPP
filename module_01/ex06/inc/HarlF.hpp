@@ -1,16 +1,15 @@
-#ifndef HARL_H
-#define HARL_H
+#ifndef HARLF_H
+#define HARLF_H
 # include <iostream>
 # include <string>
 
-class	Harl
+class	HarlF
 {
 	public:
-	Harl();
-	~Harl();
+	HarlF();
+	~HarlF();
 	void	complain( std::string level);
 	private:
-//	void	(Harl::*levelFunc[])(void);
 	void debug( void );
 	void info( void );
 	void warning( void );
