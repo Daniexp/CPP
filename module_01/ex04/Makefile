@@ -10,7 +10,6 @@ CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
 SRCS		=	\
-			File.cpp	\
 				main.cpp
 SRCDIR		=	./src/
 INCDIR		=	./inc/

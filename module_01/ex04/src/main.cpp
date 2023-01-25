@@ -1,21 +1,15 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <File.hpp>
-/**
- * Recibe tras parámetros:
- *	1 - filename
- *	2 - s1
- *	3 - s2
- *	El programa crea un archivo <filename>.replace.
- *	En el que todas las ocurrencias de s1 en <filename> serán
- *	sustituidas por s2.
- **/
+
 int main(int argc, char **argv)
 {
 	std::string	cnt, filename, s1, s2;
 	if (argc != 4)
+	{
+		std::cout << "./ex04 filename s1 s2" << std::endl;
 		return (1);
+	}
 	std::ifstream file(argv[1]);
 	if (file.fail())
 		return (1);
@@ -40,5 +34,5 @@ int main(int argc, char **argv)
 		return (1);
 	outfile << cnt;
 	outfile.close();
-	std::cout << "<filename>.replace has been created." << std::endl;
+	std::cout << filename << " has been created." << std::endl;
 }

@@ -5,7 +5,7 @@
 ################################################################################
 NAME		=	BraiiiiiiinnnzzzZ
 CXX			=	clang++
-CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc
+CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc #-fsanitize=address -g
 CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 

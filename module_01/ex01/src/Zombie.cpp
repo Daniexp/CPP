@@ -14,8 +14,7 @@ Zombie::Zombie( std::string name)
 Zombie::~Zombie()
 {
 //Dest
-	if(!Name.empty())
-	std::cout << "The Zombie " << Name << " return to the graveyard where he comes from..." << std::endl;
+	//std::cout << "The Zombie " << Name << " return to the graveyard where he comes from..." << std::endl;
 }
 
 void Zombie::announce( void )

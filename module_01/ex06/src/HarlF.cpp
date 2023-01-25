@@ -28,10 +28,8 @@ void HarlF::complain(std::string level)
 {
 	std::string tag[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 	void (HarlF::*levelFunc[])(void) = {&HarlF::debug, &HarlF::info, &HarlF::warning, &HarlF::error};
-	int i=0;
-	while (i < 4 && tag[i] != level)
-		i++;
-//			(this->*levelFunc[i])();
+	int i = 0;
+	for (i=0;i < 4 && tag[i] != level; i++);
 	switch(i)
 	{
 		case 0:

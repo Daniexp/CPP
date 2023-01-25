@@ -5,7 +5,7 @@
 ################################################################################
 NAME		=	ex05
 CXX			=	clang++
-CXXFLAGS	=	-Wall -Werror -Wextra -I inc
+CXXFLAGS	=	-Wall -Werror -Wextra -I inc -fsanitize=address -g
 CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 

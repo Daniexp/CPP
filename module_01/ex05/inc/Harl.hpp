@@ -10,7 +10,6 @@ class	Harl
 	~Harl();
 	void	complain( std::string level);
 	private:
-//	void	(Harl::*levelFunc[])(void);
 	void debug( void );
 	void info( void );
 	void warning( void );

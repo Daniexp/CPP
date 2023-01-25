@@ -31,24 +31,4 @@ void Harl::complain(std::string level)
 	for (int i=0; i < 4; i++)
 		if (level == tag[i])
 			(this->*levelFunc[i])();
-/*	switch(level.c_str())
-	{
-		case "DEBUG":
-			lv = 0;
-			break;
-		case "INFO":
-			lv = 1;
-			break;
-		case "WARNING":
-			lv = 2;
-			break;
-		case "ERROR":
-			lv = 3;
-			break;
-		default:
-			std::cout << "Invalid level" << std::endl;
-			return ;
-	}
-	(this->*levelFunc[lv])();
-	*/
 };

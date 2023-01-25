@@ -1,5 +1,4 @@
 #include <Zombie.hpp>
-//#include <mainHeader.hpp>
 
 Zombie*	zombieHorde( int N, std::string name )
 {
