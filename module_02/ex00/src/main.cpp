@@ -3,7 +3,7 @@
 void printValues(const Fixed& src)
 {
 	std::cout << "-------------" << std::endl;
-	std::cout << src.getWidth() << " " << src.getBinary() << std::endl;
+	std::cout << src.getRawBits() << " " << src.getBinary() << std::endl;
 	std::cout << "-------------" << std::endl;
 }
 int main(void)

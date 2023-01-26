@@ -7,7 +7,7 @@ Fixed::Fixed()
 }
 Fixed::Fixed(const int& nmb)
 {
-	setWidth(nmb);
+	setRawBits(nmb);
 } 
 Fixed::Fixed(const Fixed& src)
 {
@@ -19,10 +19,10 @@ Fixed::Fixed(const Fixed* src)
 */
 Fixed& Fixed::operator = (const Fixed& src)
 {
-	width = src.getWidth();
+	width = src.getRawBits();
 	return *this;
 }
-void Fixed::setWidth(const int& src)
+void Fixed::setRawBits(int const src)
 {
 	width = src;
 }
@@ -30,7 +30,7 @@ int Fixed::getBinary(void) const
 {
 	return (binaryPoint);
 }
-int Fixed::getWidth(void) const
+int Fixed::getRawBits(void) const
 {
 	return (width);
 }
