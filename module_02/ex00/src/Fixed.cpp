@@ -3,6 +3,7 @@
 Fixed::Fixed()
 {
 //Const
+	std::cout << "Default constructor called" << std::endl;
 	width = 0;
 }
 Fixed::Fixed(const int& nmb)
@@ -11,6 +12,7 @@ Fixed::Fixed(const int& nmb)
 } 
 Fixed::Fixed(const Fixed& src)
 {
+	std::cout << "Copy constructor called" << std::endl;
 	*this = src;
 }
 /*
@@ -33,10 +35,12 @@ int Fixed::getBinary(void) const
 }
 int Fixed::getRawBits(void) const
 {
+	std::cout << "getRawBits member function called" << std::endl;
 	return (width);
 }
 Fixed::~Fixed()
 {
 //Dest
+	std::cout << "Destructor called" << std::endl;
 }
 
