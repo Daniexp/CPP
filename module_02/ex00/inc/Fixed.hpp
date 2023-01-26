@@ -6,9 +6,17 @@ class	Fixed
 {
 	public:
 	Fixed();
+	Fixed(const int& nmb);
+	Fixed(const Fixed& src);
+//	Fixed(const Fixed* src);
 	~Fixed();
+	Fixed& operator = (const Fixed& src);
+	void		setWidth(const int& src);
+	int	getBinary( void ) const;
+	int	getWidth( void ) const;
 	private:
-	int	value;
+	int	width;
+	static const int binaryPoint = 8;
 
 };
 
