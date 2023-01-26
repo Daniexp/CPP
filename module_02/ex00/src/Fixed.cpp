@@ -19,6 +19,7 @@ Fixed::Fixed(const Fixed* src)
 */
 Fixed& Fixed::operator = (const Fixed& src)
 {
+	std::cout << "Assignation operator called" << std::endl;
 	width = src.getRawBits();
 	return *this;
 }
