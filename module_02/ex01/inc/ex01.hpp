@@ -3,4 +3,5 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <bitset>
 #endif
