@@ -2,6 +2,7 @@
 #define FIXED_H
 #include <iostream>
 #include <string>
+#include <cmath>
 class	Fixed
 {
 	public:
@@ -11,8 +12,7 @@ class	Fixed
 	Fixed(const float nmb);
 //	Fixed(const Fixed* src);
 	~Fixed();
-	Fixed& operator = (const Fixed& src);
-	float operator << (const Fixed& nmb);
+	Fixed& operator=(const Fixed& src);
 	void	setRawBits(int const raw);
 	int		getBinary( void ) const;
 	int		getRawBits( void ) const;
@@ -23,6 +23,7 @@ class	Fixed
 	static const int binaryPoint = 8;
 
 };
+std::ostream& operator<<(std::ostream& os, const Fixed& f);
 
 #endif //FIXED_H
 
