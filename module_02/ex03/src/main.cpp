@@ -53,6 +53,7 @@ std::cout << "a is " << a.toInt() << " as integer" << std::endl;
 std::cout << "b is " << b.toInt() << " as integer" << std::endl;
 std::cout << "c is " << c.toInt() << " as integer" << std::endl;
 std::cout << "d is " << d.toInt() << " as integer" << std::endl;
+std::cout << "----------------" << std::endl;
 std::cout << (c > a) << std::endl;
 std::cout << (c + a) << std::endl;
 std::cout << (c - a) << std::endl;
@@ -65,26 +66,20 @@ std::cout << "----------------" << std::endl;
 std::cout << c.min(a, c) << std::endl;
 std::cout << "----------------" << std::endl;
 std::cout << "----------------" << std::endl;
-std::cout << "----------------" << std::endl;
 std::cout << ((bsp(Point(0.0f,100.0f), Point(100.0f, 0.0f), Point(0.0f,0.0f), Point(10.0f,10.0f)))? "T" : "F") << std::endl;
-std::cout << "----------------" << std::endl;
 std::cout << ((bsp(Point(0.0f,100.0f), Point(100.0f, 0.0f), Point(0.0f,0.0f), Point(0.0f,0.0f)))? "T" : "F") << std::endl;
-std::cout << "----------------" << std::endl;
 std::cout << "----------------" << std::endl;
 std::cout << "----------------" << std::endl;
 int n = 10;
 	Point v1(100.0f, 0.0f);
 	Point v2(0.0f, 0.0f);
 	Point v3(0.0f, 100.0f);
-//	std::uniform_real_distribution<float> dist(0.0, 100.0);
-	//std::random_device rd;
-	//std::mt19937 gen(rd());
-	//std::uniform_real_distribution<float> dist(0.0, 100.0);
+	std::cout << "v1: 100/0 v2: 0/0 v3: 0/100" << std::endl;
   for (int i = 0; i < n; i++) {
     float x =  (float) rand() /(float) RAND_MAX * 100.0;
     float y =  (float) rand() /(float) RAND_MAX * 100.0;
 	Point ej(x, y);
     std::cout << "Point " << i+1 << ": x = " << x << ", y = " << y << ((bsp(v1,v2,v3,ej))? " True":" False") <<  std::endl;
   }
-
+std::cout << "----------------" << std::endl;
 }
