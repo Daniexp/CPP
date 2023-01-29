@@ -17,7 +17,6 @@ void printBinary(const int num)
 }
 int main(void)
 {
-	std::cout << "The proyect was created sucessfully." << std::endl;
 	std::cout << "------------------------" << std::endl;
 	Fixed ej;
 	ej = Fixed(1111);
@@ -34,7 +33,6 @@ int main(void)
 	x = Fixed(-111.156f);
 	std::cout << std::bitset<32>(x.getRawBits()) << std::endl;
 	std::cout << x.toFloat() << std::endl;
-//	printBinary(x.getRawBits());
 	std::cout << "------------------------" << std::endl;
 Fixed a;
 Fixed const b( 10 );
@@ -49,5 +47,4 @@ std::cout << "a is " << a.toInt() << " as integer" << std::endl;
 std::cout << "b is " << b.toInt() << " as integer" << std::endl;
 std::cout << "c is " << c.toInt() << " as integer" << std::endl;
 std::cout << "d is " << d.toInt() << " as integer" << std::endl;
-
 }

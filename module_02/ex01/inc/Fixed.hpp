@@ -10,7 +10,6 @@ class	Fixed
 	Fixed(const Fixed& src);
 	Fixed(const int nmb);
 	Fixed(const float nmb);
-//	Fixed(const Fixed* src);
 	~Fixed();
 	Fixed& operator=(const Fixed& src);
 	void	setRawBits(int const raw);

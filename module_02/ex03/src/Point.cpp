@@ -17,23 +17,8 @@ Point::Point(const Fixed& first, const Fixed& second): x(first), y(second)
 }
 Point& Point::operator = (Point& src)
 {
-	/*
-	if (this != &src)
-	{
-		x = src.getX();
-		y = src.getY();
-	}
-	return (*this);
-*/
 	return src;
 }
-/*
-Fixed& Point::operator = (const Fixed& src) const
-{
-	width = src.getRawBits();
-	return (this->width);
-}
-*/
 Fixed Point::getX(void) const
 {
 	return (x);

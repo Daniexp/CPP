@@ -2,8 +2,9 @@
 # include <Fixed.hpp>
 # include <Point.hpp>
 # include <string>
+# include <ctime>
+# include <cstdlib>
 # include <iostream>
-# include <random>
 void printValues(const Fixed& src)
 {
 	std::cout << "-------------" << std::endl;
@@ -21,7 +22,7 @@ void printBinary(const int num)
 }
 int main(void)
 {
-	std::cout << "The proyect was created sucessfully." << std::endl;
+	std::srand(std::time(0));
 	std::cout << "------------------------" << std::endl;
 	Fixed ej;
 	ej = Fixed(1111);
@@ -38,7 +39,6 @@ int main(void)
 	x = Fixed(-111.156f);
 	std::cout << std::bitset<32>(x.getRawBits()) << std::endl;
 	std::cout << x.toFloat() << std::endl;
-//	printBinary(x.getRawBits());
 	std::cout << "------------------------" << std::endl;
 Fixed a;
 Fixed const b( 10 );
@@ -64,11 +64,11 @@ std::cout << (c / a)++ << std::endl;
 std::cout << "----------------" << std::endl;
 std::cout << c.min(a, c) << std::endl;
 std::cout << "----------------" << std::endl;
+std::cout << "----------------" << std::endl;
+std::cout << "----------------" << std::endl;
 std::cout << ((bsp(Point(0.0f,100.0f), Point(100.0f, 0.0f), Point(0.0f,0.0f), Point(10.0f,10.0f)))? "T" : "F") << std::endl;
 std::cout << "----------------" << std::endl;
 std::cout << ((bsp(Point(0.0f,100.0f), Point(100.0f, 0.0f), Point(0.0f,0.0f), Point(0.0f,0.0f)))? "T" : "F") << std::endl;
-std::cout << "----------------" << std::endl;
-std::cout << "----------------" << std::endl;
 std::cout << "----------------" << std::endl;
 std::cout << "----------------" << std::endl;
 std::cout << "----------------" << std::endl;
@@ -76,12 +76,13 @@ int n = 10;
 	Point v1(100.0f, 0.0f);
 	Point v2(0.0f, 0.0f);
 	Point v3(0.0f, 100.0f);
-	std::random_device rd; // Obtiene una semilla basada en el hardware
-	std::mt19937 gen(rd()); // Inicializa el generador de números aleatorios
-	std::uniform_real_distribution<float> dist(0.0, 100.0);
+//	std::uniform_real_distribution<float> dist(0.0, 100.0);
+	//std::random_device rd;
+	//std::mt19937 gen(rd());
+	//std::uniform_real_distribution<float> dist(0.0, 100.0);
   for (int i = 0; i < n; i++) {
-    float x = dist(gen);
-    float y = dist(gen);
+    float x =  (float) rand() /(float) RAND_MAX * 100.0;
+    float y =  (float) rand() /(float) RAND_MAX * 100.0;
 	Point ej(x, y);
     std::cout << "Point " << i+1 << ": x = " << x << ", y = " << y << ((bsp(v1,v2,v3,ej))? " True":" False") <<  std::endl;
   }
