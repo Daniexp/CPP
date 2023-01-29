@@ -1,5 +1,9 @@
 #include <ex03.hpp>
 # include <Fixed.hpp>
+# include <Point.hpp>
+# include <string>
+# include <iostream>
+# include <random>
 void printValues(const Fixed& src)
 {
 	std::cout << "-------------" << std::endl;
@@ -59,4 +63,27 @@ std::cout << --(c / a) << std::endl;
 std::cout << (c / a)++ << std::endl;
 std::cout << "----------------" << std::endl;
 std::cout << c.min(a, c) << std::endl;
+std::cout << "----------------" << std::endl;
+std::cout << ((bsp(Point(0.0f,100.0f), Point(100.0f, 0.0f), Point(0.0f,0.0f), Point(10.0f,10.0f)))? "T" : "F") << std::endl;
+std::cout << "----------------" << std::endl;
+std::cout << ((bsp(Point(0.0f,100.0f), Point(100.0f, 0.0f), Point(0.0f,0.0f), Point(0.0f,0.0f)))? "T" : "F") << std::endl;
+std::cout << "----------------" << std::endl;
+std::cout << "----------------" << std::endl;
+std::cout << "----------------" << std::endl;
+std::cout << "----------------" << std::endl;
+std::cout << "----------------" << std::endl;
+int n = 10;
+	Point v1(100.0f, 0.0f);
+	Point v2(0.0f, 0.0f);
+	Point v3(0.0f, 100.0f);
+	std::random_device rd; // Obtiene una semilla basada en el hardware
+	std::mt19937 gen(rd()); // Inicializa el generador de números aleatorios
+	std::uniform_real_distribution<float> dist(0.0, 100.0);
+  for (int i = 0; i < n; i++) {
+    float x = dist(gen);
+    float y = dist(gen);
+	Point ej(x, y);
+    std::cout << "Point " << i+1 << ": x = " << x << ", y = " << y << ((bsp(v1,v2,v3,ej))? " True":" False") <<  std::endl;
+  }
+
 }

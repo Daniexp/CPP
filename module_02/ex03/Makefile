@@ -10,6 +10,8 @@ CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
 SRCS		=	\
+			Point.cpp	\
+			bsp.cpp		\
 			Fixed.cpp	\
 				main.cpp
 SRCDIR		=	./src/

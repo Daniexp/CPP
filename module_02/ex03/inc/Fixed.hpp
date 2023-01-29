@@ -48,5 +48,3 @@ class	Fixed
 std::ostream& operator<<(std::ostream& os, const Fixed& f);
 
 #endif //FIXED_H
-
-
