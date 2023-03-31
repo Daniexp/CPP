@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:11:13 by dexposit          #+#    #+#             */
-/*   Updated: 2023/03/31 18:51:13 by dexposit         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:34:36 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define CLAPTRAP_H
 # include <iostream>
 # include <string>
-#include <ex00.hpp>
+# include <ex01.hpp>
 class	ClapTrap
 {
 	public:
@@ -27,6 +27,9 @@ class	ClapTrap
 	void takeDamage(unsigned int amount);
 	void beRepaired(unsigned int amount);
 	std::string get_name(void);
+	unsigned int	get_hitpts();
+	unsigned int	get_energypts();
+	unsigned int	get_attackdmg();
 	private:
 	std::string		Name;
 	unsigned int	hit_pts;

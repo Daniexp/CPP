@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ex01.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/21 12:11:05 by dexposit          #+#    #+#             */
-/*   Updated: 2023/03/31 18:52:59 by dexposit         ###   ########.fr       */
+/*   Created: 2023/02/21 12:08:58 by dexposit          #+#    #+#             */
+/*   Updated: 2023/03/31 18:57:55 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ex00.hpp>
-# include <ClapTrap.hpp>
-int main(void)
-{
-	std::cout << "The proyect was created sucessfully." << std::endl;
-	ClapTrap ej = ClapTrap("Ejemplo");
-	ClapTrap cp = ej;
-	cp = ClapTrap(ej);
-	ej.attack(cp.get_name());
-	ej.takeDamage(5);
-	ej.beRepaired(5);
-}
+#ifndef EX01_H
+#define EX01_H
+# include <iostream>
+typedef std::basic_string<char> str;
+
+#endif
