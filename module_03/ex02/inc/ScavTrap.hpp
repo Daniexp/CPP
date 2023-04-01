@@ -1,6 +1,6 @@
 #ifndef SCAVTRAP_H
 #define SCAVTRAP_H
-#include <ex01.hpp>
+#include <ex02.hpp>
 #include <ClapTrap.hpp>
 class	ScavTrap : public ClapTrap
 {

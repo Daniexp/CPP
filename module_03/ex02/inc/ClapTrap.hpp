@@ -14,7 +14,7 @@
 #define CLAPTRAP_H
 # include <iostream>
 # include <string>
-# include <ex01.hpp>
+# include <ex02.hpp>
 class	ClapTrap
 {
 	public:
