@@ -6,14 +6,15 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:11:05 by dexposit          #+#    #+#             */
-/*   Updated: 2023/04/01 21:19:20 by dexposit         ###   ########.fr       */
+/*   Updated: 2023/04/02 18:26:32 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ex02.hpp>
+#include <ex03.hpp>
 # include <ClapTrap.hpp>
 # include <ScavTrap.hpp>
 # include <FragTrap.hpp>
+# include <DiamondTrap.hpp>
 
 int main(void)
 {

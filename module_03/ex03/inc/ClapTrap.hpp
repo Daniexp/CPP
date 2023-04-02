@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:11:13 by dexposit          #+#    #+#             */
-/*   Updated: 2023/03/31 19:34:36 by dexposit         ###   ########.fr       */
+/*   Updated: 2023/04/02 18:23:40 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define CLAPTRAP_H
 # include <iostream>
 # include <string>
-# include <ex02.hpp>
+# include <ex03.hpp>
 class	ClapTrap
 {
 	public:

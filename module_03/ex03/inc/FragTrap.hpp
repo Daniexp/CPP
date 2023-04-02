@@ -1,6 +1,6 @@
 #ifndef FRAGTRAP_H
 #define FRAGTRAP_H
-#include <ex02.hpp>
+#include <ex03.hpp>
 #include <ClapTrap.hpp>
 class	FragTrap : public ClapTrap
 {
