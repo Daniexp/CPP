@@ -10,6 +10,9 @@ CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
 SRCS		=	\
+    Animal.cpp \
+    Cat.cpp \
+    Dog.cpp \
 				main.cpp
 SRCDIR		=	./src/
 INCDIR		=	./inc/

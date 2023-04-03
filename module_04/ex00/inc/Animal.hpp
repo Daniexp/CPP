@@ -1,16 +1,20 @@
 #ifndef ANIMAL_H
 #define ANIMAL_H
 
-#include <src.hpp>
+#include <iostream>
+#include <string>
 class Animal
 {
 public:
-    Animal();
-    ~Animal();
+	Animal();
+	~Animal();
    Animal(const Animal& src);
-   Animal&    operator = (const Animal& src);
+   Animal& operator=(const Animal& src);
+   void makeSound();
 private:
 
+protected:
+   std::string type;
 };
 
 #endif     //ANIMAL_H
