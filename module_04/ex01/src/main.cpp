@@ -1,4 +1,5 @@
-#include <ex00.hpp>
+#include <ex01.hpp>
+#include <Brain.hpp>
 #include <WrongCat.hpp>
 #include <WrongAnimal.hpp>
 #include <Cat.hpp>
@@ -67,5 +68,34 @@ int main(void)
     delete j;
     delete i;
 
+	std::cout << "-----Test Brain and deep copy-----" << std::endl;
+    const int num_animals = 10;
+    Animal* animal_array[num_animals];
+    
+    for(int i = 0; i < num_animals; i++) {
+        if(i % 2 == 0) {
+            animal_array[i] = new Dog();
+        } else {
+            animal_array[i] = new Cat();
+        }
+    }
+    
+    for(int i = 0; i < num_animals; i++) {
+        delete animal_array[i];
+    }
+
+    Animal animal("generic animal");
+    std::cout << "Animal type: " << animal.getType() << std::endl;
+    
+    Dog dog1;
+    dog1.setIdea(0, "idea1");
+    std::cout << "Dog1 type: " << dog1.getType() << std::endl;
+    std::cout << "Dog1 idea 0: " << dog1.getIdea(0) << std::endl;
+    
+    Dog dog2(dog1);
+    dog2.setIdea(0, "idea2");
+    std::cout << "Dog2 type: " << dog2.getType() << std::endl;
+    std::cout << "Dog2 idea 0: " << dog2.getIdea(0) << std::endl;
+    std::cout << "Dog1 idea 0: " << dog1.getIdea(0) << std::endl;
     return 0;
 }
