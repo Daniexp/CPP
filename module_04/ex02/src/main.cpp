@@ -1,4 +1,4 @@
-#include <ex01.hpp>
+#include <ex02.hpp>
 #include <Brain.hpp>
 #include <WrongCat.hpp>
 #include <WrongAnimal.hpp>
@@ -10,19 +10,22 @@
 
 void check_leaks() {
     std::stringstream cmd;
-    cmd << "leaks -q ex01";
+    cmd << "leaks -q ex02";
     std::system(cmd.str().c_str());
 }
 
 int main(void)
 {
 	std::atexit(check_leaks);
+/*
+ * The class Animal now is not instanciable.
  // Animal
     std::cout << "-----Animal-----" << std::endl;
     const Animal* a = new Animal();
     std::cout << "Type: " << a->getType() << std::endl;
     a->makeSound();
 	delete a;
+*/
 
     // Dog
     std::cout << "-----Dog-----" << std::endl;
@@ -54,28 +57,23 @@ int main(void)
 
     // Polymorphism with pointers
     std::cout << "-----Polymorphism with pointers-----" << std::endl;
-    const Animal* meta = new Animal();
     const Animal* j = new Dog();
     const Animal* i = new Cat();
     std::cout << "Type of j: " << j->getType() << std::endl;
     std::cout << "Type of i: " << i->getType() << std::endl;
     i->makeSound();
     j->makeSound();
-    meta->makeSound();
 
     // Polymorphism with references
     std::cout << "-----Polymorphism with references-----" << std::endl;
-    const Animal& meta_ref = *meta;
     const Animal& j_ref = *j;
     const Animal& i_ref = *i;
     std::cout << "Type of j_ref: " << j_ref.getType() << std::endl;
     std::cout << "Type of i_ref: " << i_ref.getType() << std::endl;
     i_ref.makeSound();
     j_ref.makeSound();
-    meta_ref.makeSound();
 
     // Deletion of pointers
-    delete meta;
     delete j;
     delete i;
 
@@ -94,9 +92,6 @@ int main(void)
     for(int i = 0; i < num_animals; i++) {
         delete animal_array[i];
     }
-
-    Animal animal("generic animal");
-    std::cout << "Animal type: " << animal.getType() << std::endl;
     
     Dog dog1;
     dog1.setIdea(0, "idea1");

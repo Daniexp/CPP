@@ -1,15 +1,17 @@
 #include <Dog.hpp>
 
-Dog::Dog() : Animal("Dog"), _brain(new Brain())
+Dog::Dog() : _brain(new Brain())
 {
 //Const
 	std::cout << "Dog Default Constructor" << std::endl;
+	setType("Dog");
 }
 
-Dog::Dog(const Dog& src) : Animal(src), _brain(new Brain())
+Dog::Dog(const Dog& src) : _brain(new Brain())
 {
 //Copy Const
 	std::cout << "Dog Copy Constructor" << std::endl;
+	setType(src.getType());
 	for (int i=0; i < 100; i++)
 		this->_brain->setIdea(i, src._brain->getIdea(i));
 }
@@ -26,7 +28,7 @@ Dog& Dog::operator = (const Dog& src)
 	//this->type = src.type;
 	if (this == &src)
 		return *this;
-	Animal::operator=(src);
+	setType(src.getType());
 	for (int i = 0; i < 100; i++)
 		this->_brain->setIdea(1, src._brain->getIdea(i));
 	return *this;

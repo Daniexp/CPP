@@ -1,21 +1,16 @@
 
 ################################################################################
-####################			ex01		#########################
+####################			ex03		#########################
 ####################		By: dexposit		#########################
 ################################################################################
-NAME		=	ex01
+NAME		=	ex03
 CXX			=	clang++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc
 CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
 SRCS		=	\
-    Brain.cpp \
-    WrongCat.cpp \
-    WrongAnimal.cpp \
-    Animal.cpp \
-    Cat.cpp \
-    Dog.cpp \
+    AMateria.cpp \
 				main.cpp
 SRCDIR		=	./src/
 INCDIR		=	./inc/

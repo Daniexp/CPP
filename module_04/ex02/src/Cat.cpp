@@ -1,16 +1,18 @@
 #include <Cat.hpp>
 
-Cat::Cat() : Animal("Cat"), _brain(new Brain())
+Cat::Cat() : _brain(new Brain())
 {
 //Const
 	//this->type = "Cat";
+	setType("Cat");
 	std::cout << "Cat Constructor Default" << std::endl;
 }
 
-Cat::Cat(const Cat& src) : Animal(src), _brain(new Brain())
+Cat::Cat(const Cat& src) : _brain(new Brain())
 {
 //Copy Const
 	*this = src;
+	setType(src.getType());
 	std::cout << "Cat Copy Constructor" << std::endl;
 	_brain = src._brain;
 }
@@ -26,7 +28,7 @@ Cat& Cat::operator = (const Cat& src)
 {
 	if (this != & src)
 	{
-		Animal::operator=(src);
+		this->setType(src.getType());
 		_brain = src._brain;
 	}
 	return *this;
