@@ -10,6 +10,7 @@ CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
 SRCS		=	\
+    IMaterialSource.cpp \
     Character.cpp \
     ICharacter.cpp \
     Cure.cpp \
