@@ -10,6 +10,10 @@ CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
 SRCS		=	\
+    Character.cpp \
+    ICharacter.cpp \
+    Cure.cpp \
+    Ice.cpp \
     AMateria.cpp \
 				main.cpp
 SRCDIR		=	./src/
