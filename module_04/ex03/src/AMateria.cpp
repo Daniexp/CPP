@@ -46,3 +46,8 @@ std::ostream& operator << (std::ostream& os, const AMateria& A)
 	os << "I'm type -> " << A.getType() << std::endl;
 	return os;
 }
+
+AMateria* AMateria::clone() const
+{
+	return (AMateria*)this;
+}

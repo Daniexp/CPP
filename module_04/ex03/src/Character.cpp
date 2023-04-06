@@ -30,7 +30,8 @@ Character& Character::operator = (const Character& src)
 	{
 		numMat = src.numMat;
 		for (int i=0; i < numMat; i++)
-		inventory[i] = src.inventory[i]->clone();
+			inventory[i] = src.inventory[i];
+		//inventory[i] = src.inventory[i]->clone();
 	}
 	return *this;
 }

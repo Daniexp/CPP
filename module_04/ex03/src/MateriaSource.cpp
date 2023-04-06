@@ -32,7 +32,8 @@ MateriaSource& MateriaSource::operator = (const MateriaSource& src)
 	{
 		num_mat = src.num_mat;
 		for (int i=0; i < num_mat; i++)
-			materia[i] = src.materia[i]->clone();
+			//materia[i] = src.materia[i]->clone();
+			materia[i] = src.materia[i];
 	}
 	return *this;
 }
