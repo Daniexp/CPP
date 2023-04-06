@@ -1,5 +1,6 @@
 #include <ICharacter.hpp>
 
+/*
 ICharacter::ICharacter()
 {
 //Const
@@ -15,15 +16,22 @@ ICharacter::ICharacter(const ICharacter& src)
 	*this = src;
 	std::cout << "Copy Constructor ICharacter" << std::endl;
 }
+*/
 
 ICharacter::~ICharacter()
 {
 //Dest
 	std::cout << "Destructor ICharacter" << std::endl;
-	for (int i=0; i < 4; i++)
-		delete inventory[i];
 }
 
+AMateria* ICharacter::getMateria(int idx)
+{
+	if (idx < 0)
+		idx++;
+	return nullptr;	
+}
+
+/*
 ICharacter& ICharacter::operator = (const ICharacter& src)
 {
 	if (this != &src)
@@ -34,3 +42,4 @@ ICharacter& ICharacter::operator = (const ICharacter& src)
 	}
 	return *this;
 }
+*/

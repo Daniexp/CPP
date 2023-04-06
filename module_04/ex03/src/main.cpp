@@ -1,12 +1,23 @@
 #include <ex03.hpp>
-#include <IMaterialSource.hpp>
+#include <MateriaSource.hpp>
+#include <IMateriaSource.hpp>
 #include <ICharacter.hpp>
 #include <Character.hpp>
 #include <Cure.hpp>
 #include <Ice.hpp>
 #include <AMateria.hpp>
+
+#include <cstdlib>
+#include <sstream>
+void check_leaks() {
+	std::stringstream cmd;
+	cmd << "leaks -q ex03";
+	std::system(cmd.str().c_str());
+}
+
 int main(void)
 {
+	std::atexit(check_leaks);
  IMateriaSource* src = new MateriaSource();
 
     // Learning new Materias
@@ -45,17 +56,20 @@ int main(void)
     // Trying to equip a Materia in a full inventory slot
     tmp = src->createMateria("cure");
     me->equip(tmp);
+	delete(tmp);
 
     // Trying to use an unexisting Materia slot
     me->use(5, *bob);
 
     // Unequipping a Materia and using it on bob
-    tmp = me->unequip(0);
+	tmp = me->getMateria(0);
+    me->unequip(0);
     me->use(0, *bob);
     me->equip(tmp);
 
     // Cloning a Materia and equipping it
     tmp = me->getMateria(1)->clone();
+    //tmp = me->getMateria(1)->clone();
     me->equip(tmp);
 
     // Creating a new Character and trying to equip a Materia

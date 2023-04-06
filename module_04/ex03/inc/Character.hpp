@@ -16,8 +16,10 @@ public:
 	virtual void equip(AMateria* m);
 	virtual void unequip(int idx);
 	virtual void use(int idx, ICharacter& target);
+	virtual AMateria* getMateria(int idx);
 private:
-
+	AMateria* inventory[4];
+	int numMat;
 };
 
 #endif     //CHARACTER_H

@@ -1,17 +1,27 @@
 #include <Character.hpp>
 
 
-Character::Character(const Character& src) : ICharacter()
+Character::Character()
 {
 //Copy Const
-	*this = src;
 	std::cout << "Copy Constructor Character" << std::endl;
+	name = "";
+	numMat = 0;
+	for (int i=0; i < 4; i++)
+		inventory[i] = nullptr;
+}
+
+Character::Character(const Character& src)
+{
+	*this = src;
 }
 
 Character::~Character()
 {
 //Dest
 	std::cout << "Destructor Character" << std::endl; 
+	for (int i=0; i < numMat; i++)
+		delete inventory[i];
 }
 
 Character& Character::operator = (const Character& src)
@@ -52,6 +62,13 @@ void Character::unequip(int idx)
 
 void Character::use(int idx, ICharacter& target)
 {
-	if (idx < numMat)
+	if (idx < numMat && inventory[idx] != nullptr)
 			inventory[idx]->use(target);
+}
+
+AMateria* Character::getMateria(int idx)
+{
+	if (idx >= 0 && idx < numMat)
+		return inventory[idx];
+	return nullptr;
 }
