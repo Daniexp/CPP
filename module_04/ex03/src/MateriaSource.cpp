@@ -22,8 +22,9 @@ MateriaSource::~MateriaSource()
 {
 //Dest
 	std::cout << "Destructor MaterialSource()" << std::endl;
-	for (int i=0 ; i < num_mat ; i++)
-		delete materia[i];
+	for (int i=0 ; i < 4 ; i++)
+		if (materia[i])
+			delete materia[i];
 }
 
 MateriaSource& MateriaSource::operator = (const MateriaSource& src)

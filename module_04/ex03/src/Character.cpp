@@ -20,8 +20,9 @@ Character::~Character()
 {
 //Dest
 	std::cout << "Destructor Character" << std::endl; 
-	for (int i=0; i < numMat; i++)
-		delete inventory[i];
+	for (int i=0; i < 4; i++)
+		if (inventory[i])
+			delete inventory[i];
 }
 
 Character& Character::operator = (const Character& src)

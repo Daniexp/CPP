@@ -23,12 +23,12 @@ int main(void)
     // Learning new Materias
     AMateria* tmp;
 	tmp = new Ice();
-    src->learnMateria(tmp);
-    //src->learnMateria(new Ice());
+    //src->learnMateria(tmp);
+    src->learnMateria(new Ice());
 	delete tmp;
 	tmp = new Cure();
-    src->learnMateria(tmp);
-    //src->learnMateria(new Cure());
+    //src->learnMateria(tmp);
+    src->learnMateria(new Cure());
 	delete tmp;
 
     // Creating a new Character
