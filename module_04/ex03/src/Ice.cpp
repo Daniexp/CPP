@@ -14,7 +14,7 @@ Ice::Ice(const Ice& src) : AMateria(src)
 
 Ice::~Ice()
 {
-//Dest
+//Des*/t
 }
 
 Ice& Ice::operator = (const Ice& src)

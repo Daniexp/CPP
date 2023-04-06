@@ -17,18 +17,22 @@ void check_leaks() {
 
 int main(void)
 {
-	std::atexit(check_leaks);
+	//std::atexit(check_leaks);
  IMateriaSource* src = new MateriaSource();
 
     // Learning new Materias
-    src->learnMateria(new Ice());
-    src->learnMateria(new Cure());
+    AMateria* tmp;
+	tmp = new Ice();
+    src->learnMateria(tmp);
+	delete tmp;
+	tmp = new Cure();
+    src->learnMateria(tmp);
+	delete tmp;
 
     // Creating a new Character
     ICharacter* me = new Character("me");
 
     // Equipping Materias
-    AMateria* tmp;
     tmp = src->createMateria("ice");
     me->equip(tmp);
     tmp = src->createMateria("cure");

@@ -19,13 +19,11 @@ AMateria::AMateria(std::string const & type)
 	this->type = type;
 	std::cout << "Type Constructor AMateria" << std::endl;
 }
-
 AMateria::~AMateria()
 {
 //Dest
 	std::cout << "Destructor AMateria" << std::endl;
 }
-
 AMateria& AMateria::operator = (const AMateria& src)
 {
 	if (this != &src)
