@@ -8,7 +8,7 @@ Character::Character()
 	name = "";
 	numMat = 0;
 	for (int i=0; i < 4; i++)
-		inventory[i] = nullptr;
+		inventory[i] = 0;
 }
 
 Character::Character(const Character& src)
@@ -42,7 +42,7 @@ Character::Character(const std::string& Name)
 	this->name = Name;
 	numMat = 0;
 	for (int i=0; i < 4 ; i++)
-		inventory[i] = nullptr;
+		inventory[i] = 0;
 }
 
 std::string const& Character::getName() const
@@ -52,19 +52,19 @@ std::string const& Character::getName() const
 
 void Character::equip(AMateria* m)
 {
-	if (numMat < 4 && m != nullptr)
+	if (numMat < 4 && m != 0)
 		inventory[numMat++] = m;
 }
 
 void Character::unequip(int idx)
 {
 	if (idx < numMat && idx > -1 && idx < 4)
-		inventory[idx] = nullptr;
+		inventory[idx] = 0;
 }
 
 void Character::use(int idx, ICharacter& target)
 {
-	if (idx < numMat && inventory[idx] != nullptr)
+	if (idx < numMat && inventory[idx] != 0)
 			inventory[idx]->use(target);
 }
 
@@ -72,5 +72,5 @@ AMateria* Character::getMateria(int idx)
 {
 	if (idx >= 0 && idx < numMat)
 		return inventory[idx];
-	return nullptr;
+	return 0;
 }

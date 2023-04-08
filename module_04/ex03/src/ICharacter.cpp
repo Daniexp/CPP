@@ -28,7 +28,7 @@ AMateria* ICharacter::getMateria(int idx)
 {
 	if (idx < 0)
 		idx++;
-	return nullptr;	
+	return 0;	
 }
 
 /*

@@ -9,7 +9,7 @@ MateriaSource::MateriaSource()
 	materiaName[0] = "ice";
 	materiaName[1] = "cure";
 	for (int i=0; i < 4; i++)
-		materia[i] = nullptr;
+		materia[i] = 0;
 }
 
 MateriaSource::MateriaSource(const MateriaSource& src)
@@ -41,7 +41,7 @@ MateriaSource& MateriaSource::operator = (const MateriaSource& src)
 
 void MateriaSource::learnMateria(AMateria* src)
 {
-	if (src != nullptr && num_mat < 4)
+	if (src != 0 && num_mat < 4)
 		materia[num_mat++] = src;
 }
 
@@ -51,5 +51,5 @@ AMateria* MateriaSource::createMateria(std::string const & type)
 		return new Ice();
 	else if (type == "cure")
 		return new Cure();
-	return nullptr;
+	return 0;
 }
