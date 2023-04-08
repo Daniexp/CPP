@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:11:16 by dexposit          #+#    #+#             */
-/*   Updated: 2023/03/31 18:56:16 by dexposit         ###   ########.fr       */
+/*   Updated: 2023/04/08 20:06:50 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ ClapTrap& ClapTrap::operator = (const ClapTrap& src)
 
 std::ostream& operator<<(std::ostream& os, const ClapTrap& src)
 {
-	os << "Name: " << src.get_name() << ", hit pts: " << src.get_hitpts() << ", energy pts: " << src.get_energypts() << ", attack dmg: " << src.get_attackdmg();
+	os << "Name: " << src.get_name() << ", hit pts: " << src.get_hitpts() << ", energy pts: " << src.get_energypts() << ", attack dmg: " << src.get_attackdmg() << std::endl;
 	return os;
 }
 
@@ -56,9 +56,9 @@ void ClapTrap::attack(std::string const& target)
 {
 	if (target == "" || this->hit_pts == 0 || this->energy_pts == 0)
 		return ;
+	this->energy_pts--;
 	std::cout << "ClapTrap " << this->Name << " attacks "  << target
 		<< ", causing " << this->attack_dmg << " points of damage!" << std::endl;
-		return ;
 }
 
 void ClapTrap::takeDamage(unsigned int amount)

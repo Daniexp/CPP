@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:11:05 by dexposit          #+#    #+#             */
-/*   Updated: 2023/04/01 21:19:20 by dexposit         ###   ########.fr       */
+/*   Updated: 2023/04/08 20:00:33 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,12 @@ int main(void)
 	scav.attack(cp.get_name());
 	scav.takeDamage(5);
 	scav.beRepaired(5);
+
+	FragTrap frag = FragTrap("frag");
+	std::cout << frag;
+	frag.highFivesGuys();
+	frag.attack(scav.get_name());
+	frag.takeDamage(1);
+	frag.beRepaired(5);
+	std::cout << frag;
 }

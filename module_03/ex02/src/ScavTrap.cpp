@@ -40,13 +40,14 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& src)
 
 void	ScavTrap::guardGate(void)
 {
-	std::cout << "The ScavTrap " << this->get_name() << " is now in the Gate keeper mode.";
+	std::cout << "The ScavTrap " << this->get_name() << " is now in the Gate keeper mode." << std::endl;
 }
 
 void ScavTrap::attack(std::string const& target)
 {
 	if (target == "" || this->get_hitpts() == 0 || this->get_energypts() == 0)
 		return ;
+	set_energypts(get_energypts() - 1);
 	std::cout << "ScavTrap " << this->get_name() << " attacks "  << target
 		<< ", causing " << this->get_attackdmg() << " points of damage!" << std::endl;
 		return ;

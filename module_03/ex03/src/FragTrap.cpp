@@ -40,6 +40,7 @@ void	FragTrap::attack(std::string const& target)
 {
  if (target == "" || this->get_hitpts() == 0 || this->get_energypts() == 0)
  	return ;
+	set_attackdmg(get_attackdmg());
  	std::cout << "FragTrap " << this->get_name() << " attacks "  << target << ", causing " << this->get_attackdmg() << " points of damage!" << std::endl;
 	return ;
 }
