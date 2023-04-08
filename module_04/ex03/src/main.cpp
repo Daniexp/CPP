@@ -17,7 +17,7 @@ void check_leaks() {
 
 int main(void)
 {
-	std::atexit(check_leaks);
+//	std::atexit(check_leaks);
  IMateriaSource* src = new MateriaSource();
 
     // Learning new Materias
@@ -75,8 +75,8 @@ int main(void)
 
     // Cloning a Materia and equipping it
     tmp = me->getMateria(1)->clone();
-    //tmp = me->getMateria(1)->clone();
     me->equip(tmp);
+	delete tmp;
 
     // Creating a new Character and trying to equip a Materia
     ICharacter* alice = new Character("alice");

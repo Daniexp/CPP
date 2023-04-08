@@ -58,8 +58,11 @@ void Character::equip(AMateria* m)
 
 void Character::unequip(int idx)
 {
-	if (idx < numMat && idx > -1 && idx < 4)
-		inventory[idx] = 0;
+	if (idx < 0 || idx >= numMat)
+		return;
+	for (int i = idx; i < numMat - 1; i++)
+		inventory[i] = inventory[i + 1];
+	inventory[--numMat] = nullptr;
 }
 
 void Character::use(int idx, ICharacter& target)
@@ -70,7 +73,5 @@ void Character::use(int idx, ICharacter& target)
 
 AMateria* Character::getMateria(int idx)
 {
-	if (idx >= 0 && idx < numMat)
-		return inventory[idx];
-	return 0;
+	return inventory[idx];
 }
