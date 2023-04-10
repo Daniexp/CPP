@@ -17,13 +17,14 @@ DiamondTrap::DiamondTrap(const DiamondTrap& src) : FragTrap(src)//, FragTrap(src
 	std::cout << "Copy Constructor DiamondTRap" << std::endl;
 }
 
-DiamondTrap::DiamondTrap(const std::string& name) : FragTrap(name), ScavTrap(name)
+DiamondTrap::DiamondTrap(const std::string& name) : FragTrap(name + "_clap_name"), ScavTrap(name)
 {
 //Const
 	std::cout << "Name Constructor DiamondTRap" << std::endl;
 	set_hitpts(100);
 	set_energypts(50);
 	set_attackdmg(30);
+	ClapTrap::set_name(name + "_clap_name");
 	Name = name;
 }
 
