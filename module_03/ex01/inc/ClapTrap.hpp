@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:11:13 by dexposit          #+#    #+#             */
-/*   Updated: 2023/03/31 19:34:36 by dexposit         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:06:04 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ class	ClapTrap
 {
 	public:
 	ClapTrap();
-	~ClapTrap();
+	virtual ~ClapTrap();
 	ClapTrap(const ClapTrap& src);
 	ClapTrap(const std::string& Name);
 	ClapTrap& operator=(const ClapTrap& src);
-	void attack(std::string const& target);
+	virtual void attack(std::string const& target);
 	void takeDamage(unsigned int amount);
 	void beRepaired(unsigned int amount);
 	std::string get_name(void) const;

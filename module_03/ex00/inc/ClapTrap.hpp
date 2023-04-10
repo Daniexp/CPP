@@ -6,15 +6,14 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:11:13 by dexposit          #+#    #+#             */
-/*   Updated: 2023/03/31 18:51:13 by dexposit         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:03:45 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CLAPTRAP_H
 #define CLAPTRAP_H
-# include <iostream>
-# include <string>
-#include <ex00.hpp>
+#include <iostream>
+#include <string>
 class	ClapTrap
 {
 	public:

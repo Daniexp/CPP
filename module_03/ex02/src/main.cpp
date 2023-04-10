@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:11:05 by dexposit          #+#    #+#             */
-/*   Updated: 2023/04/08 20:00:33 by dexposit         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:15:32 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,28 @@
 
 int main(void)
 {
-	std::cout << "The proyect was created sucessfully." << std::endl;
-	ClapTrap ej = ClapTrap("Ejemplo");
-	ClapTrap cp = ej;
-	cp = ClapTrap(ej);
-	ej.attack(cp.get_name());
-	ej.takeDamage(5);
-	ej.beRepaired(5);
-	ScavTrap scav = ScavTrap("pepe");
-	ScavTrap cpsc = scav;
-	cpsc = ScavTrap(scav);
-	std::cout << cp << std::endl << ej << std::endl;
-	std::cout << scav << std::endl << cpsc << std::endl;
-	scav.guardGate();
-	scav.attack(cp.get_name());
-	scav.takeDamage(5);
-	scav.beRepaired(5);
+    // Test ClapTrap
+	ClapTrap clap("ClapTrap");
+	std::cout << clap;
+	clap.takeDamage(20);
+	clap.beRepaired(10);
+	clap.attack("Enemy");
 
-	FragTrap frag = FragTrap("frag");
+    // Test ScavTrap
+    ScavTrap scav("ScavTrap");
+	std::cout << scav;
+	scav.takeDamage(30);
+ 	scav.beRepaired(20);
+ 	scav.attack("Enemy");
+    scav.guardGate();
+
+    // Test FragTrap
+	FragTrap frag("FragTrap");
 	std::cout << frag;
+	frag.takeDamage(40);
+	frag.beRepaired(30);
+	frag.attack("Enemy");
 	frag.highFivesGuys();
-	frag.attack(scav.get_name());
-	frag.takeDamage(1);
-	frag.beRepaired(5);
-	std::cout << frag;
+
+	return 0;
 }

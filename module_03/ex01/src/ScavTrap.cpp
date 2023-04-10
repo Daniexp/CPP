@@ -1,6 +1,6 @@
 #include "ScavTrap.hpp"
  
-ScavTrap::ScavTrap() : ClapTrap()//, hit_pts(100), energy_pts(50), attack_dmg(20), 
+ScavTrap::ScavTrap() : ClapTrap()
 {
 //Const
 	set_hitpts(100);
@@ -9,7 +9,7 @@ ScavTrap::ScavTrap() : ClapTrap()//, hit_pts(100), energy_pts(50), attack_dmg(20
 	std::cout << "Default Constructor of ScavTrap." << std::endl;
 }
 
-ScavTrap::ScavTrap(const std::string& name) : ClapTrap(name)//, hit_pts(100), energy_pts(50), attack_dmg(20), 
+ScavTrap::ScavTrap(const std::string& name) : ClapTrap(name)
 {
 //Const
 	set_hitpts(100);

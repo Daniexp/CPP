@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:11:16 by dexposit          #+#    #+#             */
-/*   Updated: 2023/03/31 18:56:16 by dexposit         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:02:04 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 ClapTrap::ClapTrap(): Name(""), hit_pts(10), energy_pts(10), attack_dmg(0)
 {
 //Const
-	std::cout << "Default Constructor /ClapTrap" << std::endl;
+	std::cout << "Default Constructor ClapTrap" << std::endl;
 }
  
 ClapTrap::~ClapTrap()
 {
 //Dest
-	std::cout << "Destructor /ClapTrap" << std::endl;
+	std::cout << "Destructor ClapTrap" << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap& src)
 {
-	std::cout << "Copy Constructor /ClapTrap" << std::endl;
+	std::cout << "Copy Constructor ClapTrap" << std::endl;
 	*this = src;
 }
 
@@ -38,7 +38,7 @@ ClapTrap::ClapTrap(const std::string& Name): hit_pts(10), energy_pts(10), attack
 
 ClapTrap& ClapTrap::operator = (const ClapTrap& src)
 {
-	std::cout << "Asignation operator = /ClapTrap" << std::endl;
+	std::cout << "Asignation operator = ClapTrap" << std::endl;
 	this->Name = src.Name;
 	this->hit_pts = src.hit_pts;
 	this->energy_pts = src.energy_pts;
@@ -68,7 +68,6 @@ void ClapTrap::beRepaired(unsigned int amount)
 	if (this->energy_pts == 0)
 		return ;
 	this->energy_pts--;
-
 	this->hit_pts += amount;
 	if (this->hit_pts > 10)
 		this->hit_pts = 10;
