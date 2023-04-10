@@ -6,7 +6,7 @@
 /*   By: dexposit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:11:16 by dexposit          #+#    #+#             */
-/*   Updated: 2023/03/31 18:56:16 by dexposit         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:51:26 by dexposit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@ ClapTrap::ClapTrap(): Name(""), hit_pts(10), energy_pts(10), attack_dmg(0)
 {
 //Const
 	std::cout << "Default Constructor /ClapTrap" << std::endl;
+}
+
+ClapTrap::ClapTrap(std::string const& name, unsigned int hitpts, unsigned int energy, unsigned int attack)
+{
+	this->Name = name;
+	this->hit_pts = hitpts;
+	this->energy_pts = energy;
+	this->attack_dmg = attack;
 }
  
 ClapTrap::~ClapTrap()

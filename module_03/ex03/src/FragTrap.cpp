@@ -20,12 +20,12 @@ FragTrap::FragTrap(const FragTrap& src) : ClapTrap(src)
 	std::cout << "Copy Constructor of FragTrap" << std::endl;
 }
 
-FragTrap::FragTrap(const std::string& name) : ClapTrap(name)
+FragTrap::FragTrap(const std::string& name) : ClapTrap(name, 100, 100, 30)
 {
 	std::cout << "Name Constructor of FragTrap." << std::endl;
-	set_hitpts(100);
-	set_energypts(100);
-	set_attackdmg(30);
+//	set_hitpts(100);
+//	set_energypts(100);
+//	set_attackdmg(30);
 }
 FragTrap& FragTrap::operator = (const FragTrap& src)
 {
