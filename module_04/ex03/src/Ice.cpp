@@ -1,20 +1,23 @@
 #include <Ice.hpp>
 
-Ice::Ice() : AMateria("ice")
+Ice::Ice()// : AMateria("ice")
 {
 //Const
+	std::cout << "Default Constructor of Ice." << std::endl;
+	type = "ice";
 }
 
-Ice::Ice(const Ice& src) : AMateria(src)
+Ice::Ice(const Ice& src)// : AMateria(src)
 {
 //Copy Const
-	//*this = src;
+	*this = src;
 	std::cout << "Copy Constructor Ice" << std::endl;
 }
 
 Ice::~Ice()
 {
 //Des*/t
+	std::cout << "Destructor Ice." << std::endl;
 }
 
 Ice& Ice::operator = (const Ice& src)
@@ -25,7 +28,7 @@ Ice& Ice::operator = (const Ice& src)
 
 AMateria* Ice::clone() const
 {
-	return new Ice();
+	return new Ice(*this);
 }
 
 void Ice::use(ICharacter& target)

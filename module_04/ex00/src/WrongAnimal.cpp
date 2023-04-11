@@ -41,7 +41,6 @@ void WrongAnimal::makeSound() const
 {
 	std::cout << "The Wrong Animal has no sound." << std::endl;
 }
-
 void WrongAnimal::setType(const std::string& tp)
 {
 	this->type = tp;
