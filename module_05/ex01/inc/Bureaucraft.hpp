@@ -4,20 +4,12 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include <GradeTooHighException.hpp>
+#include <GradeTooLowException.hpp>
 
 class Bureaucraft
 {
 public:
-   class GradeTooHighExcept : public std::exception
-	{
-		//Reimplementacion de what() en std::except
-		virtual const char * what() const throw();
-	};
-   class GradeTooLowExcept : public std::exception
-	{
-		virtual const char * what() const throw();
-	};
-
    Bureaucraft();
    Bureaucraft(const Bureaucraft& src);
    Bureaucraft(const std::string& _name, int _grade);

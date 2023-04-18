@@ -1,4 +1,7 @@
 #include <iostream>
+#include <GradeTooLowException.hpp>
+#include <GradeTooHighException.hpp>
+#include <Form.hpp>
 #include <Bureaucraft.hpp>
 #include <string>
 

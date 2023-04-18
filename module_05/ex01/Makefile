@@ -10,6 +10,9 @@ CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
 SRCS		=	\
+    GradeTooLowException.cpp \
+    GradeTooHighException.cpp \
+    Form.cpp \
     Bureaucraft.cpp \
 				main.cpp
 SRCDIR		=	./src/

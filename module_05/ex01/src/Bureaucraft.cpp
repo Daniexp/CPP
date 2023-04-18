@@ -1,17 +1,5 @@
 #include <Bureaucraft.hpp>
 
-//Exception classes
-
-const char* Bureaucraft::GradeTooHighExcept::what() const throw()
-{
-	return "The Grade must be smaller than 150.\n";
-}
-
-const char* Bureaucraft::GradeTooLowExcept::what() const throw()
-{
-	return "The Grade must be bigger than 0.\n";
-}
-//
 //Bureaucraft
 Bureaucraft::Bureaucraft() : name(""), grade(1)
 {
@@ -27,9 +15,9 @@ Bureaucraft::Bureaucraft(const Bureaucraft& src)
 Bureaucraft::Bureaucraft(const std::string& _name, int _grade) : name(_name)
 {
 	if (_grade < 1)
-		throw GradeTooHighExcept();
+		throw GradeTooHighException();
 	else if (_grade > 150)
-		throw GradeTooLowExcept();
+		throw GradeTooLowException();
 	else
 		grade = _grade;
 }
@@ -59,7 +47,7 @@ int Bureaucraft::getGrade(void) const
 void Bureaucraft::incrementGrade(void)
 {
 	if (grade - 1 < 1)
-		throw GradeTooHighExcept();
+		throw GradeTooHighException();
 	else
 		grade--;
 }
@@ -67,7 +55,7 @@ void Bureaucraft::incrementGrade(void)
 void Bureaucraft::decrementGrade(void)
 {
 	if (grade + 1 > 1)
-		throw GradeTooLowExcept();
+		throw GradeTooLowException();
 	else
 		grade++;
 }
