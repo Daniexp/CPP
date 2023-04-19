@@ -1,6 +1,6 @@
 #include <Form.hpp>
 
-Form::Form() : name(""), isSigned(0), execGrade(150), signGrade(1)
+Form::Form() : name(""), isSigned(false), execGrade(150), signGrade(1)
 {
 //Const
 }
@@ -54,14 +54,16 @@ int Form::getSignGrade() const
 	return signGrade;
 }
 
-void Form::beSigned()
+void Form::beSigned(const Bureaucraft& bureau)
 {
-}
-
-void Form::signForm() const
-{
+	if (bureau.getGrade() < getSignGrade())
+		throw GradeTooLowException();
+	else
+		isSigned = true;
 }
 
 std::ostream& operator << (std::ostream& os, const Form& src)
 {
+	os << "Form name: " << src.getName() << ", is signed: " << src.getIsSigned() << ", execution grade: " << src.getExecGrade() << " and sign grade" << src.getSignGrade() << std::endl;
+	return os;
 }

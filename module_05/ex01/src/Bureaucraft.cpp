@@ -60,6 +60,14 @@ void Bureaucraft::decrementGrade(void)
 		grade++;
 }
 
+void Bureaucraft::signForm(const Form& form) const
+{
+	if (form.getIsSigned() == true)
+		std::cout << getName() << " signed " << form.getName() << std::endl;
+	else
+		std::cout << getName() << "couldn't sign " << form.getName() << " because the signGrade of the form is " << form.getSignGrade() << " and mine is " << getGrade() << std::endl;
+}
+
 std::ostream& operator << (std::ostream& os, const Bureaucraft& src)
 {
 	os << "I'm a Bureocraft, my name is " << src.getName() << " and my grade is: " << src.getGrade() << std::endl;

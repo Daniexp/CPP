@@ -4,8 +4,11 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include <Form.hpp>
 #include <GradeTooHighException.hpp>
 #include <GradeTooLowException.hpp>
+
+class Form;
 
 class Bureaucraft
 {
@@ -20,8 +23,9 @@ public:
    int	getGrade(void) const;
    void incrementGrade();
    void decrementGrade();
-  //void setName(const std::string& _name);
-  //void setGrade(int _grade);
+
+	void signForm(const Form& form) const; 
+
 private:
 	const std::string name;
 	int grade;
