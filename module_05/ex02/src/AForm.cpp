@@ -67,3 +67,8 @@ std::ostream& operator << (std::ostream& os, const AForm& src)
 	os << "Form name: " << src.getName() << ", is signed: " << src.getIsSigned() << ", execution grade: " << src.getExecGrade() << " and sign grade" << src.getSignGrade() << std::endl;
 	return os;
 }
+
+void AForm::setIsSigned(bool value)
+{
+	isSigned = value;
+}

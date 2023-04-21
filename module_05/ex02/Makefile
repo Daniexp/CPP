@@ -10,6 +10,7 @@ CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
 SRCS		=	\
+    ShrubberyCreationForm.cpp \
     GradeTooLowException.cpp \
     GradeTooHighException.cpp \
     AForm.cpp \
