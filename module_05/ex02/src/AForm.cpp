@@ -72,3 +72,14 @@ void AForm::setIsSigned(bool value)
 {
 	isSigned = value;
 }
+
+void AForm::execute(Bureaucraft const & executor) const
+{
+	if (executor.getGrade() > getExecGrade())
+		throw GradeTooLowException();
+	else if (getIsSigned() == true)
+		doAction(getName());
+	else
+		std::cout << "El form no esta signed.\n";
+		 //tirar que le form no esta signed
+}

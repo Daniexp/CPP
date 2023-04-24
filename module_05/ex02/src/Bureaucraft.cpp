@@ -73,3 +73,8 @@ std::ostream& operator << (std::ostream& os, const Bureaucraft& src)
 	os << "I'm a Bureocraft, my name is " << src.getName() << " and my grade is: " << src.getGrade() << std::endl;
 	return os;
 }
+
+void Bureaucraft::executeForm(AForm const & form)
+{
+	form.execute(*this);
+}

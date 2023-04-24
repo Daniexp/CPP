@@ -33,10 +33,13 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator = (const ShrubberyCreatio
 void ShrubberyCreationForm::doAction(const std::string& target) const
 {
 	//Create a file <target>_shrubbery in the working directory, and writes ASCII trees inside it.
-	
+	std::ofstream file;
+	file.open("./" + target + "_shruberry");
+	file << buildTree(5, 'X', 'L', 'R') << std::endl;
+	file.close();
 }
 
-std::string ShrubberyCreationForm::buildTree(int h, int node, char left, char right)
+std::string ShrubberyCreationForm::buildTree(int h, char node, char left, char right) const
 {
 	if (h == 0)
 		return "";	

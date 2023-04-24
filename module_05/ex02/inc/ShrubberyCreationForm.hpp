@@ -21,7 +21,7 @@ public:
 
    //virtual void execute(Bureaucraft const & executor) const;
    virtual void doAction(const std::string& target) const; 
-   std::string buildTree(int h, int node, char left, char right);
+   std::string buildTree(int h, char node, char left, char right) const;
 
 private:
 

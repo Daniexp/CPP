@@ -4,81 +4,34 @@
 #include <AForm.hpp>
 #include <Bureaucraft.hpp>
 #include <string>
+#include <ShrubberyCreationForm.hpp>
 
 
 
 int main(void)
 {
-	std::cout << "The proyect was created sucessfully." << std::endl;
-	Bureaucraft boss = Bureaucraft("Jefazo", 1);
-	try
-	{
-		boss.incrementGrade();
-	}
-	catch (std::exception& e)
-	{
-		std::cout << e.what();
-	}
-	try
-	{
-		AForm("bad", 0, 150);
-	}
-	catch (std::exception& e)
-	{
-		std::cout << e.what();
-	}
-	try
-	{
-		AForm("bad", 150, 0);
-	}
-	catch (std::exception& e)
-	{
-		std::cout << e.what();
-	}
-	try
-	{
-		AForm("bad", 151, 150);
-	}
-	catch (std::exception& e)
-	{
-		std::cout << e.what();
-	}
-	try
-	{
-		AForm("bad", 150, 151);
-	}
-	catch (std::exception& e)
-	{
-		std::cout << e.what();
-	}
+	// Creamos un objeto de la clase Bureaucrat con un grade de 1
+    Bureaucraft bureaucrat("John Doe", 1);
 
-	Bureaucraft Pepe = Bureaucraft("Pepe", 20);
-	AForm ordinaryForm = AForm("Ordinary", 150, 100);
-	AForm bossForm = AForm("BossForm", 1, 1);
-	try
-	{
-		bossForm.beSigned(Pepe);
-	}
-	catch (std::exception& e)
-	{
-		std::cout << e.what();
-	}
-	std::cout << boss << Pepe << ordinaryForm << bossForm;
-	try
-	{
-		bossForm.beSigned(boss);
-	}
-	catch (std::exception& e)
-	{
-		std::cout << e.what();
-	}
-	try
-	{
-		ordinaryForm.beSigned(Pepe);
-	}
-	catch (std::exception& e)
-	{
-		std::cout << e.what();
-	}
-	std::cout << ordinaryForm << bossForm;
+    // Creamos un objeto de la clase ShrubberyCreationForm con un target de "example"
+    ShrubberyCreationForm form("example");
+
+    // El burócrata intenta firmar la forma
+    try {
+        bureaucrat.signForm(form);
+    } catch (std::exception& e) {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
+
+    // El burócrata intenta ejecutar la forma
+    try {
+        bureaucrat.executeForm(form);
+    } catch (std::exception& e) {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
+
+    // La forma ejecuta su acción (creación del archivo con árboles en ASCII)
+    form.doAction("ejemplo");
+
+    return 0;
 }
