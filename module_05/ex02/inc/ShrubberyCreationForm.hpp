@@ -9,6 +9,10 @@
 #include <AForm.hpp>
 #include <Bureaucraft.hpp>
 #include <fstream>
+#include <cstdlib>
+#include <ctime>
+#include <cstdio>
+
 class ShrubberyCreationForm : public AForm
 {
 public:
