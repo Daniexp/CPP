@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <GradeTooHighException.hpp>
 #include <GradeTooLowException.hpp>
+#include <FormNotSignedException.hpp>
 #include <Bureaucraft.hpp>
 
 class Bureaucraft;

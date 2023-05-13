@@ -76,5 +76,13 @@ std::ostream& operator << (std::ostream& os, const Bureaucraft& src)
 
 void Bureaucraft::executeForm(AForm const & form)
 {
-	form.execute(*this);
+	try
+	{
+		form.execute(*this);
+		std::cout << getName() << " executed " << form.getName() << std::endl;
+	}
+	catch (std::exception& e)
+	{
+		std::cerr << getName() << " : " << e.what() << std::endl;
+	}
 }

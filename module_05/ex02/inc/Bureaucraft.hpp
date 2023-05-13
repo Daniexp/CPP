@@ -7,6 +7,7 @@
 #include <AForm.hpp>
 #include <GradeTooHighException.hpp>
 #include <GradeTooLowException.hpp>
+#include <FormNotSignedException.hpp>
 
 class AForm;
 

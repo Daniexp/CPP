@@ -80,6 +80,6 @@ void AForm::execute(Bureaucraft const & executor) const
 	else if (getIsSigned() == true)
 		doAction(getName());
 	else
-		std::cout << "El form no esta signed.\n";
+		throw FormNotSignedException();
 		 //tirar que le form no esta signed
 }

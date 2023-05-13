@@ -15,6 +15,7 @@ SRCS		=	\
     ShrubberyCreationForm.cpp \
     GradeTooLowException.cpp \
     GradeTooHighException.cpp \
+    FormNotSignedException.cpp \
     AForm.cpp \
     Bureaucraft.cpp \
 				main.cpp
