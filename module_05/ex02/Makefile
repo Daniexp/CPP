@@ -10,6 +10,8 @@ CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
 SRCS		=	\
+    PresidentialPardonForm.cpp \
+    RobotomyRequestForm.cpp \
     ShrubberyCreationForm.cpp \
     GradeTooLowException.cpp \
     GradeTooHighException.cpp \

@@ -1,4 +1,6 @@
 #include <iostream>
+#include <PresidentialPardonForm.hpp>
+#include <RobotomyRequestForm.hpp>
 #include <GradeTooLowException.hpp>
 #include <GradeTooHighException.hpp>
 #include <AForm.hpp>
