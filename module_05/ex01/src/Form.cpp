@@ -54,7 +54,7 @@ int Form::getSignGrade() const
 	return signGrade;
 }
 
-void Form::beSigned(const Bureaucraft& bureau)
+void Form::beSigned(const Bureaucrat& bureau)
 {
 	if (bureau.getGrade() < getSignGrade())
 		throw GradeTooLowException();

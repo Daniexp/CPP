@@ -17,7 +17,7 @@ SRCS		=	\
     GradeTooHighException.cpp \
     FormNotSignedException.cpp \
     AForm.cpp \
-    Bureaucraft.cpp \
+    Bureaucrat.cpp \
 				main.cpp
 SRCDIR		=	./src/
 INCDIR		=	./inc/

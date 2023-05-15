@@ -2,7 +2,7 @@
 #include <GradeTooLowException.hpp>
 #include <GradeTooHighException.hpp>
 #include <Form.hpp>
-#include <Bureaucraft.hpp>
+#include <Bureaucrat.hpp>
 #include <string>
 
 
@@ -10,7 +10,7 @@
 int main(void)
 {
 	std::cout << "The proyect was created sucessfully." << std::endl;
-	Bureaucraft boss = Bureaucraft("Jefazo", 1);
+	Bureaucrat boss = Bureaucrat("Jefazo", 1);
 	try
 	{
 		boss.incrementGrade();
@@ -52,7 +52,7 @@ int main(void)
 		std::cout << e.what();
 	}
 
-	Bureaucraft Pepe = Bureaucraft("Pepe", 20);
+	Bureaucrat Pepe = Bureaucrat("Pepe", 20);
 	Form ordinaryForm = Form("Ordinary", 150, 100);
 	Form bossForm = Form("BossForm", 1, 1);
 	try

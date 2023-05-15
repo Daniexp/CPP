@@ -7,9 +7,9 @@
 #include <GradeTooHighException.hpp>
 #include <GradeTooLowException.hpp>
 #include <FormNotSignedException.hpp>
-#include <Bureaucraft.hpp>
+#include <Bureaucrat.hpp>
 
-class Bureaucraft;
+class Bureaucrat;
 
 class AForm
 {
@@ -29,9 +29,9 @@ int getSignGrade() const;
 
 void setIsSigned(bool value);
 
-void beSigned(const Bureaucraft& bureau);
+void beSigned(const Bureaucrat& bureau);
 
-void execute(Bureaucraft const & executor) const;
+void execute(Bureaucrat const & executor) const;
 virtual void	doAction(const std::string& target) const = 0;
 
 private:

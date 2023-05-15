@@ -1,5 +1,5 @@
-#ifndef BUREAUCRAFT_H
-#define BUREAUCRAFT_H
+#ifndef BUREAUCRAT_H
+#define BUREAUCRAT_H
 
 #include <iostream>
 #include <string>
@@ -11,14 +11,14 @@
 
 class AForm;
 
-class Bureaucraft
+class Bureaucrat
 {
 public:
-   Bureaucraft();
-   Bureaucraft(const Bureaucraft& src);
-   Bureaucraft(const std::string& _name, int _grade);
-   ~Bureaucraft();
-   Bureaucraft& operator=(const Bureaucraft& src);
+   Bureaucrat();
+   Bureaucrat(const Bureaucrat& src);
+   Bureaucrat(const std::string& _name, int _grade);
+   ~Bureaucrat();
+   Bureaucrat& operator=(const Bureaucrat& src);
 
    const std::string& getName(void) const;
    int	getGrade(void) const;
@@ -34,5 +34,5 @@ private:
 	int grade;
 	const std::string target;
 };
-std::ostream& operator << (std::ostream& os, const Bureaucraft& src);
-#endif     //BUREAUCRAFT_H
+std::ostream& operator << (std::ostream& os, const Bureaucrat& src);
+#endif     //BUREAUCRAT_H

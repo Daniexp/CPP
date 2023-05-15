@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include <Bureaucraft.hpp>
+#include <Bureaucrat.hpp>
 #include <stdexcept>
 #include <GradeTooLowException.hpp>
 #include <GradeTooHighException.hpp>

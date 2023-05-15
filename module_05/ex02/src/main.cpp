@@ -4,7 +4,7 @@
 #include <GradeTooLowException.hpp>
 #include <GradeTooHighException.hpp>
 #include <AForm.hpp>
-#include <Bureaucraft.hpp>
+#include <Bureaucrat.hpp>
 #include <string>
 #include <ShrubberyCreationForm.hpp>
 
@@ -12,28 +12,29 @@
 
 int main(void)
 {
-	// Creamos un objeto de la clase Bureaucrat con un grade de 1
-    Bureaucraft bureaucrat("John Doe", 1);
+// Crear un burócrata
+    Bureaucrat bureaucrat("John Doe", 100);
 
-    // Creamos un objeto de la clase ShrubberyCreationForm con un target de "example"
-    ShrubberyCreationForm form("example");
+    // Crear instancias de los formularios
+    ShrubberyCreationForm shrubberyForm("home");
+    RobotomyRequestForm robotomyForm("target");
+    PresidentialPardonForm pardonForm("target");
 
-    // El burócrata intenta firmar la forma
     try {
-        bureaucrat.signForm(form);
-    } catch (std::exception& e) {
+        // Firmar y ejecutar el formulario ShrubberyCreationForm
+        bureaucrat.signForm(shrubberyForm);
+        bureaucrat.executeForm(shrubberyForm);
+
+        // Firmar y ejecutar el formulario RobotomyRequestForm
+        bureaucrat.signForm(robotomyForm);
+        bureaucrat.executeForm(robotomyForm);
+
+        // Firmar y ejecutar el formulario PresidentialPardonForm
+        bureaucrat.signForm(pardonForm);
+        bureaucrat.executeForm(pardonForm);
+    } catch (const std::exception& e) {
         std::cout << "Error: " << e.what() << std::endl;
     }
-
-    // El burócrata intenta ejecutar la forma
-    try {
-        bureaucrat.executeForm(form);
-    } catch (std::exception& e) {
-        std::cout << "Error: " << e.what() << std::endl;
-    }
-
-    // La forma ejecuta su acción (creación del archivo con árboles en ASCII)
-    form.doAction("ejemplo");
 
     return 0;
 }

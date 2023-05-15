@@ -13,7 +13,7 @@ SRCS		=	\
     GradeTooLowException.cpp \
     GradeTooHighException.cpp \
     Form.cpp \
-    Bureaucraft.cpp \
+    Bureaucrat.cpp \
 				main.cpp
 SRCDIR		=	./src/
 INCDIR		=	./inc/

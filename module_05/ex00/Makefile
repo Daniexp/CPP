@@ -10,7 +10,7 @@ CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
 SRCS		=	\
-    Bureaucraft.cpp \
+    Bureaucrat.cpp \
 				main.cpp
 SRCDIR		=	./src/
 INCDIR		=	./inc/

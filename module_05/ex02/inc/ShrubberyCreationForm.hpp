@@ -7,7 +7,7 @@
 #include <GradeTooHighException.hpp>
 #include <GradeTooLowException.hpp>
 #include <AForm.hpp>
-#include <Bureaucraft.hpp>
+#include <Bureaucrat.hpp>
 #include <fstream>
 #include <cstdlib>
 #include <ctime>

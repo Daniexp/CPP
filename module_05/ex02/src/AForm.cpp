@@ -54,7 +54,7 @@ int AForm::getSignGrade() const
 	return signGrade;
 }
 
-void AForm::beSigned(const Bureaucraft& bureau)
+void AForm::beSigned(const Bureaucrat& bureau)
 {
 	if (bureau.getGrade() < getSignGrade())
 		throw GradeTooLowException();
@@ -73,7 +73,7 @@ void AForm::setIsSigned(bool value)
 	isSigned = value;
 }
 
-void AForm::execute(Bureaucraft const & executor) const
+void AForm::execute(Bureaucrat const & executor) const
 {
 	if (executor.getGrade() > getExecGrade())
 		throw GradeTooLowException();

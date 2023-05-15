@@ -6,9 +6,9 @@
 #include <stdexcept>
 #include <GradeTooHighException.hpp>
 #include <GradeTooLowException.hpp>
-#include <Bureaucraft.hpp>
+#include <Bureaucrat.hpp>
 
-class Bureaucraft;
+class Bureaucrat;
 
 class Form
 {
@@ -26,7 +26,7 @@ public:
    int getExecGrade() const;
    int getSignGrade() const;
 
-   void beSigned(const Bureaucraft& bureau);
+   void beSigned(const Bureaucrat& bureau);
 
 private:
 	const std::string name;

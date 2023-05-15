@@ -1,18 +1,18 @@
-#include <Bureaucraft.hpp>
+#include <Bureaucrat.hpp>
 
 //Bureaucraft
-Bureaucraft::Bureaucraft() : name(""), grade(1)
+Bureaucrat::Bureaucrat() : name(""), grade(1)
 {
 //Const
 }
 
-Bureaucraft::Bureaucraft(const Bureaucraft& src)
+Bureaucrat::Bureaucrat(const Bureaucrat& src)
 {
 //Copy Const
 	*this = src;
 }
 
-Bureaucraft::Bureaucraft(const std::string& _name, int _grade) : name(_name)
+Bureaucrat::Bureaucrat(const std::string& _name, int _grade) : name(_name)
 {
 	if (_grade < 1)
 		throw GradeTooHighException();
@@ -22,29 +22,29 @@ Bureaucraft::Bureaucraft(const std::string& _name, int _grade) : name(_name)
 		grade = _grade;
 }
 
-Bureaucraft::~Bureaucraft()
+Bureaucrat::~Bureaucrat()
 {
 //Dest
 }
 
-Bureaucraft& Bureaucraft::operator = (const Bureaucraft& src)
+Bureaucrat& Bureaucrat::operator = (const Bureaucrat& src)
 {
 	if (this != &src)
 		this->grade = src.getGrade();
 	return *this;
 }
 
-const std::string& Bureaucraft::getName(void) const
+const std::string& Bureaucrat::getName(void) const
 {
 	return name;
 }
 
-int Bureaucraft::getGrade(void) const
+int Bureaucrat::getGrade(void) const
 {
 	return grade;
 }
 
-void Bureaucraft::incrementGrade(void)
+void Bureaucrat::incrementGrade(void)
 {
 	if (grade - 1 < 1)
 		throw GradeTooHighException();
@@ -52,7 +52,7 @@ void Bureaucraft::incrementGrade(void)
 		grade--;
 }
 
-void Bureaucraft::decrementGrade(void)
+void Bureaucrat::decrementGrade(void)
 {
 	if (grade + 1 > 1)
 		throw GradeTooLowException();
@@ -60,21 +60,24 @@ void Bureaucraft::decrementGrade(void)
 		grade++;
 }
 
-void Bureaucraft::signForm(const AForm& form) const
+void Bureaucrat::signForm(const AForm& form) const
 {
-	if (form.getIsSigned() == true)
+	if (form.getExecGrade() >= getGrade())
+	{
 		std::cout << getName() << " signed " << form.getName() << std::endl;
+		//form.beSigned(*this);
+	}
 	else
 		std::cout << getName() << "couldn't sign " << form.getName() << " because the signGrade of the form is " << form.getSignGrade() << " and mine is " << getGrade() << std::endl;
 }
 
-std::ostream& operator << (std::ostream& os, const Bureaucraft& src)
+std::ostream& operator << (std::ostream& os, const Bureaucrat& src)
 {
 	os << "I'm a Bureocraft, my name is " << src.getName() << " and my grade is: " << src.getGrade() << std::endl;
 	return os;
 }
 
-void Bureaucraft::executeForm(AForm const & form)
+void Bureaucrat::executeForm(AForm const & form)
 {
 	try
 	{
