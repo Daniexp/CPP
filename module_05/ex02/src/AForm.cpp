@@ -56,7 +56,7 @@ int AForm::getSignGrade() const
 
 void AForm::beSigned(const Bureaucrat& bureau)
 {
-	if (bureau.getGrade() < getSignGrade())
+	if (bureau.getGrade() > getSignGrade())
 		throw GradeTooLowException();
 	else
 		isSigned = true;
@@ -75,11 +75,10 @@ void AForm::setIsSigned(bool value)
 
 void AForm::execute(Bureaucrat const & executor) const
 {
-	if (executor.getGrade() > getExecGrade())
-		throw GradeTooLowException();
-	else if (getIsSigned() == true)
-		doAction(getName());
-	else
+	if (getIsSigned() == false)
 		throw FormNotSignedException();
-		 //tirar que le form no esta signed
+	else if (executor.getGrade() > getExecGrade())
+		throw GradeTooLowException();
+	else 
+		doAction(getName());
 }

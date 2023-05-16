@@ -25,7 +25,7 @@ public:
    void incrementGrade();
    void decrementGrade();
 
-	void signForm(const AForm& form) const; 
+	void signForm(AForm& form) const; 
 	void executeForm(AForm const & form); 
 
 	const std::string& getTarget(void) const;

@@ -60,15 +60,20 @@ void Bureaucrat::decrementGrade(void)
 		grade++;
 }
 
-void Bureaucrat::signForm(const AForm& form) const
+void Bureaucrat::signForm(AForm& form) const
 {
-	if (form.getExecGrade() >= getGrade())
-	{
-		std::cout << getName() << " signed " << form.getName() << std::endl;
-		//form.beSigned(*this);
-	}
+	if (form.getIsSigned() == false)
+		try
+		{
+			form.beSigned(*this);
+			std::cout << getName() << " signed " << form.getName() << std::endl;
+		}
+		catch (const std::exception& e)
+		{
+			std::cout << getName() << " couldn't sign " << form.getName() << " because " << e.what() << "The signGrade of the form is " << form.getSignGrade() << " and the Bureaucrat have " << getGrade() << std::endl;
+		}
 	else
-		std::cout << getName() << "couldn't sign " << form.getName() << " because the signGrade of the form is " << form.getSignGrade() << " and mine is " << getGrade() << std::endl;
+		std::cout << getName() << " couldn't sign " << form.getName() << " because the form is already signed..." << std::endl;
 }
 
 std::ostream& operator << (std::ostream& os, const Bureaucrat& src)
@@ -86,6 +91,6 @@ void Bureaucrat::executeForm(AForm const & form)
 	}
 	catch (std::exception& e)
 	{
-		std::cerr << getName() << " : " << e.what() << std::endl;
+		std::cerr << getName() << " : " << e.what() << "The execGrade of the form is " << form.getExecGrade() << " and the Bureaucrat have " << getGrade() << std::endl;
 	}
 }
