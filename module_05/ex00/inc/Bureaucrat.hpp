@@ -3,21 +3,12 @@
 
 #include <iostream>
 #include <string>
-#include <stdexcept>
+#include <GradeTooLowExcept.hpp>
+#include <GradeTooHighExcept.hpp>
 
 class Bureaucrat
 {
 public:
-   class GradeTooHighExcept : public std::exception
-	{
-		//Reimplementacion de what() en std::except
-		virtual const char * what() const throw();
-	};
-   class GradeTooLowExcept : public std::exception
-	{
-		virtual const char * what() const throw();
-	};
-
    Bureaucrat();
    Bureaucrat(const Bureaucrat& src);
    Bureaucrat(const std::string& _name, int _grade);
@@ -28,8 +19,6 @@ public:
    int	getGrade(void) const;
    void incrementGrade();
    void decrementGrade();
-  //void setName(const std::string& _name);
-  //void setGrade(int _grade);
 private:
 	const std::string name;
 	int grade;

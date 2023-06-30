@@ -1,17 +1,5 @@
 #include <Bureaucrat.hpp>
 
-//Exception classes
-
-const char* Bureaucrat::GradeTooHighExcept::what() const throw()
-{
-	return "The Grade must be smaller than 150.\n";
-}
-
-const char* Bureaucrat::GradeTooLowExcept::what() const throw()
-{
-	return "The Grade must be bigger than 0.\n";
-}
-//
 //Bureaucraft
 Bureaucrat::Bureaucrat() : name(""), grade(1)
 {

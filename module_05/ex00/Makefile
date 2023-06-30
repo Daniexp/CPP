@@ -11,7 +11,9 @@ RM			=	rm -rf
 
 SRCS		=	\
     Bureaucrat.cpp \
-				main.cpp
+	GradeTooHighExcept.cpp \
+	GradeTooLowExcept.cpp  \
+	main.cpp
 SRCDIR		=	./src/
 INCDIR		=	./inc/
 DSRC		=	$(addprefix $(SRCDIR), $(SRCS))
