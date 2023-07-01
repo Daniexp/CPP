@@ -4,30 +4,100 @@
 #include <GradeTooLowExcept.hpp>
 #include <GradeTooHighExcept.hpp>
 
+//	TEST UTILS
 void 	imprimirCentrado(const std::string& message, int maxlen, char fillchar); 
-void	tryCatch(void (*testFunction)(void));
+void	tryCatch(void (*testBureaucratFunction)(void));
+//	TEST BUREAUCRAT
+void	testBureaucratCreateInvalidGradeTooLow(void);
+void	testBureaucratCreateInvalidGradeTooHigh(void);
+void 	testBureaucratCreateInvalidGrade(void);
+void 	testBureaucratChangeGrade(void);
+void 	testBureaucratInvalidIncrement(void);
+void	testBureaucratInvalidDecrement(void);
+void	testBureaucratGeters(void);
 
-void	testCreateInvalidGradeTooLow(void)
+void	testBureaucratCreateInvalidGradeTooLow(void)
 {
+
+	std::cout << "Trying to create a Bureaucrat with 200 of grade." << std::endl;
 	Bureaucrat Lowgrade = Bureaucrat("TooLow", 200);
+	std::cout << Lowgrade << std::endl;
 }
-void	testCreateInvalidGradeTooHigh(void)
+void	testBureaucratCreateInvalidGradeTooHigh(void)
 {
+	std::cout << "Trying to create a Bureaucrat with -100 of grade." << std::endl;
 	Bureaucrat Highgrade = Bureaucrat("TooHigh", -100);
+	std::cout << Highgrade << std::endl;
 }
-void testCreateInvalidGrade(void)
+void testBureaucratCreateInvalidGrade(void)
 {
-	tryCatch(testCreateInvalidGradeTooLow);
-	tryCatch(testCreateInvalidGradeTooHigh);
+	tryCatch(testBureaucratCreateInvalidGradeTooLow);
+	tryCatch(testBureaucratCreateInvalidGradeTooHigh);
+}
+void testBureaucratValidDecrement(void)
+{
+	Bureaucrat boss = Bureaucrat("Ayose", 1);
+	std::cout << boss;
+	std::cout << "Decrement Grade" << std::endl;
+	boss.decrementGrade();
+	std::cout << boss;
+}
+void testBureaucratValidIncrement(void)
+{
+	Bureaucrat boss = Bureaucrat("Ayose", 10);
+	std::cout << boss;
+	std::cout << "Increment Grade" << std::endl;
+	boss.incrementGrade();
+	std::cout << boss;
+}
+void testBureaucratInvalidIncrement()
+{
+	Bureaucrat boss = Bureaucrat("Ayose", 1);
+	std::cout << boss << std::endl;
+	std::cout << "Increment Max Grade" << std::endl;
+	boss.incrementGrade();
+	std::cout << boss << std::endl;
+}
+void testBureaucratInvalidDecrement()
+{
+	Bureaucrat boss = Bureaucrat("Ayose", 150);
+	std::cout << boss;
+	std::cout << "Decrement Min Grade" << std::endl;
+	boss.decrementGrade();
+	std::cout << boss;
+}
+void testBureaucratChangeGrade(void)
+{
+	tryCatch(testBureaucratValidDecrement);
+	tryCatch(testBureaucratValidIncrement);
+	tryCatch(testBureaucratInvalidDecrement);
+	tryCatch(testBureaucratInvalidIncrement);
+}
+void	testBureaucratGeters()
+{
+	Bureaucrat Pepe = Bureaucrat("Pepe", 150);
+	std::cout << "Name: " << Pepe.getName() << std::endl;
+	std::cout << "Grade: " <<  Pepe.getGrade() << std::endl; 
+}
+void	testBureaucrat(int messageLength, char fillchar)
+{
+	imprimirCentrado("TEST BUREAUCRAT", messageLength, fillchar); 
+	std::cout << std::endl;
+
+	testBureaucratCreateInvalidGrade();
+
+	tryCatch(testBureaucratGeters);
+
+	testBureaucratChangeGrade();
+
+	imprimirCentrado("END", messageLength, fillchar); 
 }
 int main(void)
 {
-	Bureaucrat Pepe = Bureaucrat("Pepe", 150);
-	std::cout << Pepe;
-	Pepe.incrementGrade();
-	std::cout << Pepe;
-	testCreateInvalidGrade();
+	int messageLength = 60;
+	char fillchar = '-';
 
+	testBureaucrat(messageLength, fillchar);
 	return 0;
 }
 
@@ -54,22 +124,20 @@ void	 imprimirCentrado(const std::string& message, int maxlen, char fillchar) {
     }
 }
 
-void	tryCatch(void (*testFunction)(void))
+void	tryCatch(void (*testBureaucratFunction)(void))
 {
 	int messageLength = 60;
 	char fillchar = '-';
-	static int countTest = 1;
+	static int countTest = 0;
 	
 
-	imprimirCentrado("TEST 1" + std::to_string(countTest++), messageLength, fillchar); 
-	imprimirCentrado("", messageLength, fillchar); 
+	imprimirCentrado("TEST " + std::to_string(countTest++), messageLength, fillchar); 
 	try
 	{
-		testFunction();
+		testBureaucratFunction();
 	}
 	catch (std::exception & e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cout << e.what();
 	}
-	imprimirCentrado("END", messageLength, fillchar); 
 }

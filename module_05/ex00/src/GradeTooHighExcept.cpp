@@ -2,5 +2,5 @@
 
 const char* GradeTooHighExcept::GradeTooHighExcept::what() const throw()
 {
-	return "The Grade must be smaller than 150.\n";
+	return "The biggest valid Grade is 1\n";
 }

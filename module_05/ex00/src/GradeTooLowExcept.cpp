@@ -1,5 +1,5 @@
 #include <GradeTooLowExcept.hpp>
 const char* GradeTooLowExcept::GradeTooLowExcept::what() const throw()
 {
-	return "The Grade must be bigger than 0.\n";
+	return "The smallest valid Grade is 150\n"; 
 }
