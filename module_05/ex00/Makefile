@@ -13,6 +13,8 @@ SRCS		=	\
     Bureaucrat.cpp \
 	GradeTooHighExcept.cpp \
 	GradeTooLowExcept.cpp  \
+	testUtils.cpp \
+	testBureaucrat.cpp \
 	main.cpp
 SRCDIR		=	./src/
 INCDIR		=	./inc/

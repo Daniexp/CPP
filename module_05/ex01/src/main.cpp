@@ -4,11 +4,15 @@
 #include <Form.hpp>
 #include <Bureaucrat.hpp>
 #include <string>
-
-
+#include <test.hpp>
 
 int main(void)
 {
+	int messageLength = 60;
+	char fillchar = '-';
+	testBureaucrat(messageLength, fillchar); 
+	std::cout << std::endl << std::endl;
+	testForm(messageLength, fillchar);
 	std::cout << "The proyect was created sucessfully." << std::endl;
 	Bureaucrat boss = Bureaucrat("Jefazo", 1);
 	try

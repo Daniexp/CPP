@@ -14,6 +14,9 @@ SRCS		=	\
     GradeTooHighException.cpp \
     Form.cpp \
     Bureaucrat.cpp \
+	testUtils.cpp \
+	testBureaucrat.cpp \
+	testForm.cpp \
 				main.cpp
 SRCDIR		=	./src/
 INCDIR		=	./inc/
