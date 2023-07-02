@@ -161,7 +161,6 @@ void testBureaucratExecShrubberyCreationFormValidNotSigned(void)
 	Bureaucrat Jhon = Bureaucrat("Jhon", 137);
 	std::cout << formExample;
 	std::cout << Jhon;
-	Jhon.signForm(formExample);
 	Jhon.executeForm(formExample);
 	std::cout << formExample;
 }

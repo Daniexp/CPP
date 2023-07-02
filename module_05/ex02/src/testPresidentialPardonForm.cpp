@@ -31,7 +31,7 @@ void	testPresidentialPardonFormBeSignedInvalid(void)
 {
 	std::cout << "Trying to sign a PresidentialPardonForm with a ExecGrade bigger than the Bureaucrat one's" << std::endl;
 	PresidentialPardonForm formExample = PresidentialPardonForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 146);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 26);
 	std::cout << formExample;
 	std::cout << Jhon;
 	formExample.beSigned(Jhon);
@@ -41,7 +41,7 @@ void	testPresidentialPardonFormBeSignedValid(void)
 {
 	std::cout << "Trying to sign a PresidentialPardonForm with a ExecGrade smaller than the Bureaucrat one's" << std::endl;
 	PresidentialPardonForm formExample = PresidentialPardonForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 143);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 25);
 	std::cout << formExample;
 	std::cout << Jhon;
 	formExample.beSigned(Jhon);
@@ -56,7 +56,7 @@ void	testBureaucratSignPresidentialPardonFormInvalid(void)
 {
 	std::cout << "Bureaucrat trying to sign a PresidentialPardonForm with less signGrade than the require one" << std::endl;
 	PresidentialPardonForm formExample = PresidentialPardonForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 146);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 26);
 	std::cout << formExample;
 	std::cout << Jhon;
 	Jhon.signForm(formExample);
@@ -66,7 +66,7 @@ void	testBureaucratSignPresidentialPardonFormValid(void)
 {
 	std::cout << "Bureaucrat trying to sign a PresidentialPardonForm with more signGrade than the require one" << std::endl;
 	PresidentialPardonForm formExample = PresidentialPardonForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 143);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 25);
 	std::cout << formExample;
 	std::cout << Jhon;
 	Jhon.signForm(formExample);
@@ -82,7 +82,7 @@ void	testPresidentialPardonFormExecuteInvalidNotSigned(void)
 	std::cout << "UNSIGNED FORM INVALID EXEC" << std::endl;
 	std::cout << "Trying to execute a PresidentialPardonForm NotSigned with a ExecGrade bigger than the Bureaucrat one's" << std::endl;
 	PresidentialPardonForm formExample = PresidentialPardonForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 136);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 6);
 	std::cout << formExample;
 	std::cout << Jhon;
 	formExample.execute(Jhon);
@@ -93,7 +93,7 @@ void	testPresidentialPardonFormExecuteInvalidSigned(void)
 	std::cout << "SIGNED FORM INVALID EXEC" << std::endl;
 	std::cout << "Trying to execute a PresidentialPardonForm Signed with a ExecGrade bigger than the Bureaucrat one's" << std::endl;
 	PresidentialPardonForm formExample = PresidentialPardonForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 136);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 6);
 	std::cout << formExample;
 	std::cout << Jhon;
 	formExample.beSigned(Jhon);
@@ -105,7 +105,7 @@ void	testPresidentialPardonFormExecuteValidNotSigned(void)
 	std::cout << "UNSIGNED FORM VALID EXEC" << std::endl;
 	std::cout << "Trying to execute a PresidentialPardonForm NotSigned with a ExecGrade smaller than the Bureaucrat one's" << std::endl;
 	PresidentialPardonForm formExample = PresidentialPardonForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 137);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 5);
 	std::cout << formExample;
 	std::cout << Jhon;
 	formExample.execute(Jhon);
@@ -116,7 +116,7 @@ void	testPresidentialPardonFormExecuteValidSigned(void)
 	std::cout << "SIGNED FORM VALID EXEC" << std::endl;
 	std::cout << "Trying to execute a PresidentialPardonForm Signed with a ExecGrade smaller than the Bureaucrat one's" << std::endl;
 	PresidentialPardonForm formExample = PresidentialPardonForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 137);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 5);
 	std::cout << formExample;
 	std::cout << Jhon;
 	formExample.beSigned(Jhon);
@@ -135,7 +135,7 @@ void testBureaucratExecPresidentialPardonFormInvalidNotSigned(void)
 	std::cout << "UNSIGNED FORM INVALID EXEC" << std::endl;
 	std::cout << "Bureaucrat Trying to execute a PresidentialPardonForm NotSigned with a ExecGrade bigger than the Bureaucrat one's" << std::endl;
 	PresidentialPardonForm formExample = PresidentialPardonForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 138);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 6);
 	std::cout << formExample;
 	std::cout << Jhon;
 	Jhon.executeForm(formExample);
@@ -146,7 +146,7 @@ void testBureaucratExecPresidentialPardonFormInvalidSigned(void)
 	std::cout << "SIGNED FORM INVALID EXEC" << std::endl;
 	std::cout << "Bureaucrat Trying to execute a PresidentialPardonForm Signed with a ExecGrade bigger than the Bureaucrat one's" << std::endl;
 	PresidentialPardonForm formExample = PresidentialPardonForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 138);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 6);
 	std::cout << formExample;
 	std::cout << Jhon;
 	Jhon.signForm(formExample);
@@ -158,10 +158,9 @@ void testBureaucratExecPresidentialPardonFormValidNotSigned(void)
 	std::cout << "NOT SIGNED FORM VALID EXEC" << std::endl;
 	std::cout << "Bureaucrat Trying to execute a PresidentialPardonForm NotSigned with a ExecGrade smaller than the Bureaucrat one's" << std::endl;
 	PresidentialPardonForm formExample = PresidentialPardonForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 137);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 5);
 	std::cout << formExample;
 	std::cout << Jhon;
-	Jhon.signForm(formExample);
 	Jhon.executeForm(formExample);
 	std::cout << formExample;
 }
@@ -170,7 +169,7 @@ void testBureaucratExecPresidentialPardonFormValidSigned(void)
 	std::cout << "SIGNED FORM VALID EXEC" << std::endl;
 	std::cout << "Bureaucrat Trying to execute a PresidentialPardonForm Signed with a ExecGrade smaller than the Bureaucrat one's" << std::endl;
 	PresidentialPardonForm formExample = PresidentialPardonForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 137);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 5);
 	std::cout << formExample;
 	std::cout << Jhon;
 	Jhon.signForm(formExample);

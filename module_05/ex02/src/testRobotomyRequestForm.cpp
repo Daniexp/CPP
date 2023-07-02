@@ -31,7 +31,7 @@ void	testRobotomyRequestFormBeSignedInvalid(void)
 {
 	std::cout << "Trying to sign a RobotomyRequestForm with a ExecGrade bigger than the Bureaucrat one's" << std::endl;
 	RobotomyRequestForm formExample = RobotomyRequestForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 146);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 73);
 	std::cout << formExample;
 	std::cout << Jhon;
 	formExample.beSigned(Jhon);
@@ -41,7 +41,7 @@ void	testRobotomyRequestFormBeSignedValid(void)
 {
 	std::cout << "Trying to sign a RobotomyRequestForm with a ExecGrade smaller than the Bureaucrat one's" << std::endl;
 	RobotomyRequestForm formExample = RobotomyRequestForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 143);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 72);
 	std::cout << formExample;
 	std::cout << Jhon;
 	formExample.beSigned(Jhon);
@@ -56,7 +56,7 @@ void	testBureaucratSignRobotomyRequestFormInvalid(void)
 {
 	std::cout << "Bureaucrat trying to sign a RobotomyRequestForm with less signGrade than the require one" << std::endl;
 	RobotomyRequestForm formExample = RobotomyRequestForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 146);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 73);
 	std::cout << formExample;
 	std::cout << Jhon;
 	Jhon.signForm(formExample);
@@ -66,7 +66,7 @@ void	testBureaucratSignRobotomyRequestFormValid(void)
 {
 	std::cout << "Bureaucrat trying to sign a RobotomyRequestForm with more signGrade than the require one" << std::endl;
 	RobotomyRequestForm formExample = RobotomyRequestForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 143);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 72);
 	std::cout << formExample;
 	std::cout << Jhon;
 	Jhon.signForm(formExample);
@@ -82,7 +82,7 @@ void	testRobotomyRequestFormExecuteInvalidNotSigned(void)
 	std::cout << "UNSIGNED FORM INVALID EXEC" << std::endl;
 	std::cout << "Trying to execute a RobotomyRequestForm NotSigned with a ExecGrade bigger than the Bureaucrat one's" << std::endl;
 	RobotomyRequestForm formExample = RobotomyRequestForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 136);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 46);
 	std::cout << formExample;
 	std::cout << Jhon;
 	formExample.execute(Jhon);
@@ -93,7 +93,7 @@ void	testRobotomyRequestFormExecuteInvalidSigned(void)
 	std::cout << "SIGNED FORM INVALID EXEC" << std::endl;
 	std::cout << "Trying to execute a RobotomyRequestForm Signed with a ExecGrade bigger than the Bureaucrat one's" << std::endl;
 	RobotomyRequestForm formExample = RobotomyRequestForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 136);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 46);
 	std::cout << formExample;
 	std::cout << Jhon;
 	formExample.beSigned(Jhon);
@@ -105,7 +105,7 @@ void	testRobotomyRequestFormExecuteValidNotSigned(void)
 	std::cout << "UNSIGNED FORM VALID EXEC" << std::endl;
 	std::cout << "Trying to execute a RobotomyRequestForm NotSigned with a ExecGrade smaller than the Bureaucrat one's" << std::endl;
 	RobotomyRequestForm formExample = RobotomyRequestForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 137);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 45);
 	std::cout << formExample;
 	std::cout << Jhon;
 	formExample.execute(Jhon);
@@ -116,7 +116,7 @@ void	testRobotomyRequestFormExecuteValidSigned(void)
 	std::cout << "SIGNED FORM VALID EXEC" << std::endl;
 	std::cout << "Trying to execute a RobotomyRequestForm Signed with a ExecGrade smaller than the Bureaucrat one's" << std::endl;
 	RobotomyRequestForm formExample = RobotomyRequestForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 137);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 45);
 	std::cout << formExample;
 	std::cout << Jhon;
 	formExample.beSigned(Jhon);
@@ -135,7 +135,7 @@ void testBureaucratExecRobotomyRequestFormInvalidNotSigned(void)
 	std::cout << "UNSIGNED FORM INVALID EXEC" << std::endl;
 	std::cout << "Bureaucrat Trying to execute a RobotomyRequestForm NotSigned with a ExecGrade bigger than the Bureaucrat one's" << std::endl;
 	RobotomyRequestForm formExample = RobotomyRequestForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 138);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 46);
 	std::cout << formExample;
 	std::cout << Jhon;
 	Jhon.executeForm(formExample);
@@ -146,7 +146,7 @@ void testBureaucratExecRobotomyRequestFormInvalidSigned(void)
 	std::cout << "SIGNED FORM INVALID EXEC" << std::endl;
 	std::cout << "Bureaucrat Trying to execute a RobotomyRequestForm Signed with a ExecGrade bigger than the Bureaucrat one's" << std::endl;
 	RobotomyRequestForm formExample = RobotomyRequestForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 138);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 46);
 	std::cout << formExample;
 	std::cout << Jhon;
 	Jhon.signForm(formExample);
@@ -158,10 +158,9 @@ void testBureaucratExecRobotomyRequestFormValidNotSigned(void)
 	std::cout << "NOT SIGNED FORM VALID EXEC" << std::endl;
 	std::cout << "Bureaucrat Trying to execute a RobotomyRequestForm NotSigned with a ExecGrade smaller than the Bureaucrat one's" << std::endl;
 	RobotomyRequestForm formExample = RobotomyRequestForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 137);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 45);
 	std::cout << formExample;
 	std::cout << Jhon;
-	Jhon.signForm(formExample);
 	Jhon.executeForm(formExample);
 	std::cout << formExample;
 }
@@ -170,7 +169,7 @@ void testBureaucratExecRobotomyRequestFormValidSigned(void)
 	std::cout << "SIGNED FORM VALID EXEC" << std::endl;
 	std::cout << "Bureaucrat Trying to execute a RobotomyRequestForm Signed with a ExecGrade smaller than the Bureaucrat one's" << std::endl;
 	RobotomyRequestForm formExample = RobotomyRequestForm("example");
-	Bureaucrat Jhon = Bureaucrat("Jhon", 137);
+	Bureaucrat Jhon = Bureaucrat("Jhon", 45);
 	std::cout << formExample;
 	std::cout << Jhon;
 	Jhon.signForm(formExample);
