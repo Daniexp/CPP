@@ -1,17 +1,24 @@
 #include <iostream>
+#include <string>
 #include <PresidentialPardonForm.hpp>
 #include <RobotomyRequestForm.hpp>
 #include <GradeTooLowException.hpp>
 #include <GradeTooHighException.hpp>
 #include <AForm.hpp>
 #include <Bureaucrat.hpp>
-#include <string>
 #include <ShrubberyCreationForm.hpp>
+#include <test.hpp>
 
 
 
 int main(void)
 {
+	int messageLength = 60;
+	char fillchar = '-';
+
+	testBureaucrat(messageLength, fillchar);
+	testShrubberyCreationForm(messageLength, fillchar);
+//	testAForm(messageLength, fillchar);
 // Crear un burócrata
     Bureaucrat bureaucrat("John Doe", 100);
 

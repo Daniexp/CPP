@@ -18,7 +18,11 @@ SRCS		=	\
     FormNotSignedException.cpp \
     AForm.cpp \
     Bureaucrat.cpp \
+	testUtils.cpp \
+	testBureaucrat.cpp \
+	testShrubberyCreationForm.cpp \
 				main.cpp
+#	testForm.cpp
 SRCDIR		=	./src/
 INCDIR		=	./inc/
 DSRC		=	$(addprefix $(SRCDIR), $(SRCS))
