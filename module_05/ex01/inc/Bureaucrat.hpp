@@ -24,7 +24,7 @@ public:
    void incrementGrade();
    void decrementGrade();
 
-	void signForm(const Form& form) const; 
+	void signForm(Form& form) const; 
 
 private:
 	const std::string name;

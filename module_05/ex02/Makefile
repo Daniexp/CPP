@@ -21,6 +21,8 @@ SRCS		=	\
 	testUtils.cpp \
 	testBureaucrat.cpp \
 	testShrubberyCreationForm.cpp \
+	testRobotomyRequestForm.cpp \
+	testPresidentialPardonForm.cpp \
 				main.cpp
 #	testForm.cpp
 SRCDIR		=	./src/

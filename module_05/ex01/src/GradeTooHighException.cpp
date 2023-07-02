@@ -2,5 +2,5 @@
 
 const char* GradeTooHighException::GradeTooHighException::what() const throw()
 {
-	return "The Grade must be smaller than 150.\n";
+	return "The Highest Grade is 1.\n";
 }

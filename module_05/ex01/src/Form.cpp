@@ -11,10 +11,10 @@ Form::Form(const Form& src) : name(src.getName()), isSigned(src.getIsSigned()), 
 //	*this = src;
 }
 
-Form::Form(const std::string& _name) : name(_name), isSigned(0) , execGrade(150), signGrade(1)
+Form::Form(const std::string& _name) : name(_name), isSigned(false) , execGrade(150), signGrade(1)
 {}
 
-Form::Form(const std::string& _name, const int exec, const int sign) : name(_name), isSigned(0), execGrade(exec), signGrade(sign)
+Form::Form(const std::string& _name, const int exec, const int sign) : name(_name), isSigned(false), execGrade(exec), signGrade(sign)
 {
 	if (exec < 1 || sign < 1)
 		throw GradeTooHighException();
@@ -56,9 +56,12 @@ int Form::getSignGrade() const
 
 void Form::beSigned(const Bureaucrat& bureau)
 {
+	if (this->getIsSigned() == true)
+		return ;
 	if (bureau.getGrade() > getSignGrade())
 		throw GradeTooLowException();
-	isSigned = true;
+	else
+		isSigned = true;
 }
 
 std::ostream& operator << (std::ostream& os, const Form& src)
