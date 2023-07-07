@@ -1,5 +1,29 @@
 #include <test.hpp>
 
+void	testRobotomyRequestFormBeSignedSigned(void)
+{
+	std::cout << "Trying to sign a RobotomyRequestForm that is already signed." << std::endl;
+	RobotomyRequestForm formExample = RobotomyRequestForm("example");
+	Bureaucrat Jhon = Bureaucrat("Jhon", 14);
+	std::cout << formExample;
+	std::cout << Jhon;
+	formExample.beSigned(Jhon);
+	std::cout << formExample;
+	formExample.beSigned(Jhon);
+	std::cout << formExample;
+}
+void	testBureaucratSignRobotomyRequestFormSigned(void)
+{
+	std::cout << "Bureaucrat trying to sign a RobotomyRequestForm that is already signed." << std::endl;
+	RobotomyRequestForm formExample = RobotomyRequestForm("example");
+	Bureaucrat Jhon = Bureaucrat("Jhon", 14);
+	std::cout << formExample;
+	std::cout << Jhon;
+	Jhon.signForm(formExample);
+	std::cout << formExample;
+	Jhon.signForm(formExample);
+	std::cout << formExample;
+}
 void	testRobotomyRequestForm(int messageLength, char fillchar)
 {
 	imprimirCentrado("TEST ROBOTOMYREQUESTFORM", messageLength, fillchar);
@@ -51,6 +75,7 @@ void	testRobotomyRequestFormBeSigned(void)
 {
 	tryCatch(testRobotomyRequestFormBeSignedInvalid);
 	tryCatch(testRobotomyRequestFormBeSignedValid);
+	tryCatch(testRobotomyRequestFormBeSignedSigned);
 }
 void	testBureaucratSignRobotomyRequestFormInvalid(void)
 {

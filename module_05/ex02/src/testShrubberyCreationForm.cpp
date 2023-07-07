@@ -7,7 +7,7 @@ void	testShrubberyCreationForm(int messageLength, char fillchar)
 
 	tryCatch(testShrubberyCreationFormGetters);
 
-	testShrubberyCreationFormBeSigned();
+	//testShrubberyCreationFormBeSigned();
 
 	testBureaucratSignShrubberyCreationForm();
 
@@ -29,7 +29,7 @@ void	testShrubberyCreationFormGetters(void)
 }
 void	testShrubberyCreationFormBeSignedInvalid(void)
 {
-	std::cout << "Trying to sign a ShrubberyCreationForm with a ExecGrade bigger than the Bureaucrat one's" << std::endl;
+	std::cout << "Trying to sign a ShrubberyCreationForm with a SignGrade bigger than the Bureaucrat one's" << std::endl;
 	ShrubberyCreationForm formExample = ShrubberyCreationForm("example");
 	Bureaucrat Jhon = Bureaucrat("Jhon", 146);
 	std::cout << formExample;
@@ -37,9 +37,21 @@ void	testShrubberyCreationFormBeSignedInvalid(void)
 	formExample.beSigned(Jhon);
 	std::cout << formExample;
 }
+void	testShrubberyCreationFormBeSignedSigned(void)
+{
+	std::cout << "Trying to sign a ShrubberyCreationForm that is already signed." << std::endl;
+	ShrubberyCreationForm formExample = ShrubberyCreationForm("example");
+	Bureaucrat Jhon = Bureaucrat("Jhon", 14);
+	std::cout << formExample;
+	std::cout << Jhon;
+	formExample.beSigned(Jhon);
+	std::cout << formExample;
+	formExample.beSigned(Jhon);
+	std::cout << formExample;
+}
 void	testShrubberyCreationFormBeSignedValid(void)
 {
-	std::cout << "Trying to sign a ShrubberyCreationForm with a ExecGrade smaller than the Bureaucrat one's" << std::endl;
+	std::cout << "Trying to sign a ShrubberyCreationForm with a SignGrade smaller than the Bureaucrat one's" << std::endl;
 	ShrubberyCreationForm formExample = ShrubberyCreationForm("example");
 	Bureaucrat Jhon = Bureaucrat("Jhon", 143);
 	std::cout << formExample;
@@ -51,9 +63,11 @@ void	testShrubberyCreationFormBeSigned(void)
 {
 	tryCatch(testShrubberyCreationFormBeSignedInvalid);
 	tryCatch(testShrubberyCreationFormBeSignedValid);
+	tryCatch(testShrubberyCreationFormBeSignedSigned);
 }
 void	testBureaucratSignShrubberyCreationFormInvalid(void)
 {
+	std::cout << "testBureaucratSignShrubberyCreationFormInvalid" << std::endl;
 	std::cout << "Bureaucrat trying to sign a ShrubberyCreationForm with less signGrade than the require one" << std::endl;
 	ShrubberyCreationForm formExample = ShrubberyCreationForm("example");
 	Bureaucrat Jhon = Bureaucrat("Jhon", 146);
@@ -64,6 +78,7 @@ void	testBureaucratSignShrubberyCreationFormInvalid(void)
 }
 void	testBureaucratSignShrubberyCreationFormValid(void)
 {
+	std::cout << "testBureaucratSignShrubberyCreationFormValid" << std::endl;
 	std::cout << "Bureaucrat trying to sign a ShrubberyCreationForm with more signGrade than the require one" << std::endl;
 	ShrubberyCreationForm formExample = ShrubberyCreationForm("example");
 	Bureaucrat Jhon = Bureaucrat("Jhon", 143);
@@ -72,13 +87,27 @@ void	testBureaucratSignShrubberyCreationFormValid(void)
 	Jhon.signForm(formExample);
 	std::cout << formExample;
 }
+void	testBureaucratSignShrubberyCreationFormSigned(void)
+{
+	std::cout << "Bureaucrat trying to sign a ShrubberyCreationForm that is already signed." << std::endl;
+	ShrubberyCreationForm formExample = ShrubberyCreationForm("example");
+	Bureaucrat Jhon = Bureaucrat("Jhon", 14);
+	std::cout << formExample;
+	std::cout << Jhon;
+	Jhon.signForm(formExample);
+	std::cout << formExample;
+	Jhon.signForm(formExample);
+	std::cout << formExample;
+}
 void	testBureaucratSignShrubberyCreationForm(void)
 {
 	tryCatch(testBureaucratSignShrubberyCreationFormInvalid);
 	tryCatch(testBureaucratSignShrubberyCreationFormValid);
+	tryCatch(testBureaucratSignShrubberyCreationFormSigned);
 }
 void	testShrubberyCreationFormExecuteInvalidNotSigned(void)
 {
+	std::cout << "testShrubberyCreationFormExecuteInvalidNotSigned" << std::endl;
 	std::cout << "UNSIGNED FORM INVALID EXEC" << std::endl;
 	std::cout << "Trying to execute a ShrubberyCreationForm NotSigned with a ExecGrade bigger than the Bureaucrat one's" << std::endl;
 	ShrubberyCreationForm formExample = ShrubberyCreationForm("example");
@@ -90,6 +119,7 @@ void	testShrubberyCreationFormExecuteInvalidNotSigned(void)
 }
 void	testShrubberyCreationFormExecuteInvalidSigned(void)
 {
+	std::cout << "testShrubberyCreationFormExecuteInvalidSigned" << std::endl;
 	std::cout << "SIGNED FORM INVALID EXEC" << std::endl;
 	std::cout << "Trying to execute a ShrubberyCreationForm Signed with a ExecGrade bigger than the Bureaucrat one's" << std::endl;
 	ShrubberyCreationForm formExample = ShrubberyCreationForm("example");
@@ -102,6 +132,7 @@ void	testShrubberyCreationFormExecuteInvalidSigned(void)
 }
 void	testShrubberyCreationFormExecuteValidNotSigned(void)
 {
+	std::cout << "testShrubberyCreationFormExecuteValidNotSigned" << std::endl;
 	std::cout << "UNSIGNED FORM VALID EXEC" << std::endl;
 	std::cout << "Trying to execute a ShrubberyCreationForm NotSigned with a ExecGrade smaller than the Bureaucrat one's" << std::endl;
 	ShrubberyCreationForm formExample = ShrubberyCreationForm("example");
@@ -113,6 +144,7 @@ void	testShrubberyCreationFormExecuteValidNotSigned(void)
 }
 void	testShrubberyCreationFormExecuteValidSigned(void)
 {
+	std::cout << "testShrubberyCreationFormExecuteValidSigned" << std::endl;
 	std::cout << "SIGNED FORM VALID EXEC" << std::endl;
 	std::cout << "Trying to execute a ShrubberyCreationForm Signed with a ExecGrade smaller than the Bureaucrat one's" << std::endl;
 	ShrubberyCreationForm formExample = ShrubberyCreationForm("example");

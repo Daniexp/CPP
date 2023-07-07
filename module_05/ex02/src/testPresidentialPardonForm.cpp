@@ -1,5 +1,29 @@
 #include <test.hpp>
 
+void	testPresidentialPardonFormBeSignedSigned(void)
+{
+	std::cout << "Trying to sign a PresidentialPardonForm that is already signed." << std::endl;
+	PresidentialPardonForm formExample = PresidentialPardonForm("example");
+	Bureaucrat Jhon = Bureaucrat("Jhon", 14);
+	std::cout << formExample;
+	std::cout << Jhon;
+	formExample.beSigned(Jhon);
+	std::cout << formExample;
+	formExample.beSigned(Jhon);
+	std::cout << formExample;
+}
+void	testBureaucratSignPresidentialPardonFormSigned(void)
+{
+	std::cout << "Bureaucrat trying to sign a PresidentialPardonForm that is already signed." << std::endl;
+	PresidentialPardonForm formExample = PresidentialPardonForm("example");
+	Bureaucrat Jhon = Bureaucrat("Jhon", 14);
+	std::cout << formExample;
+	std::cout << Jhon;
+	Jhon.signForm(formExample);
+	std::cout << formExample;
+	Jhon.signForm(formExample);
+	std::cout << formExample;
+}
 void	testPresidentialPardonForm(int messageLength, char fillchar)
 {
 	imprimirCentrado("TEST PRESIDENTIALPARDONFORM", messageLength, fillchar);
@@ -51,6 +75,7 @@ void	testPresidentialPardonFormBeSigned(void)
 {
 	tryCatch(testPresidentialPardonFormBeSignedInvalid);
 	tryCatch(testPresidentialPardonFormBeSignedValid);
+	tryCatch(testPresidentialPardonFormBeSignedSigned);
 }
 void	testBureaucratSignPresidentialPardonFormInvalid(void)
 {
@@ -76,6 +101,7 @@ void	testBureaucratSignPresidentialPardonForm(void)
 {
 	tryCatch(testBureaucratSignPresidentialPardonFormInvalid);
 	tryCatch(testBureaucratSignPresidentialPardonFormValid);
+	tryCatch(testBureaucratSignPresidentialPardonFormSigned);
 }
 void	testPresidentialPardonFormExecuteInvalidNotSigned(void)
 {
