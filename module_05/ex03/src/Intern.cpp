@@ -3,6 +3,9 @@
 Intern::Intern()
 {
 //Const
+	formName[0] = "presidential pardon";
+	formName[1] = "robotomy request";
+	formName[2] = "shrubbery creation";
 }
 
 Intern::Intern(const Intern& src)
@@ -19,18 +22,17 @@ Intern::~Intern()
 Intern& Intern::operator = (const Intern& src)
 {
 	if (this != &src)
-		return *this;
+	{
+		formName[0] = src.formName[0];
+		formName[1] = src.formName[1];
+		formName[2] = src.formName[2];
+	}
 	return *this;
 }
 
 AForm	*Intern::makeForm(const std::string& name, const std::string& target)
 {
 	AForm *newForm;
-	std::string formName[] =
-	{	"presidential pardon",
-		"robotomy request",
-		"shrubbery creation"
-	};
 	int i = 0;
 	while (i < 3 && formName[i] != name)
 		i++;

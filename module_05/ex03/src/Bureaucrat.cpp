@@ -54,7 +54,7 @@ void Bureaucrat::incrementGrade(void)
 
 void Bureaucrat::decrementGrade(void)
 {
-	if (grade + 1 > 1)
+	if (grade + 1 > 150)
 		throw GradeTooLowException();
 	else
 		grade++;
@@ -70,7 +70,7 @@ void Bureaucrat::signForm(AForm& form) const
 		}
 		catch (const std::exception& e)
 		{
-			std::cout << getName() << " couldn't sign " << form.getName() << " because " << e.what() << "The signGrade of the form is " << form.getSignGrade() << " and the Bureaucrat have " << getGrade() << std::endl;
+			std::cout << getName() << " couldn't sign " << form.getName() << " because the signGrade of the form is " << form.getSignGrade() << " and the Bureaucrat have " << getGrade() << std::endl;
 		}
 	else
 		std::cout << getName() << " couldn't sign " << form.getName() << " because the form is already signed..." << std::endl;
@@ -91,6 +91,13 @@ void Bureaucrat::executeForm(AForm const & form)
 	}
 	catch (std::exception& e)
 	{
-		std::cerr << getName() << " : " << e.what() << "The execGrade of the form is " << form.getExecGrade() << " and the Bureaucrat have " << getGrade() << std::endl;
+		std::cerr << getName() << " couldn't sign the form because ";
+		if (typeid(FormNotSignedException) == typeid(e))
+			std::cerr << "the form must to be signed to be execute";
+		else if (typeid(e) == typeid(GradeTooLowException))
+			std::cerr << "the execGrade of the form is " << form.getExecGrade() << " and the Bureaucrat have " << getGrade();
+		else
+			std::cerr << "of an unknowm exception...";
+		std:: cerr << std::endl;
 	}
 }

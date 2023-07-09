@@ -19,6 +19,11 @@ SRCS		=	\
     FormNotSignedException.cpp \
     AForm.cpp \
     Bureaucrat.cpp \
+	testBureaucrat.cpp \
+	testPresidentialPardonForm.cpp \
+	testRobotomyRequestForm.cpp \
+	testShrubberyCreationForm.cpp \
+	testUtils.cpp \
 				main.cpp
 SRCDIR		=	./src/
 INCDIR		=	./inc/

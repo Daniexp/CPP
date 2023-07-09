@@ -8,6 +8,7 @@
 #include <Bureaucrat.hpp>
 #include <string>
 #include <ShrubberyCreationForm.hpp>
+#include <test.hpp>
 
 
 void leaks(void)
@@ -32,6 +33,13 @@ void 	deleteForms(AForm *f1, AForm *f2, AForm *f3)
 
 int main(void)
 {
+	int	messageLength = 60;
+	char	fillchar = '-';
+
+	testBureaucrat(messageLength, fillchar);
+	testShrubberyCreationForm(messageLength, fillchar);
+	testRobotomyRequestForm(messageLength, fillchar);
+	testPresidentialPardonForm(messageLength, fillchar);
 // Crear un burócrata
 	std::atexit(leaks);
     Bureaucrat bureaucrat("John Doe", 100);
