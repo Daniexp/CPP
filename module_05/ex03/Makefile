@@ -24,6 +24,7 @@ SRCS		=	\
 	testRobotomyRequestForm.cpp \
 	testShrubberyCreationForm.cpp \
 	testUtils.cpp \
+	testIntern.cpp \
 				main.cpp
 SRCDIR		=	./src/
 INCDIR		=	./inc/

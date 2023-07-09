@@ -10,7 +10,6 @@
 #include <ShrubberyCreationForm.hpp>
 #include <test.hpp>
 
-
 void leaks(void)
 {
 	system("leaks -q ex03");
@@ -42,13 +41,20 @@ int main(void)
 	testPresidentialPardonForm(messageLength, fillchar);
 // Crear un burócrata
 	std::atexit(leaks);
+	imprimirCentrado("", messageLength, fillchar);
+	imprimirCentrado("INTERN TEST", messageLength, fillchar);
+	imprimirCentrado("", messageLength, fillchar);
+
     Bureaucrat bureaucrat("John Doe", 100);
 	AForm *shrubberyForm;
 	AForm *robotomyForm;
 	AForm *pardonForm;
+    createForms(&shrubberyForm, &robotomyForm, &pardonForm);
+	testIntern(shrubberyForm, messageLength, fillchar);
+	testIntern(robotomyForm, messageLength, fillchar);
+	testIntern(pardonForm, messageLength, fillchar);
 
     // Crear instancias de los formularios
-    createForms(&shrubberyForm, &robotomyForm, &pardonForm);
     try {
         // Firmar y ejecutar el formulario ShrubberyCreationForm
         bureaucrat.signForm(*shrubberyForm);

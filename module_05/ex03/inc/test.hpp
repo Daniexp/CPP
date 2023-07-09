@@ -11,6 +11,7 @@
 //	TEST UTILS
 void 	imprimirCentrado(const std::string& message, int maxlen, char fillchar); 
 void	tryCatch(void (*testBureaucratFunction)(void));
+void	tryCatch2(void (*testBureaucratFunction)(AForm *), AForm * formExample);
 //	TEST BUREAUCRAT	(ex00)
 void	testBureaucratCreateInvalidGradeTooLow(void);
 void	testBureaucratCreateInvalidGradeTooHigh(void);
@@ -74,20 +75,18 @@ void	testBureaucratExecPresidentialPardonFormValidSigned(void);
 void	testBureaucratExecPresidentialPardonForm(void);
 void	testPresidentialPardonForm(int messageLength, char fillchar);
 //	TEST INTERN
-/*
-void	testInternGetters(void);
-void	testInternBeSigned(void);
-void	testBureaucratSignIntern(void);
-void	testInternExecuteInvalidNotSigned(void);
-void	testInternExecuteInvalidSigned(void);
-void	testInternExecuteValidNotSigned(void);
-void	testInternExecuteInvalidSigned(void);
-void	testInternExecute(void);
-void	testBureaucratExecInternInvalidNotSigned(void);
-void	testBureaucratExecInternInvalidSigned(void);
-void	testBureaucratExecInternValidNotSigned(void);
-void	testBureaucratExecInternValidSigned(void);
-void	testBureaucratExecIntern(void);
-void	testIntern(int messageLength, char fillchar);
-*/
+void	testInternGetters(AForm *formExample);
+void	testInternBeSigned(AForm *formExample);
+void	testBureaucratSignIntern(AForm *formExample);
+void	testInternExecuteInvalidNotSigned(AForm *formExample);
+void	testInternExecuteInvalidSigned(AForm *formExample);
+void	testInternExecuteValidNotSigned(AForm *formExample);
+void	testInternExecuteInvalidSigned(AForm *formExample);
+void	testInternExecute(AForm *formExample);
+void	testBureaucratExecInternInvalidNotSigned(AForm *formExample);
+void	testBureaucratExecInternInvalidSigned(AForm *formExample);
+void	testBureaucratExecInternValidNotSigned(AForm *formExample);
+void	testBureaucratExecInternValidSigned(AForm *formExample);
+void	testBureaucratExecIntern(AForm *formExample);
+void	testIntern(AForm *formExample, int messageLength, char fillchar);
 #endif

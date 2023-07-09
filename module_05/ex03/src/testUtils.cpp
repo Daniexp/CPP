@@ -40,3 +40,20 @@ void	tryCatch(void (*testBureaucratFunction)(void))
 		std::cout << e.what();
 	}
 }
+void	tryCatch2(void (*testBureaucratFunction)(AForm *), AForm *formExample)
+{
+	int messageLength = 60;
+	char fillchar = '-';
+	static int countTest = 0;
+	
+
+	imprimirCentrado("TEST " + std::to_string(countTest++), messageLength, fillchar); 
+	try
+	{
+		testBureaucratFunction(formExample);
+	}
+	catch (std::exception & e)
+	{
+		std::cout << e.what();
+	}
+}

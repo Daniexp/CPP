@@ -1,15 +1,15 @@
 #include <test.hpp>
 
-void	testIntern(int messageLength, char fillchar)
+void	testIntern(AForm *formExample, int messageLength, char fillchar)
 {
 	imprimirCentrado("TEST SHRUBBERYCREATIONFORM", messageLength, fillchar);
 	std::cout << std::endl;
 
-	testBureaucratSignIntern();
+//	testBureaucratSignIntern(formExample);
 
-	testInternExecute();
+	testInternExecute(formExample);
 
-	testBureaucratExecIntern();
+	testBureaucratExecIntern(formExample);
 
 	imprimirCentrado("END", messageLength, fillchar);
 }
@@ -37,9 +37,9 @@ void	testInternBeSignedSigned(AForm *formExample)
 	Bureaucrat Jhon = Bureaucrat("Jhon", 14);
 	std::cout << formExample;
 	std::cout << Jhon;
-	formExample->beSigned(Jhon);
+	Jhon.signForm(*formExample);
 	std::cout << formExample;
-	formExample->beSigned(Jhon);
+	Jhon.signForm(*formExample);
 	std::cout << formExample;
 }
 void	testInternBeSignedValid(AForm *formExample)
@@ -51,11 +51,11 @@ void	testInternBeSignedValid(AForm *formExample)
 	formExample->beSigned(Jhon);
 	std::cout << formExample;
 }
-void	testInternBeSigned(void)(AForm *formExample)
+void	testInternBeSigned(AForm *formExample)
 {
-	tryCatch(testInternBeSignedInvalid);
-	tryCatch(testInternBeSignedValid);
-	tryCatch(testInternBeSignedSigned);
+	tryCatch2(testInternBeSignedInvalid, formExample);
+	tryCatch2(testInternBeSignedValid, formExample);
+	tryCatch2(testInternBeSignedSigned, formExample);
 }
 void	testInternExecuteInvalidNotSigned(AForm *formExample)
 {
@@ -65,7 +65,7 @@ void	testInternExecuteInvalidNotSigned(AForm *formExample)
 	Bureaucrat Jhon = Bureaucrat("Jhon", 136);
 	std::cout << formExample;
 	std::cout << Jhon;
-	formExample.execute(Jhon);
+	formExample->execute(Jhon);
 	std::cout << formExample;
 }
 void	testInternExecuteInvalidSigned(AForm *formExample)
@@ -99,16 +99,16 @@ void	testInternExecuteValidSigned(AForm *formExample)
 	Bureaucrat Jhon = Bureaucrat("Jhon", 137);
 	std::cout << formExample;
 	std::cout << Jhon;
-	formExample->beSigned(Jhon);
-	formExample->execute(Jhon);
+	Jhon.signForm(*formExample);
+	Jhon.executeForm(*formExample);
 	std::cout << formExample;
 }
-void	testInternExecute(void)
+void	testInternExecute(AForm *formExample)
 {
-	tryCatch(testInternExecuteInvalidNotSigned);
-	tryCatch(testInternExecuteInvalidSigned);
-	tryCatch(testInternExecuteValidNotSigned);
-	tryCatch(testInternExecuteValidSigned);
+	tryCatch2(testInternExecuteInvalidNotSigned, formExample);
+	tryCatch2(testInternExecuteInvalidSigned, formExample);
+	tryCatch2(testInternExecuteValidNotSigned, formExample);
+	tryCatch2(testInternExecuteValidSigned, formExample);
 }
 void testBureaucratExecInternInvalidNotSigned(AForm *formExample)
 {
@@ -117,7 +117,7 @@ void testBureaucratExecInternInvalidNotSigned(AForm *formExample)
 	Bureaucrat Jhon = Bureaucrat("Jhon", 138);
 	std::cout << formExample;
 	std::cout << Jhon;
-	Jhon.executeForm(formExample);
+	Jhon.executeForm(*formExample);
 	std::cout << formExample;
 }
 void testBureaucratExecInternInvalidSigned(AForm *formExample)
@@ -127,19 +127,18 @@ void testBureaucratExecInternInvalidSigned(AForm *formExample)
 	Bureaucrat Jhon = Bureaucrat("Jhon", 138);
 	std::cout << formExample;
 	std::cout << Jhon;
-	Jhon.signForm(formExample);
-	Jhon.executeForm(formExample);
+	Jhon.signForm(*formExample);
+	Jhon.executeForm(*formExample);
 	std::cout << formExample;
 }
 void testBureaucratExecInternValidNotSigned(AForm *formExample)
 {
 	std::cout << "NOT SIGNED FORM VALID EXEC" << std::endl;
 	std::cout << "Bureaucrat Trying to execute a Intern NotSigned with a ExecGrade smaller than the Bureaucrat one's" << std::endl;
-	Intern formExample = Intern("example");
 	Bureaucrat Jhon = Bureaucrat("Jhon", 137);
 	std::cout << formExample;
 	std::cout << Jhon;
-	Jhon.executeForm(formExample);
+	Jhon.executeForm(*formExample);
 	std::cout << formExample;
 }
 void testBureaucratExecInternValidSigned(AForm *formExample)
@@ -149,14 +148,14 @@ void testBureaucratExecInternValidSigned(AForm *formExample)
 	Bureaucrat Jhon = Bureaucrat("Jhon", 137);
 	std::cout << formExample;
 	std::cout << Jhon;
-	Jhon.signForm(formExample);
-	Jhon.executeForm(formExample);
+	Jhon.signForm(*formExample);
+	Jhon.executeForm(*formExample);
 	std::cout << formExample;
 }
-void testBureaucratExecIntern(void)
+void testBureaucratExecIntern(AForm *formExample)
 {
-	tryCatch(testBureaucratExecInternInvalidNotSigned);
-	tryCatch(testBureaucratExecInternInvalidSigned);
-	tryCatch(testBureaucratExecInternValidNotSigned);
-	tryCatch(testBureaucratExecInternValidSigned);
+	tryCatch2(testBureaucratExecInternInvalidNotSigned, formExample);
+	tryCatch2(testBureaucratExecInternInvalidSigned, formExample);
+	tryCatch2(testBureaucratExecInternValidNotSigned, formExample);
+	tryCatch2(testBureaucratExecInternValidSigned, formExample);
 }
