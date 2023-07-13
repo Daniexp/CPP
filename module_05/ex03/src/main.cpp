@@ -32,6 +32,7 @@ void 	deleteForms(AForm *f1, AForm *f2, AForm *f3)
 
 int main(void)
 {
+	std::atexit(leaks);
 	int	messageLength = 60;
 	char	fillchar = '-';
 
@@ -39,64 +40,23 @@ int main(void)
 	testShrubberyCreationForm(messageLength, fillchar);
 	testRobotomyRequestForm(messageLength, fillchar);
 	testPresidentialPardonForm(messageLength, fillchar);
-// Crear un burócrata
-	std::atexit(leaks);
+
 	imprimirCentrado("", messageLength, fillchar);
 	imprimirCentrado("INTERN TEST", messageLength, fillchar);
 	imprimirCentrado("", messageLength, fillchar);
 
-    Bureaucrat bureaucrat("John Doe", 100);
+ 	Bureaucrat bureaucrat("John Doe", 100);
+
 	AForm *shrubberyForm;
 	AForm *robotomyForm;
 	AForm *pardonForm;
-    createForms(&shrubberyForm, &robotomyForm, &pardonForm);
+
+    	createForms(&shrubberyForm, &robotomyForm, &pardonForm);
+
 	testIntern(shrubberyForm, messageLength, fillchar);
 	testIntern(robotomyForm, messageLength, fillchar);
 	testIntern(pardonForm, messageLength, fillchar);
 
-    // Crear instancias de los formularios
-    try {
-        // Firmar y ejecutar el formulario ShrubberyCreationForm
-        bureaucrat.signForm(*shrubberyForm);
-        bureaucrat.executeForm(*shrubberyForm);
-
-        // Firmar y ejecutar el formulario RobotomyRequestForm
-        bureaucrat.signForm(*robotomyForm);
-        bureaucrat.executeForm(*robotomyForm);
-
-        // Firmar y ejecutar el formulario PresidentialPardonForm
-        bureaucrat.signForm(*pardonForm);
-        bureaucrat.executeForm(*pardonForm);
-    } catch (const std::exception& e) {
-        std::cout << "Error: " << e.what() << std::endl;
-    }
-	deleteForms(shrubberyForm, robotomyForm, pardonForm);
-    	createForms(&shrubberyForm, &robotomyForm, &pardonForm);
-try {
-        // Crear un burócrata
-        Bureaucrat bureaucrat("Big Boss", 1);
-
-        // Crear instancias de los formularios
-
-        // Firmar y ejecutar el formulario ShrubberyCreationForm
-        bureaucrat.signForm(*shrubberyForm);
-        bureaucrat.executeForm(*shrubberyForm);
-
-        // Intentar ejecutar el formulario RobotomyRequestForm sin firmarlo primero
-        bureaucrat.executeForm(*robotomyForm);
-
-        // Firmar nuevamente el formulario ShrubberyCreationForm (intento de firma duplicada)
-        bureaucrat.signForm(*shrubberyForm);
-
-        // Firmar y ejecutar el formulario RobotomyRequestForm
-        bureaucrat.signForm(*robotomyForm);
-        bureaucrat.executeForm(*robotomyForm);
-
-        // Intentar ejecutar el formulario PresidentialPardonForm sin firmarlo primero
-        bureaucrat.executeForm(*pardonForm);
-    } catch (const std::exception& e) {
-        std::cout << "Error: " << e.what() << std::endl;
-    }
 	deleteForms(shrubberyForm, robotomyForm, pardonForm);
     return 0;
 }
