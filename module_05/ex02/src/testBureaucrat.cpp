@@ -61,6 +61,7 @@ void	testBureaucratGeters()
 {
 	std::cout << "Call Bureaucrat geters" << std::endl;
 	Bureaucrat Pepe = Bureaucrat("Pepe", 150);
+	std::cout << Pepe;
 	std::cout << "Name: " << Pepe.getName() << std::endl;
 	std::cout << "Grade: " <<  Pepe.getGrade() << std::endl; 
 }
