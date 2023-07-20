@@ -5,8 +5,8 @@
 ################################################################################
 NAME		=	ex00
 CXX			=	clang++
-CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc
-CXXLFLAGS	=	-L inc -lm
+CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc -I doctest
+CXXLFLAGS	=	-L inc -L ./doctest -lm -ldoctest
 RM			=	rm -rf
 
 SRCS		=	\
