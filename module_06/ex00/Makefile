@@ -1,35 +1,65 @@
-
 ################################################################################
-####################			ex00		#########################
-####################		By: dexposit		#########################
+####################        ex00        #########################
+####################    By: dexposit    #########################
 ################################################################################
-NAME		=	ex00
-CXX			=	clang++
-CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc -I doctest
-CXXLFLAGS	=	-L inc -L ./doctest -lm -ldoctest
-RM			=	rm -rf
+NAME        =    ex00
+TEST_NAME   =    $(NAME)_test
+EXEC_TEST_NAME = $(NAME)_exec_test
+CXX         =    clang++
+CXXFLAGS    =    -Wall -Werror -Wextra -std=c++98 -I inc
+RM          =    rm -rf
 
-SRCS		=	\
-				main.cpp
-SRCDIR		=	./src/
-INCDIR		=	./inc/
-DSRC		=	$(addprefix $(SRCDIR), $(SRCS))
+SRCS        =    \
+                main.cpp
+TEST_SRCS   =    \
+                main_func_test.cpp \
+                main_exec_test.cpp
+
+SRCDIR      =    ./src/
+TESTDIR     =    ./test/
+INCDIR      =    ./inc/
+DSRC        =    $(addprefix $(SRCDIR), $(SRCS))
+TEST_DSRC   =    $(addprefix $(TESTDIR), $(TEST_SRCS))
 .SILENT:
-OBJS		=	$(DSRC:.cpp=.o)
+OBJS        =    $(DSRC:.cpp=.o)
+TEST_OBJS   =    $(TEST_DSRC:.cpp=.o)
 
-all:	$(NAME)
+# Variable condicional para compilar main.cpp dependiendo del objetivo
+ifeq ($(MAKECMDGOALS), test)
+	SRCS := $(filter-out main.cpp, $(SRCS))
+	OBJS := $(filter-out $(SRCDIR)main.o, $(OBJS))
+endif
 
-$(NAME):	$(OBJS)
+all: $(NAME)
+
+$(NAME): $(OBJS)
 	$(CXX) -o $(NAME) $(CXXFLAGS) $^
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(TEST_OBJS)
 
-fclean:	clean
-	$(RM) $(NAME)
+fclean: clean
+	$(RM) $(NAME) $(TEST_NAME) $(EXEC_TEST_NAME)
 
-re:	fclean all
+re: fclean all
 
-bonus:
+test: func_test exec_test
 
-.PHONY: all bonus clean fclean re
+func_test: $(OBJS) $(TESTDIR)main_func_test.o
+	$(CXX) -o $(TEST_NAME) $(CXXFLAGS) $^
+	./$(TEST_NAME)
+
+exec_test: $(SRCDIR)main.o $(TESTDIR)main_exec_test.o $(TEST_OBJS)
+	$(CXX) -o $(EXEC_TEST_NAME) $(CXXFLAGS) $^
+	./$(EXEC_TEST_NAME)
+
+.PHONY: all clean fclean re test func_test exec_test
+
+test_objs: $(TEST_OBJS)
+
+$(TESTDIR)%.o: $(TESTDIR)%.cpp
+	$(CXX) -c -o $@ $(CXXFLAGS) $<
+
+$(SRCDIR)%.o: $(SRCDIR)%.cpp
+	$(CXX) -c -o $@ $(CXXFLAGS) $<
+
