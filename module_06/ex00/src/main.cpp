@@ -1,4 +1,5 @@
 
+#include <ScalarConvert.hpp>
 #include <iostream>
 #include <string>
 #ifndef DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN

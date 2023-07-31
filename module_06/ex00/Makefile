@@ -10,6 +10,7 @@ CXXFLAGS    =    -Wall -Werror -Wextra -std=c++98 -I inc
 RM          =    rm -rf
 
 SRCS        =    \
+    ScalarConvert.cpp \
                 main.cpp
 TEST_SRCS   =    \
                 main_func_test.cpp \
