@@ -23,5 +23,18 @@ ScalarConvert::~ScalarConvert()
 
 ScalarConvert& ScalarConvert::operator = (const ScalarConvert& src)
 {
+	if (this != &src)
+	{
+	}
 	return *this;
+}
+
+std::ostream& ScalarConvert::operator << (std::ostream& os, const ScalarConvert) 
+{
+	os << "char: " << getChar() << std::endl <<
+		"int: " << getInt() << std::endl <<
+		"float: " << getFloat() << std::endl <<
+		"double: " << getDouble() << std::endl;
+
+	return os;
 }

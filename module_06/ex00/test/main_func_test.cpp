@@ -12,14 +12,9 @@
 // Agrega tus pruebas aquí
     // Ejemplo de una prueba simple
 
-#define ft_literal_valid_int(arg) \
-TEST_CASE("ft: convertStirngToLiteral(), Int, valid", #arg) {
-    // ...
-	CHECK(ScalarConvert("").getInt() == arg.toInt();
+TEST_CASE("Positive Integer Valid") {
+	CHECK(ScalarConvert("5").getInt() == 5;
 }
-    TEST_CASE("ft: convertStirngToLiteral(), Int, valid - " #arg) { \
-        CHECK(ScalarConvert("5").getInt() == arg); \
-    }
 
 int main(int argc, char** argv) {
     // Inicializar doctest
@@ -27,9 +22,6 @@ int main(int argc, char** argv) {
     context.applyCommandLine(argc, argv);
 
     // Llamar a los casos de prueba con diferentes argumentos
-    ft_literal_valid_int(5);
-    ft_literal_valid_int(10);
-    ft_literal_valid_int(-2);
 
     // Configurar el mensaje para el test
     context.setOption("no-breaks", true);
