@@ -4,18 +4,12 @@
 #include <sstream>
 #include <ScalarConvert.hpp>
 
-// Incluye los archivos necesarios que contienen las funcionalidades que deseas probar
-//#include "archivo1.h"
-//#include "archivo2.h"
-// ...
-
 // Agrega tus pruebas aquí
     // Ejemplo de una prueba simple
-
 TEST_CASE("Positive Integer Valid") {
-	CHECK(ScalarConvert("5").getInt() == 5;
+	CHECK(ScalarConvert("5").getInt() == 5);
 }
-
+/*
 int main(int argc, char** argv) {
     // Inicializar doctest
     doctest::Context context;
@@ -31,3 +25,4 @@ int main(int argc, char** argv) {
 
     return res;
 }
+*/

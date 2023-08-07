@@ -26,7 +26,7 @@ OBJS        =    $(DSRC:.cpp=.o)
 TEST_OBJS   =    $(TEST_DSRC:.cpp=.o)
 
 # Variable condicional para compilar main.cpp dependiendo del objetivo
-ifeq ($(MAKECMDGOALS), test)
+ifeq ($(MAKECMDGOALS), func_test)
 	SRCS := $(filter-out main.cpp, $(SRCS))
 	OBJS := $(filter-out $(SRCDIR)main.o, $(OBJS))
 endif

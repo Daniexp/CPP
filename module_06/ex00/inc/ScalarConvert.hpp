@@ -6,15 +6,15 @@
 class ScalarConvert
 {
 public:
-	ScalarConvert();
 	ScalarConvert(const std::string& execArgument);
 	~ScalarConvert();
    ScalarConvert(const ScalarConvert& src);
    ScalarConvert& operator=(const ScalarConvert& src);
-	int getInt();
-	char getChar();
-	float getFloat();
-	double getDouble();
+	int getInt() const;
+	char getChar() const;
+	float getFloat() const;
+	double getDouble() const;
+	const std::string& getExecArgument() const;
 private:
 	const std::string& execArgument;
 	int toInt;
@@ -25,9 +25,6 @@ private:
 	void convertStringToLiteral();
 	void convertLiteralToScalarTypes();
 };
-std::ostream& operator << (std::ostream& os, const ScalarConvert)
-{
-	return os;
-}
+std::ostream& operator << (std::ostream& os, const ScalarConvert& src);
 
 #endif     //SCALARCONVERT_H
