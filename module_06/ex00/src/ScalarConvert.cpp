@@ -3,6 +3,7 @@
 ScalarConvert::ScalarConvert(const std::string& execArgument) : execArgument(execArgument)
 {
 //Const
+	convertLiteralToScalarType();
 }
 
 ScalarConvert::ScalarConvert(const ScalarConvert& src) : execArgument(src.getExecArgument())
@@ -52,6 +53,22 @@ double ScalarConvert::getDouble() const
 {
 	return toDouble;
 }
+bool ScalarConvert::checkError(int type, const std::string& expectResult)
+{
+	std::string actualResult;
+	if (type >= 0 && type <= 3)
+		actualResult = this->error[type];
+	return (type >= 0 && type <= 3 && expectResult == actualResult);	
+}
+std::string ScalarConvert::getError(int type)
+{
+	std::string actualResult;
+	if (type >= 0 && type <= 3)
+		actualResult = this->error[type];
+	else
+		actualResult = "No error detected.";
+	return actualResult;
+}
 
 std::ostream& operator << (std::ostream& os, const ScalarConvert& src) 
 {
@@ -61,4 +78,24 @@ std::ostream& operator << (std::ostream& os, const ScalarConvert& src)
 		"double: " << src.getDouble() << std::endl;
 
 	return os;
+}
+void ScalarConvert::setInt()
+{
+	try
+	{
+		this->toInt = std::stoi(this->getExecArgument());
+	}
+	catch(std::invalid_argument& message)
+	{
+		this->error[1] = "impossible";
+	}
+	catch(std::out_of_range& message)
+	{
+		this->error[1] = "out of range";
+	}
+}
+
+void ScalarConvert::convertLiteralToScalarType()
+{
+	setInt();
 }

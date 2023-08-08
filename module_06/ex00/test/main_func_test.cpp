@@ -9,6 +9,14 @@
 TEST_CASE("Positive Integer Valid") {
 	CHECK(ScalarConvert("5").getInt() == 5);
 }
+TEST_CASE("Negative Integer overflow")
+{
+	CHECK(ScalarConvert("-1111111111111111111111111111111111").getError(1) =="out of range");
+}
+TEST_CASE("Integer - Not possible convert")
+{
+	CHECK(ScalarConvert("holaMundo prueba de cadena").getError(1) == "impossible");
+}
 /*
 int main(int argc, char** argv) {
     // Inicializar doctest

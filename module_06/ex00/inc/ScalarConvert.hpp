@@ -15,15 +15,22 @@ public:
 	float getFloat() const;
 	double getDouble() const;
 	const std::string& getExecArgument() const;
+	void setInt();
+	void setChar();
+	void setFloat();
+	void setDouble();
+	bool checkError(int type, const std::string& expectResult);
+	std::string getError(int type);
 private:
-	const std::string& execArgument;
-	int toInt;
+	const std::string execArgument;
 	char toChar;
+	int toInt;
 	float toFloat;
 	double toDouble;
+	std::string error[4];
 
 	void convertStringToLiteral();
-	void convertLiteralToScalarTypes();
+	void convertLiteralToScalarType();
 };
 std::ostream& operator << (std::ostream& os, const ScalarConvert& src);
 
