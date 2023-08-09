@@ -40,7 +40,7 @@ clean:
 	$(RM) $(OBJS) $(TEST_OBJS)
 
 fclean: clean
-	$(RM) $(NAME) $(TEST_NAME) $(EXEC_TEST_NAME)
+	$(RM) $(NAME) $(TEST_NAME) $(EXEC_TEST_NAME) $(TEST_OBJS)
 
 re: fclean all
 

@@ -20,7 +20,18 @@ TEST_CASE("Integer - Not possible convert")
 TEST_CASE("Alphabetical char")
 {
 	CHECK(ScalarConvert("A").getChar() == 'A');
-	//CHECK(ScalarConvert("A").getInt() == 65);
+	CHECK(ScalarConvert("*").getChar() == '*');
+	CHECK(ScalarConvert(" ").getChar() == ' ');
+}
+TEST_CASE("Not possible char convert")
+{
+	CHECK(ScalarConvert("Hola mundo").getError(0) == "impossible");
+}
+TEST_CASE("Valid float")
+{
+	CHECK(ScalarConvert("15.0f").getFloat() == 15.0f);
+	CHECK(ScalarConvert("-55.0").getFloat() == -55.0f);
+	CHECK(ScalarConvert("5.0f").getError(2) == "clean");
 }
 /*
 int main(int argc, char** argv) {

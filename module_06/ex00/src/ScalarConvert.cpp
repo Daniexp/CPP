@@ -65,8 +65,8 @@ std::string ScalarConvert::getError(int type)
 	std::string actualResult;
 	if (type >= 0 && type <= 3)
 		actualResult = this->error[type];
-	else
-		actualResult = "No error detected.";
+	if (actualResult.length() == 0)
+		actualResult = "clean";
 	return actualResult;
 }
 
@@ -95,7 +95,33 @@ void ScalarConvert::setInt()
 	}
 }
 
+void ScalarConvert::setChar()
+{
+	this->toChar = static_cast<char>((int)*(this->getExecArgument().c_str()));
+	if (this->getExecArgument().length() > 1)
+		this->error[0] = "impossible";
+	
+}
+
+void ScalarConvert::setFloat()
+{
+	try
+	{
+		this->toFloat = static_cast<float>(std::stof(this->getExecArgument().c_str()));
+	}
+	catch(std::invalid_argument& message)
+	{
+		this->error[2] = "impossible";
+	}
+	catch(std::out_of_range& message)
+	{
+		this->error[2] = "out of range";
+	}
+	
+}
+
 void ScalarConvert::convertLiteralToScalarType()
 {
+	setChar();
 	setInt();
 }
