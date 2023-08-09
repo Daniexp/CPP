@@ -107,7 +107,8 @@ void ScalarConvert::setFloat()
 {
 	try
 	{
-		this->toFloat = static_cast<float>(std::stof(this->getExecArgument().c_str()));
+		this->toFloat = (std::strtof(this->getExecArgument().c_str(), NULL));
+		//this->toFloat = static_cast<float>(std::stof(this->getExecArgument().c_str()));
 	}
 	catch(std::invalid_argument& message)
 	{
