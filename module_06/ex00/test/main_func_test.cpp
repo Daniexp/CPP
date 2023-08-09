@@ -17,6 +17,11 @@ TEST_CASE("Integer - Not possible convert")
 {
 	CHECK(ScalarConvert("holaMundo prueba de cadena").getError(1) == "impossible");
 }
+TEST_CASE("Alphabetical char")
+{
+	CHECK(ScalarConvert("A").getChar() == 'A');
+	//CHECK(ScalarConvert("A").getInt() == 65);
+}
 /*
 int main(int argc, char** argv) {
     // Inicializar doctest
