@@ -1,5 +1,9 @@
 #ifndef SCALARCONVERT_H
 #define SCALARCONVERT_H
+#define INT 0
+#define CHAR 1
+#define isFloat 2
+#define isDouble 3
 
 #include <iostream>
 #include <string>
@@ -14,12 +18,13 @@ public:
 	char getChar() const;
 	float getFloat() const;
 	double getDouble() const;
+	int getType() const;
 	const std::string& getExecArgument() const;
 	void setInt();
 	void setChar();
 	void setFloat();
 	void setDouble();
-	bool checkError(int type, const std::string& expectResult);
+	void setType();
 	std::string getError(int type);
 private:
 	const std::string execArgument;
@@ -28,6 +33,7 @@ private:
 	float toFloat;
 	double toDouble;
 	std::string error[4];
+	int	type;
 
 	void convertStringToLiteral();
 	void convertLiteralToScalarType();

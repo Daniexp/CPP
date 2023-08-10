@@ -3,6 +3,7 @@
 ScalarConvert::ScalarConvert(const std::string& execArgument) : execArgument(execArgument)
 {
 //Const
+	setType();
 	convertLiteralToScalarType();
 }
 
@@ -53,13 +54,7 @@ double ScalarConvert::getDouble() const
 {
 	return toDouble;
 }
-bool ScalarConvert::checkError(int type, const std::string& expectResult)
-{
-	std::string actualResult;
-	if (type >= 0 && type <= 3)
-		actualResult = this->error[type];
-	return (type >= 0 && type <= 3 && expectResult == actualResult);	
-}
+
 std::string ScalarConvert::getError(int type)
 {
 	std::string actualResult;
@@ -79,11 +74,41 @@ std::ostream& operator << (std::ostream& os, const ScalarConvert& src)
 
 	return os;
 }
+
+void ScalarConvert::setType()
+{
+	// char 1 long y ascii
+	if (this->execArgument.length() == 1)
+		this->type = CHAR;
+	// 	+ 1 length
+	// 	is ascii 
+	// ! No se pueden introducir no printeables  =>
+	// 	ascii at least 2 digits
+	// float
+	// 	.	opcional
+	// 	f
+	// double
+	// 	.
+	// int
+	// 	no . no f
+
+}
+int ScalarConvert::getType() const
+{
+	return this->type;
+}
+
 void ScalarConvert::setInt()
 {
+	if (getType() != INT)
+	{
+		this->error[1] = "notype";
+		return ;
+
+	}
 	try
 	{
-		this->toInt = std::stoi(this->getExecArgument());
+		this->toInt =  std::stoi(this->getExecArgument());
 	}
 	catch(std::invalid_argument& message)
 	{
@@ -97,6 +122,11 @@ void ScalarConvert::setInt()
 
 void ScalarConvert::setChar()
 {
+	if (getType() != CHAR)
+	{
+		this->error[0] = "notype";
+		return ;
+	}
 	this->toChar = static_cast<char>((int)*(this->getExecArgument().c_str()));
 	if (this->getExecArgument().length() > 1)
 		this->error[0] = "impossible";
@@ -107,8 +137,7 @@ void ScalarConvert::setFloat()
 {
 	try
 	{
-		this->toFloat = (std::strtof(this->getExecArgument().c_str(), NULL));
-		//this->toFloat = static_cast<float>(std::stof(this->getExecArgument().c_str()));
+		this->toFloat = static_cast<float>(std::stof(this->getExecArgument().c_str()));
 	}
 	catch(std::invalid_argument& message)
 	{
@@ -121,8 +150,26 @@ void ScalarConvert::setFloat()
 	
 }
 
+void ScalarConvert::setDouble()
+{
+	try
+	{
+		this->toDouble= static_cast<double>(std::stod(this->getExecArgument().c_str()));
+	}
+	catch(std::invalid_argument& message)
+	{
+		this->error[3] = "impossible";
+	}
+	catch(std::out_of_range& message)
+	{
+		this->error[3] = "out of range";
+	}
+}
+
 void ScalarConvert::convertLiteralToScalarType()
 {
 	setChar();
 	setInt();
+	setFloat();
+	setDouble();
 }
