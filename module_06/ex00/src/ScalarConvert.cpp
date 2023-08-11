@@ -4,6 +4,7 @@ ScalarConvert::ScalarConvert(const std::string& execArgument) : execArgument(exe
 {
 //Const
 	setType();
+	std::cout << getType() << std::endl;
 	convertLiteralToScalarType();
 }
 
@@ -78,19 +79,31 @@ std::ostream& operator << (std::ostream& os, const ScalarConvert& src)
 void ScalarConvert::setType()
 {
 	// char 1 long y ascii
-	if (this->execArgument.length() == 1)
-		this->type = CHAR;
 	// 	+ 1 length
 	// 	is ascii 
 	// ! No se pueden introducir no printeables  =>
 	// 	ascii at least 2 digits
 	// float
+	//else if (this->execArgument.find("f") == this->execArgument.length())
 	// 	.	opcional
 	// 	f
 	// double
 	// 	.
+	// 	no f
 	// int
 	// 	no . no f
+	int negative = (getExecArgument()[0] == '-') ? 1 : 0;
+	if (this->execArgument.size() == 1)
+	{
+		this->type = CHAR;
+		setChar();
+	}
+	else if (this->execArgument.find("f") == this->execArgument.length())
+		this->type = FLOAT;
+	else if (this->execArgument.find(".") == std::string::npos)
+		this->type = DOUBLE;
+	else if (std::all_of(getExecArgument().begin() + negative, getExecArgument().end(), ::isdigit))
+		this->type = INT;
 
 }
 int ScalarConvert::getType() const
@@ -104,7 +117,6 @@ void ScalarConvert::setInt()
 	{
 		this->error[1] = "notype";
 		return ;
-
 	}
 	try
 	{
@@ -128,13 +140,21 @@ void ScalarConvert::setChar()
 		return ;
 	}
 	this->toChar = static_cast<char>((int)*(this->getExecArgument().c_str()));
-	if (this->getExecArgument().length() > 1)
-		this->error[0] = "impossible";
+	if (getChar() >= 48 && getChar() <= 57)
+	{
+		this->error[0] ="notype";
+		this->type = INT;
+	}
 	
 }
 
 void ScalarConvert::setFloat()
 {
+	if (getType() != FLOAT)
+	{
+		this->error[2] = "notype";
+		return ;
+	}
 	try
 	{
 		this->toFloat = static_cast<float>(std::stof(this->getExecArgument().c_str()));
@@ -152,6 +172,11 @@ void ScalarConvert::setFloat()
 
 void ScalarConvert::setDouble()
 {
+	if (getType() != DOUBLE)
+	{
+		this->error[3] = "notype";
+		return ;
+	}
 	try
 	{
 		this->toDouble= static_cast<double>(std::stod(this->getExecArgument().c_str()));
@@ -164,6 +189,7 @@ void ScalarConvert::setDouble()
 	{
 		this->error[3] = "out of range";
 	}
+	std::cout << *this;
 }
 
 void ScalarConvert::convertLiteralToScalarType()
