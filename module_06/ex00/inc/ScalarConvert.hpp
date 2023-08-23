@@ -2,8 +2,8 @@
 #define SCALARCONVERT_H
 #define INT 0
 #define CHAR 1
-#define isFloat 2
-#define isDouble 3
+#define FLOAT 2
+#define DOUBLE 3
 
 #include <iostream>
 #include <string>
@@ -24,7 +24,7 @@ public:
 	void setChar();
 	void setFloat();
 	void setDouble();
-	void setType();
+	void setType(int type);
 	std::string getError(int type);
 private:
 	const std::string execArgument;

@@ -3,7 +3,7 @@
 ScalarConvert::ScalarConvert(const std::string& execArgument) : execArgument(execArgument)
 {
 //Const
-	setType();
+//	setType();
 	convertLiteralToScalarType();
 }
 
@@ -75,23 +75,9 @@ std::ostream& operator << (std::ostream& os, const ScalarConvert& src)
 	return os;
 }
 
-void ScalarConvert::setType()
+void ScalarConvert::setType(int type)
 {
-	// char 1 long y ascii
-	if (this->execArgument.length() == 1)
-		this->type = CHAR;
-	// 	+ 1 length
-	// 	is ascii 
-	// ! No se pueden introducir no printeables  =>
-	// 	ascii at least 2 digits
-	// float
-	// 	.	opcional
-	// 	f
-	// double
-	// 	.
-	// int
-	// 	no . no f
-
+	this->type = type;
 }
 int ScalarConvert::getType() const
 {
@@ -100,12 +86,10 @@ int ScalarConvert::getType() const
 
 void ScalarConvert::setInt()
 {
-	if (getType() != INT)
-	{
-		this->error[1] = "notype";
+	std::string argument = this->getExecArgument();
+	int negative = (argument[0] == '-' || argument[0] == '+') ? 1 : 0;
+	if (!std::all_of(argument.begin() + negative, argument.end(), ::isdigit))
 		return ;
-
-	}
 	try
 	{
 		this->toInt =  std::stoi(this->getExecArgument());
@@ -118,23 +102,25 @@ void ScalarConvert::setInt()
 	{
 		this->error[1] = "out of range";
 	}
+	setType(INT);
 }
 
 void ScalarConvert::setChar()
 {
-	if (getType() != CHAR)
-	{
-		this->error[0] = "notype";
-		return ;
-	}
-	this->toChar = static_cast<char>((int)*(this->getExecArgument().c_str()));
-	if (this->getExecArgument().length() > 1)
-		this->error[0] = "impossible";
-	
+	int length = this->getExecArgument().length();
+	char* char_str = new char[length];
+	std::strcpy(char_str, this->getExecArgument().c_str());
+	if (length == 1 || isascii(*char_str))
+		this->toChar = *char_str;
+	delete[](char_str);
+	setType(CHAR);
 }
 
 void ScalarConvert::setFloat()
 {
+	std::string argument = this->getExecArgument();
+	if (argument.find('.') == std::string::npos || argument.find('f') == std::string::npos)
+		return ;
 	try
 	{
 		this->toFloat = static_cast<float>(std::stof(this->getExecArgument().c_str()));
@@ -147,11 +133,14 @@ void ScalarConvert::setFloat()
 	{
 		this->error[2] = "out of range";
 	}
-	
+	setType(FLOAT);
 }
 
 void ScalarConvert::setDouble()
 {
+	std::string argument = this->getExecArgument();
+	if (argument.find('.') == std::string::npos || argument.find('f') != std::string::npos)
+		return ;
 	try
 	{
 		this->toDouble= static_cast<double>(std::stod(this->getExecArgument().c_str()));
@@ -164,6 +153,7 @@ void ScalarConvert::setDouble()
 	{
 		this->error[3] = "out of range";
 	}
+	setType(DOUBLE);
 }
 
 void ScalarConvert::convertLiteralToScalarType()

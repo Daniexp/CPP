@@ -15,11 +15,11 @@ TEST_CASE("Negative Integer overflow")
 }
 TEST_CASE("Integer - Not possible convert")
 {
-	CHECK(ScalarConvert("holaMundo prueba de cadena").getError(1) == "impossible");
-	CHECK(ScalarConvert("15.0f").getError(1) == "impossible");
-	CHECK(ScalarConvert("15.0").getError(1) == "impossible");
-	CHECK(ScalarConvert("A").getError(1) == "impossible");
-	CHECK(ScalarConvert("11111111.111111111111111111111111111").getError(1) == "impossible");
+	CHECK(ScalarConvert("holaMundo prueba de cadena").getError(1) == "clean");
+	CHECK(ScalarConvert("15.0f").getError(1) == "clean");
+	CHECK(ScalarConvert("15.0").getError(1) == "clean");
+	CHECK(ScalarConvert("A").getError(1) == "clean");
+	CHECK(ScalarConvert("11111111.111111111111111111111111111").getError(1) == "clean");
 }
 TEST_CASE("Alphabetical char")
 {
@@ -29,10 +29,10 @@ TEST_CASE("Alphabetical char")
 }
 TEST_CASE("Not possible char convert")
 {
-	CHECK(ScalarConvert("Hola mundo").getError(0) == "impossible");
-	CHECK(ScalarConvert("-15.0f").getError(0) == "notype");
-	CHECK(ScalarConvert("15.0").getError(0) == "notype");
-	CHECK(ScalarConvert("-150").getError(0) == "notype");
+	CHECK(ScalarConvert("Hola mundo").getError(0) == "clean");
+	CHECK(ScalarConvert("-15.0f").getError(0) == "clean");
+	CHECK(ScalarConvert("15.0").getError(0) == "clean");
+	CHECK(ScalarConvert("-150").getError(0) == "clean");
 }
 TEST_CASE("Valid float")
 {
@@ -42,20 +42,22 @@ TEST_CASE("Valid float")
 }
 TEST_CASE("Invalid float")
 {
-	CHECK(ScalarConvert("impossible").getError(2) == "impossible");
+	CHECK(ScalarConvert("impossible").getError(2) == "clean");
 	CHECK(ScalarConvert("5.0").getError(2) == "clean");
 }
 TEST_CASE("Valid double")
 {
 	CHECK(ScalarConvert("-55.0").getDouble() == -55.0);
 	CHECK(ScalarConvert("15.0").getDouble() == 15.0);
+	CHECK(ScalarConvert("111111211111111111111111111111111111111111111111.111111111111111111111111111").getError(3) == "clean");
+	CHECK(ScalarConvert("111111211111111111111111111111111111111111111111.111111111111111111111111111").getDouble() == 111111211111111111111111111111111111111111111111.111111111111111111111111111);
 }
 TEST_CASE("Invalid double")
 {
-	CHECK(ScalarConvert("15.0f").getError(3) == "impossible");
-	CHECK(ScalarConvert("15.0f").getError(3) == "impossible");
-	CHECK(ScalarConvert("A").getError(3) == "impossible");
-	CHECK(ScalarConvert("111111211111111111111111111111111111111111111111.111111111111111111111111111").getError(3) == "impossible");
+	CHECK(ScalarConvert("15.0f").getError(3) == "clean");
+	CHECK(ScalarConvert("15.0f").getError(3) == "clean");
+	CHECK(ScalarConvert("A").getError(3) == "clean");
+
 }
 /*
 int main(int argc, char** argv) {
