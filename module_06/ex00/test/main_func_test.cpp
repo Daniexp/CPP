@@ -8,6 +8,7 @@
     // Ejemplo de una prueba simple
 TEST_CASE("Positive Integer Valid") {
 	CHECK(ScalarConvert("5").getInt() == 5);
+	CHECK(ScalarConvert("5").getType() == INT);
 }
 TEST_CASE("Negative Integer overflow")
 {
@@ -37,7 +38,7 @@ TEST_CASE("Not possible char convert")
 TEST_CASE("Valid float")
 {
 	CHECK(ScalarConvert("15.0f").getFloat() == 15.0f);
-	CHECK(ScalarConvert("-55.0").getFloat() == -55.0f);
+	CHECK(ScalarConvert("-55.0f").getFloat() == -55.0f);
 	CHECK(ScalarConvert("5.0f").getError(2) == "clean");
 }
 TEST_CASE("Invalid float")
@@ -58,6 +59,42 @@ TEST_CASE("Invalid double")
 	CHECK(ScalarConvert("15.0f").getError(3) == "clean");
 	CHECK(ScalarConvert("A").getError(3) == "clean");
 
+}
+TEST_CASE("Float pseudo literal")
+{
+	CHECK(ScalarConvert("nanf").isPseudoLiteral() == true);
+	CHECK(ScalarConvert("-inff").isPseudoLiteral() == true);
+	CHECK(ScalarConvert("+inff").isPseudoLiteral() == true);
+}
+TEST_CASE("Double pseudo literal")
+{
+	CHECK(ScalarConvert("nan").isPseudoLiteral() == true);
+	CHECK(ScalarConvert("-inf").isPseudoLiteral() == true);
+	CHECK(ScalarConvert("+inf").isPseudoLiteral() == true);
+}
+TEST_CASE("Valid explicit conversion, char scalar")
+{
+	CHECK(ScalarConvert("A").getInt() == 65);
+	CHECK(ScalarConvert("B").getFloat() == 66.0f);
+	CHECK(ScalarConvert("C").getDouble() == 67.0);
+}
+TEST_CASE("Valid explicit conversion, int scalar")
+{
+	CHECK(ScalarConvert("65").getChar() == 'A');
+	CHECK(ScalarConvert("-66").getFloat() == -66.0f);
+	CHECK(ScalarConvert("-67").getDouble() == -67.0);
+}
+TEST_CASE("Valid explicit conversion, float scalar")
+{
+	CHECK(ScalarConvert("65.0f").getChar() == 'A');
+	CHECK(ScalarConvert("-66f").getInt() == -66.0f);
+	CHECK(ScalarConvert("-67.0f").getDouble() == -67.0);
+}
+TEST_CASE("Valid explicit conversion, doublescalar")
+{
+	CHECK(ScalarConvert("65.0").getChar() == 'A');
+	CHECK(ScalarConvert("-66.0").getFloat() == -66.0f);
+	CHECK(ScalarConvert("-67.0").getInt() == -67.0);
 }
 /*
 int main(int argc, char** argv) {

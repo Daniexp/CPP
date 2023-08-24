@@ -1,9 +1,10 @@
 #ifndef SCALARCONVERT_H
 #define SCALARCONVERT_H
-#define INT 0
-#define CHAR 1
-#define FLOAT 2
-#define DOUBLE 3
+#define INT 1
+#define CHAR 2
+#define FLOAT 3
+#define DOUBLE 4
+#define LITERAL 5
 
 #include <iostream>
 #include <string>
@@ -25,7 +26,10 @@ public:
 	void setFloat();
 	void setDouble();
 	void setType(int type);
+	void saveType();
 	std::string getError(int type);
+	bool isPseudoLiteral();
+	void explicitCast();
 private:
 	const std::string execArgument;
 	char toChar;
