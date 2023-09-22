@@ -1,10 +1,11 @@
 #ifndef SCALARCONVERT_H
 #define SCALARCONVERT_H
-#define INT 1
-#define CHAR 2
-#define FLOAT 3
-#define DOUBLE 4
-#define LITERAL 5
+#define INT	1
+#define CHAR	2
+#define FLOAT	3
+#define DOUBLE	4
+#define LITERAL	5
+#define NOTYPE	0
 
 #include <iostream>
 #include <string>

@@ -96,6 +96,10 @@ TEST_CASE("Valid explicit conversion, doublescalar")
 	CHECK(ScalarConvert("-66.0").getFloat() == -66.0f);
 	CHECK(ScalarConvert("-67.0").getInt() == -67.0);
 }
+TEST_CASE("Subject output examples")
+{
+	//CHECK(ScalarConvert("nan")
+}
 /*
 int main(int argc, char** argv) {
     // Inicializar doctest
