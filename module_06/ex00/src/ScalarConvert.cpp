@@ -143,6 +143,24 @@ void ScalarConvert::convertLiteralToScalarType()
 	setFloat();
 	setDouble();
 }
+void ScalarConvert::tryConvertToType( void (*convertFunction) ())
+{
+	int type = getType();
+	if (type == LITERAL || type == NOTYPE)
+		return ;
+	try
+	{
+		convertFunction();
+	}
+	catch(std::invalid_argument& message)
+	{
+		this->error[type] = "impossible";
+	}
+	catch(std::out_of_range& message)
+	{
+		this->error[type] = "out of range";
+	}
+}
 void ScalarConvert::setInt()
 {
 	if (this->getType() != INT)
@@ -165,6 +183,8 @@ void ScalarConvert::setChar()
 {
 	if (getType() == CHAR)
 		this->toChar = static_cast<char>(*(this->getExecArgument().c_str()));
+	if (std::isprint(getChar()) == false)
+		this->error[CHAR] = "Non displayable";
 }
 
 void ScalarConvert::setFloat()
@@ -221,13 +241,13 @@ void ScalarConvert::explicitCast()
 		break;
 		case FLOAT:
 			this->toChar = this->getFloat();
-			this->toFloat = this->getFloat();
+			this->toInt = this->getFloat();
 			this->toDouble = this->getFloat();
 		break;
 		case DOUBLE:
 			this->toChar = this->getDouble();
 			this->toFloat = this->getDouble();
-			this->toDouble = this->getDouble();
+			this->toInt = this->getDouble();
 		break;
 	}
 }

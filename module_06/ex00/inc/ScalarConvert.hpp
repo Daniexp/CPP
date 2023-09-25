@@ -1,11 +1,11 @@
 #ifndef SCALARCONVERT_H
 #define SCALARCONVERT_H
 #define INT	1
-#define CHAR	2
-#define FLOAT	3
-#define DOUBLE	4
-#define LITERAL	5
-#define NOTYPE	0
+#define CHAR	0
+#define FLOAT	2
+#define DOUBLE	3
+#define LITERAL	4
+#define NOTYPE	5
 
 #include <iostream>
 #include <string>
@@ -42,6 +42,7 @@ private:
 
 	void convertStringToLiteral();
 	void convertLiteralToScalarType();
+	void tryConvertToType(void (*convertFunction)());
 };
 std::ostream& operator << (std::ostream& os, const ScalarConvert& src);
 

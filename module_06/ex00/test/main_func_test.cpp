@@ -18,9 +18,13 @@ TEST_CASE("Integer - Not possible convert")
 {
 	CHECK(ScalarConvert("holaMundo prueba de cadena").getError(1) == "clean");
 	CHECK(ScalarConvert("15.0f").getError(1) == "clean");
+	CHECK(ScalarConvert("15.0f").getType() == FLOAT);
 	CHECK(ScalarConvert("15.0").getError(1) == "clean");
+	CHECK(ScalarConvert("15.0").getType() == DOUBLE);
 	CHECK(ScalarConvert("A").getError(1) == "clean");
-	CHECK(ScalarConvert("11111111.111111111111111111111111111").getError(1) == "clean");
+	CHECK(ScalarConvert("A").getType() == CHAR);
+	CHECK(ScalarConvert("11111111.111111111111111111111111111f").getType() == FLOAT);
+	CHECK(ScalarConvert("11111111.111111111111111111111111111").getType() == DOUBLE);
 }
 TEST_CASE("Alphabetical char")
 {
@@ -31,9 +35,11 @@ TEST_CASE("Alphabetical char")
 TEST_CASE("Not possible char convert")
 {
 	CHECK(ScalarConvert("Hola mundo").getError(0) == "clean");
-	CHECK(ScalarConvert("-15.0f").getError(0) == "clean");
-	CHECK(ScalarConvert("15.0").getError(0) == "clean");
-	CHECK(ScalarConvert("-150").getError(0) == "clean");
+	CHECK(ScalarConvert("Hola mundo").getType() == NOTYPE);
+	CHECK(ScalarConvert("-15.0f").getError(0) == "Non displayable");
+	CHECK(ScalarConvert("-15.0f").getType() == FLOAT);
+	CHECK(ScalarConvert("15.0").getError(0) == "Non displayable");
+	CHECK(ScalarConvert("-150").getType() == INT);
 }
 TEST_CASE("Valid float")
 {
@@ -98,7 +104,17 @@ TEST_CASE("Valid explicit conversion, doublescalar")
 }
 TEST_CASE("Subject output examples")
 {
-	//CHECK(ScalarConvert("nan")
+	ScalarConvert example =	ScalarConvert("42.0f");
+	CHECK(example.getChar() == '*');
+	CHECK(example.getInt() == 42);
+	CHECK(example.getFloat() == 42.0f);
+	CHECK(example.getDouble() == 42.0);
+
+	example = ScalarConvert("0");
+	CHECK(example.getError(CHAR) == "Non displayable");
+	CHECK(example.getInt() == 0);
+	CHECK(example.getFloat() == 0.0f);
+	CHECK(example.getDouble() == 0.0);
 }
 /*
 int main(int argc, char** argv) {
