@@ -34,11 +34,11 @@ TEST_CASE("Alphabetical char")
 }
 TEST_CASE("Not possible char convert")
 {
-	CHECK(ScalarConvert("Hola mundo").getError(0) == "clean");
+	CHECK(ScalarConvert("Hola mundo").getError(CHAR) == "clean");
 	CHECK(ScalarConvert("Hola mundo").getType() == NOTYPE);
-	CHECK(ScalarConvert("-15.0f").getError(0) == "Non displayable");
+	CHECK(ScalarConvert("-15.0f").getError(CHAR) == "Non displayable");
 	CHECK(ScalarConvert("-15.0f").getType() == FLOAT);
-	CHECK(ScalarConvert("15.0").getError(0) == "Non displayable");
+	CHECK(ScalarConvert("15.0").getError(CHAR) == "Non displayable");
 	CHECK(ScalarConvert("-150").getType() == INT);
 }
 TEST_CASE("Valid float")
@@ -111,10 +111,17 @@ TEST_CASE("Subject output examples")
 	CHECK(example.getDouble() == 42.0);
 
 	example = ScalarConvert("0");
+	std::cout << example;
+	std::cout << example.getType() <<"   " <<  example.getError(CHAR) << std::endl;
 	CHECK(example.getError(CHAR) == "Non displayable");
 	CHECK(example.getInt() == 0);
 	CHECK(example.getFloat() == 0.0f);
 	CHECK(example.getDouble() == 0.0);
+	example = ScalarConvert("9");
+	std::cout << example;
+	std::cout << "type: " <<  example.getType() <<"   error char: " <<  example.getError(CHAR) << std::endl;
+	CHECK(example.getError(CHAR) == "Non displayable");
+	CHECK(example.getType() == INT);
 }
 /*
 int main(int argc, char** argv) {

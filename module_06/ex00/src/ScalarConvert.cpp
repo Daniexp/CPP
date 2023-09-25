@@ -59,6 +59,7 @@ bool ScalarConvert::isPseudoLiteral()
 {
 	std::string literals[] = {"-inff", "+inff", "nanf", "-inf", "+inf", "nan"};
 	bool isLiteral = false;
+	this->setType(NOTYPE);
 
 	for (int i = 0; !isLiteral && i < 6; i++)
 	{
@@ -74,6 +75,7 @@ bool ScalarConvert::isPseudoLiteral()
 std::string ScalarConvert::getError(int type)
 {
 	std::string actualResult;
+
 	if (type >= 0 && type <= 3)
 		actualResult = this->error[type];
 	if (actualResult.length() == 0)
@@ -97,7 +99,9 @@ void ScalarConvert::setType(int type)
 }
 void ScalarConvert::saveType()
 {
-	setType(NOTYPE);
+//	setType(NOTYPE);
+	if (isPseudoLiteral() == true)
+		return;
 	int length = this->getExecArgument().length();
 	char* char_str = new char[length];
 	std::strcpy(char_str, this->getExecArgument().c_str());
@@ -106,9 +110,10 @@ void ScalarConvert::saveType()
 	delete[](char_str);
 
 	std::string argument = this->getExecArgument();
-	int negative = (argument[0] == '-' || argument[0] == '+') ? 1 : 0;
-	if (std::all_of(argument.begin() + negative, argument.end(), ::isdigit))
+	int sign = (argument[0] == '-' || argument[0] == '+') ? 1 : 0;
+	if (std::all_of((argument.begin() + sign), argument.end(), ::isdigit) == true)
 		setType(INT);
+	argument = this->getExecArgument();
 	if (argument.find('.') != std::string::npos && argument.find('f') != std::string::npos)
 		setType(FLOAT);
 	if (argument.find('.') != std::string::npos && argument.find('f') == std::string::npos)
@@ -121,27 +126,25 @@ int ScalarConvert::getType() const
 
 void ScalarConvert::convertLiteralToScalarType()
 {
-/*
 	switch (getType())
 	{
 		case CHAR:
-			this->toChar = static_cast<char>(*(this->getExecArgument().c_str()));
+			setChar();
+	//		this->toChar = static_cast<char>(*(this->getExecArgument().c_str()));
 		break;
 		case INT:
-			this->toInt =  std::stoi(this->getExecArgument());
+			setInt();
+	//		this->toInt =  std::stoi(this->getExecArgument());
 		break;
 		case FLOAT:
-			this->toFloat = static_cast<float>(std::stof(this->getExecArgument().c_str()));
+			setFloat();
+	//		this->toFloat = static_cast<float>(std::stof(this->getExecArgument().c_str()));
 		break;
 		case DOUBLE:
-			this->toDouble= static_cast<double>(std::stod(this->getExecArgument().c_str()));
+			setDouble();
+	//		this->toDouble= static_cast<double>(std::stod(this->getExecArgument().c_str()));
 		break;
 	}
-*/
-	setChar();
-	setInt();
-	setFloat();
-	setDouble();
 }
 void ScalarConvert::tryConvertToType( void (*convertFunction) ())
 {
@@ -183,8 +186,6 @@ void ScalarConvert::setChar()
 {
 	if (getType() == CHAR)
 		this->toChar = static_cast<char>(*(this->getExecArgument().c_str()));
-	if (std::isprint(getChar()) == false)
-		this->error[CHAR] = "Non displayable";
 }
 
 void ScalarConvert::setFloat()
@@ -240,7 +241,7 @@ void ScalarConvert::explicitCast()
 			this->toDouble = this->getInt();
 		break;
 		case FLOAT:
-			this->toChar = this->getFloat();
+			this->toChar = static_cast<char>(this->getFloat());
 			this->toInt = this->getFloat();
 			this->toDouble = this->getFloat();
 		break;
@@ -250,4 +251,6 @@ void ScalarConvert::explicitCast()
 			this->toInt = this->getDouble();
 		break;
 	}
+	if (std::isprint(static_cast<unsigned char>(getChar())) == false)
+		this->error[CHAR] = "Non displayable";
 }
