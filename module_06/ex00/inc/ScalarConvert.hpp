@@ -33,7 +33,7 @@ public:
 	void explicitCast();
 private:
 	const std::string execArgument;
-	char toChar;
+	unsigned char toChar;
 	int toInt;
 	float toFloat;
 	double toDouble;
