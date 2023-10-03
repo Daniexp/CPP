@@ -28,11 +28,11 @@ public:
 	void setDouble();
 	void setType(int type);
 	void saveType();
-	std::string getError(int type);
+	std::string getError(int type) const;
 	bool isPseudoLiteral();
 	void explicitCast();
 private:
-	const std::string execArgument;
+	std::string execArgument;
 	unsigned char toChar;
 	int toInt;
 	float toFloat;
@@ -44,6 +44,6 @@ private:
 	void convertLiteralToScalarType();
 	void tryConvertToType(void (*convertFunction)());
 };
-std::ostream& operator << (std::ostream& os, const ScalarConvert& src);
+std::ostream& operator << (std::ostream& os,const ScalarConvert& src);
 
 #endif     //SCALARCONVERT_H

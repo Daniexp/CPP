@@ -6,5 +6,7 @@
 int main(void)
 {
 	std::cout << "The proyect was created sucessfully." << std::endl;
+	ScalarConvert example = ScalarConvert("0");
+	std::cout << example << std::endl;
 }
 #endif
