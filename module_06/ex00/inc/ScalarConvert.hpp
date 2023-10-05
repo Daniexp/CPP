@@ -42,7 +42,11 @@ private:
 
 	void convertStringToLiteral();
 	void convertLiteralToScalarType();
-	void tryConvertToType(void (*convertFunction)());
+	void tryConvertToType(int type, void (ScalarConvert::*convertFunction)());
+	void charExplicitCast();
+	void intExplicitCast();
+	void floatExplicitCast();
+	void doubleExplicitCast();
 };
 std::ostream& operator << (std::ostream& os,const ScalarConvert& src);
 
