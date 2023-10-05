@@ -14,13 +14,15 @@ void printErrors(ScalarConvert src)
 int main(void)
 {
 	std::cout << "The proyect was created sucessfully." << std::endl;
-	ScalarConvert example = ScalarConvert("0");
+	ScalarConvert example = ScalarConvert("9");
 	std::cout << example << std::endl;
 	std::cout << "type: " << example.getType() << std::endl;
 	printErrors(example);
 	example = ScalarConvert("9999999.999999999");
 	std::cout << example;
 	example = ScalarConvert("100.000f");
+	std::cout << example;
+	example = ScalarConvert("-inff");
 	std::cout << example;
 }
 

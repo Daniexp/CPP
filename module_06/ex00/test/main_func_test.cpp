@@ -111,17 +111,65 @@ TEST_CASE("Subject output examples")
 	CHECK(example.getDouble() == 42.0);
 
 	example = ScalarConvert("0");
-	std::cout << example;
-	std::cout << example.getType() <<"   " <<  example.getError(CHAR) << std::endl;
 	CHECK(example.getError(CHAR) == "Non displayable");
 	CHECK(example.getInt() == 0);
 	CHECK(example.getFloat() == 0.0f);
 	CHECK(example.getDouble() == 0.0);
-	example = ScalarConvert("9");
+}
+TEST_CASE("non displayable int 9")
+{
+	ScalarConvert example = ScalarConvert("9");
 	std::cout << example;
-	std::cout << "type: " <<  example.getType() <<"   error char: " <<  example.getError(CHAR) << std::endl;
 	CHECK(example.getError(CHAR) == "Non displayable");
 	CHECK(example.getType() == INT);
+}
+TEST_CASE("Pseudoliterals -inff")
+{
+	ScalarConvert example = ScalarConvert("-inff");
+	CHECK(example.getError(CHAR) == "impossible");
+	CHECK(example.getError(INT) == "impossible");
+	CHECK(example.getError(FLOAT) == "-inff");
+	CHECK(example.getError(DOUBLE) == "-inf");
+}
+TEST_CASE("Pseudoliterals -inf")
+{
+	ScalarConvert example = ScalarConvert("-inf");
+	CHECK(example.getError(CHAR) == "impossible");
+	CHECK(example.getError(INT) == "impossible");
+	CHECK(example.getError(FLOAT) == "-inff");
+	CHECK(example.getError(DOUBLE) == "-inf");
+}
+TEST_CASE("Pseudoliterals +inff")
+{
+	ScalarConvert example = ScalarConvert("+inff");
+	CHECK(example.getError(CHAR) == "impossible");
+	CHECK(example.getError(INT) == "impossible");
+	CHECK(example.getError(FLOAT) == "+inff");
+	CHECK(example.getError(DOUBLE) == "+inf");
+}
+TEST_CASE("Pseudoliterals +inf")
+{
+	ScalarConvert example = ScalarConvert("+inf");
+	CHECK(example.getError(CHAR) == "impossible");
+	CHECK(example.getError(INT) == "impossible");
+	CHECK(example.getError(FLOAT) == "+inff");
+	CHECK(example.getError(DOUBLE) == "+inf");
+}
+TEST_CASE("Pseudoliterals nanf")
+{
+	ScalarConvert example = ScalarConvert("nanf");
+	CHECK(example.getError(CHAR) == "impossible");
+	CHECK(example.getError(INT) == "impossible");
+	CHECK(example.getError(FLOAT) == "nanf");
+	CHECK(example.getError(DOUBLE) == "nan");
+}
+TEST_CASE("Pseudoliterals nan")
+{
+	ScalarConvert example = ScalarConvert("nan");
+	CHECK(example.getError(CHAR) == "impossible");
+	CHECK(example.getError(INT) == "impossible");
+	CHECK(example.getError(FLOAT) == "nanf");
+	CHECK(example.getError(DOUBLE) == "nan");
 }
 /*
 int main(int argc, char** argv) {

@@ -69,7 +69,18 @@ bool ScalarConvert::isPseudoLiteral()
 	{
 		if (literals[i] == this->getExecArgument())
 		{
+			if (i >= 0 && i <= 2)
+			{
+				this->error[FLOAT] = literals[i];
+				this->error[DOUBLE] = literals[i + 3];
+			}
+			else
+			{
+				this->error[DOUBLE] = literals[i];
+				this->error[FLOAT] = literals[i - 3];
+			}
 			isLiteral = true;
+			this->error[CHAR] = this->error[INT] = "impossible";
 			this->setType(LITERAL);
 		}
 	}
