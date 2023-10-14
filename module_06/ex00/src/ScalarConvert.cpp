@@ -252,9 +252,11 @@ void ScalarConvert::floatExplicitCast()
 		break;
 		case INT:
 			this->toFloat = static_cast<float>(this->getInt()); 
+			//this->toFloat = static_cast<double>(this->getInt()); 
 		break;
 		case DOUBLE:
 			this->toFloat = static_cast<float>(this->getDouble()); 
+			//this->toFloat = static_cast<double>(this->getDouble()); 
 		break;
 	}
 }
