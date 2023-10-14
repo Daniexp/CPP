@@ -28,9 +28,7 @@ ScalarConvert& ScalarConvert::operator = (const ScalarConvert& src)
 		this->toFloat = src.getFloat();
 		this->toDouble = src.getDouble();
 		for (int i = 0; i < 4 ; i++)
-		{
 			this->error[i] = src.getError(i);
-		}
 	}
 	return *this;
 }
@@ -105,9 +103,9 @@ std::ostream& operator << (std::ostream& os, const ScalarConvert& src)
 	os  << std::endl << "int: ";
 	(src.getError(INT) == "clean") ? os << src.getInt() : os << src.getError(INT);
 	os << std::endl << "float: ";
-	(src.getError(FLOAT) == "clean") ? os << src.getFloat() : os << src.getError(FLOAT);
+	(src.getError(FLOAT) == "clean") ? os << std::fixed << std::setprecision(1) << src.getFloat() << "f" : os << src.getError(FLOAT);
 	os << std::endl << "double: ";
-	(src.getError(DOUBLE) == "clean") ? os << src.getDouble() : os << src.getError(DOUBLE);
+	(src.getError(DOUBLE) == "clean") ? os << std::fixed << std::setprecision(1) << src.getDouble() : os << src.getError(DOUBLE);
 	os << std::endl;
 
 	return os;
@@ -133,10 +131,16 @@ void ScalarConvert::saveType()
 	if (std::all_of((argument.begin() + sign), argument.end(), ::isdigit) == true)
 		setType(INT);
 	argument = this->getExecArgument();
+/*
 	if (argument.find("f") != std::string::npos)
 		setType(FLOAT);
 	if (argument.find('.') != std::string::npos && argument.find('f') == std::string::npos)
 		setType(DOUBLE);
+*/
+	if (std::regex_match(argument, std::regex("(-?[0-9]+\\.[0-9]+f)")))
+       		setType(FLOAT);
+    	if (std::regex_match(argument, std::regex("(-?[0-9]+\\.[0-9]+)")))
+       		 setType(DOUBLE);
 }
 int ScalarConvert::getType() const
 {
@@ -269,38 +273,47 @@ void ScalarConvert::doubleExplicitCast()
 		break;
 	}
 }
+int ScalarConvert::isBiggerThanMaxFloat()
+{
+	int res = 0;
+
+	if ((getType() == DOUBLE && (getDouble() > FLT_MAX || getDouble() <  FLT_MIN)))
+	{
+		this->error[INT] = "impossible";
+		this->error[CHAR] = "impossible";
+		this->error[FLOAT] = "impossible";
+		res = 1;
+	}
+	return res;
+}
+int ScalarConvert::isBiggerThanMaxInt()
+{
+	int res = 0;
+
+	if ((getType() == DOUBLE && (getDouble() >  INT_MAX || getDouble() <  INT_MIN))
+		|| (getType() == FLOAT && (getFloat() > (float)  INT_MAX || getFloat() <  INT_MIN)))
+	{
+		this->error[INT] = "impossible";
+		this->error[CHAR] = "impossible";
+		res = 1;
+	}
+	return res;
+}
 
 void ScalarConvert::explicitCast()
 {
+	int type = this->getType();
+	if (type == NOTYPE || (!isBiggerThanMaxFloat() && !isBiggerThanMaxInt() && this->getError(type) != "clean"))
+	{
+		for(int i = 0; i < 4; i++)
+			if (i != type)
+				this->error[i] = "impossible";
+		return;
+	}
 	tryConvertToType(CHAR, &ScalarConvert::charExplicitCast);
 	tryConvertToType(INT, &ScalarConvert::intExplicitCast);
 	tryConvertToType(FLOAT, &ScalarConvert::floatExplicitCast);
 	tryConvertToType(DOUBLE, &ScalarConvert::doubleExplicitCast);
-/*
-	switch (this->getType())
-	{
-		case CHAR:
-			this->toInt = static_cast<int>(this->getChar());
-			this->toFloat = static_cast<float>(this->getChar());
-			this->toDouble = static_cast<double>(this->getChar());
-		break;
-		case INT:
-			this->toChar = static_cast<char>(this->getInt());
-			this->toFloat = static_cast<float>(this->getInt());
-			this->toDouble = static_cast<double>(this->getInt());
-		break;
-		case FLOAT:
-			this->toChar = static_cast<char>(this->getFloat());
-			this->toInt = static_cast<int>(this->getFloat());
-			this->toDouble = static_cast<double>(this->getFloat());
-		break;
-		case DOUBLE:
-			this->toChar = static_cast<char>(this->getDouble());
-			this->toFloat = static_cast<float>(this->getDouble());
-			this->toInt = static_cast<int>(this->getDouble());
-		break;
-	}
-*/
 	if (getError(CHAR) == "clean" && !std::isprint(getInt()))
 		this->error[CHAR] = "Non displayable";
 }

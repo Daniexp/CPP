@@ -9,6 +9,11 @@
 
 #include <iostream>
 #include <string>
+#include <regex>
+#include <iomanip>
+#include <limits>
+#include <cfloat>
+
 class ScalarConvert
 {
 public:
@@ -47,6 +52,8 @@ private:
 	void intExplicitCast();
 	void floatExplicitCast();
 	void doubleExplicitCast();
+	int  isBiggerThanMaxInt();
+	int  isBiggerThanMaxFloat();
 };
 std::ostream& operator << (std::ostream& os,const ScalarConvert& src);
 
