@@ -316,6 +316,12 @@ void ScalarConvert::explicitCast()
 	tryConvertToType(INT, &ScalarConvert::intExplicitCast);
 	tryConvertToType(FLOAT, &ScalarConvert::floatExplicitCast);
 	tryConvertToType(DOUBLE, &ScalarConvert::doubleExplicitCast);
-	if (getError(CHAR) == "clean" && !std::isprint(getInt()))
-		this->error[CHAR] = "Non displayable";
+	if (getError(CHAR) == "clean")
+	{
+	    if (getInt() < CHAR_MIN || getInt() > CHAR_MAX)
+	        this->error[CHAR] = "impossible";
+	    else if (!std::isprint(getChar()))
+	        this->error[CHAR] = "Non displayable";
+	}
+
 }

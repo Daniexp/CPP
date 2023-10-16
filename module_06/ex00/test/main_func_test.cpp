@@ -9,6 +9,8 @@
 TEST_CASE("Positive Integer Valid") {
 	CHECK(ScalarConvert("5").getInt() == 5);
 	CHECK(ScalarConvert("5").getType() == INT);
+	CHECK(ScalarConvert("-5").getInt() == -5);
+	CHECK(ScalarConvert("-5").getType() == INT);
 }
 TEST_CASE("Negative Integer overflow")
 {
@@ -234,20 +236,11 @@ TEST_CASE("double bigger than float")
 	CHECK(example.getError(INT) == "impossible");
 	CHECK(example.getError(CHAR) == "impossible");
 }
-/*
-int main(int argc, char** argv) {
-    // Inicializar doctest
-    doctest::Context context;
-    context.applyCommandLine(argc, argv);
-
-    // Llamar a los casos de prueba con diferentes argumentos
-
-    // Configurar el mensaje para el test
-    context.setOption("no-breaks", true);
-
-    // Ejecutar las pruebas y obtener el resultado
-    int res = context.run();
-
-    return res;
+TEST_CASE("double bigger than a char")
+{
+	ScalarConvert example = ScalarConvert("10000.000");
+	CHECK_EQ(example.getType(), DOUBLE);
+	CHECK_EQ(example.getInt(), 10000);
+	CHECK_EQ(example.getFloat(), 10000.0f);
+	CHECK_EQ(example.getError(CHAR), "impossible");
 }
-*/
