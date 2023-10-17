@@ -9,8 +9,8 @@ CXX			=	clang++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc
 CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
-
 SRCS		=	\
+    Serializer.cpp \
 				main.cpp
 TEST_SRCS	=	$(TEST_NAME).cpp
 SRCDIR		=	./src/
@@ -37,6 +37,7 @@ clean:
 
 fclean:	clean
 	$(RM) $(NAME) $(TEST_NAME)
+
 test:	$(OBJS) $(TEST_OBJS)
 	$(CXX) -o $(TEST_NAME) $(CXXFLAGS) $^
 	./$(TEST_NAME)
