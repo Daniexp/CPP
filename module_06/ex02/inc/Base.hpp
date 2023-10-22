@@ -24,5 +24,4 @@ Base* generate(void);
 void identify(Base* p);
 void identify(Base& p);
 
-std::string outputs[] = {"A", "B", "C", "ERROR: invalid argument"};
 #endif     //BASE_H

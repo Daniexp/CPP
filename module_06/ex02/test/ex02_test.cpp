@@ -1,8 +1,8 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "doctest.h"
 #include <iostream>
 #include <sstream>
 #include <Base.hpp>
+#include <doctest.h>
 
 TEST_CASE("Instanciate a Base class object")
 {
@@ -59,6 +59,44 @@ TEST_CASE("identify(Base* p) Invalid pointer")
 	CHECK(outStream.str() == "ERROR: invalid argument");
 
 	delete parentClass;
+}
+
+TEST_CASE("identify(Base& p) Valid address")
+{
+	std::ostringstream outStream;
+	std::streambuf* oldOut = std::cout.rdbuf(outStream.rdbuf());
+
+	A a;
+	identify(a);
+	outStream.str(outStream.str().substr(0, outStream.str().size() - 1));
+	std::cout.rdbuf(oldOut);
+	CHECK(outStream.str() == "A");
+	std::cout.rdbuf(outStream.rdbuf());
+
+	B b;
+	identify(b);
+	outStream.str(outStream.str().substr(0, outStream.str().size() - 1));
+	std::cout.rdbuf(oldOut);
+	CHECK(outStream.str() == "B");
+	std::cout.rdbuf(outStream.rdbuf());
+
+	C c;
+	identify(c);
+	outStream.str(outStream.str().substr(0, outStream.str().size() - 1));
+	std::cout.rdbuf(oldOut);
+	CHECK(outStream.str() == "C");
+}
+
+TEST_CASE("identify(Base& p) Invalid address")
+{
+	std::ostringstream outStream;
+	std::streambuf* oldOut = std::cout.rdbuf(outStream.rdbuf());
+
+	Base parentClass;
+	identify(parentClass);
+	outStream.str(outStream.str().substr(0, outStream.str().size() - 1));
+	std::cout.rdbuf(oldOut);
+	CHECK(outStream.str() == "ERROR: invalid argument");
 }
 /*
 	std::ostringstream outStream;

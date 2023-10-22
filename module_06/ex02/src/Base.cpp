@@ -13,16 +13,20 @@ Base* generate(void)
 	{
 		case 1:
 			randomClass = dynamic_cast<Base*>(new A());
+		break;
 		case 2:
 			randomClass = dynamic_cast<Base*>(new B());
+		break;
 		case 3:
 			randomClass = dynamic_cast<Base*>(new C());
+		break;
 	}
 	return randomClass;
 }
 
-void identify(Base *p)
+void identify(Base* p)
 {
+	static std::string outputs[] = {"A", "B", "C", "ERROR: invalid argument"};
 	bool isIdentify;
 	int i = 0;
 	do
@@ -43,4 +47,21 @@ void identify(Base *p)
 			std::cout << outputs[i] << std::endl;
 		i++;
 	} while(!isIdentify && i <= TOTAL_DERIVED_CLASSES);
+}
+
+void identify(Base& p)
+{
+	try
+	{
+		A& a = dynamic_cast<A&>(p);
+		a.~A();
+		B& b = dynamic_cast<B&>(p);
+		b.~B();
+		C& c = dynamic_cast<C&>(p);
+		c.~C();
+	}
+	catch(...)
+	{
+		std::cout << "fallo al convertir" << std::endl;
+	}
 }
