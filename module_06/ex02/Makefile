@@ -2,13 +2,13 @@
 ####################			ex02		#########################
 ####################		By: dexposit		#########################
 ################################################################################
+
 NAME		=	ex02
 TEST_NAME	=	ex02_test
 CXX			=	clang++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc
 CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
-
 SRCS		=	\
     Base.cpp \
 				main.cpp

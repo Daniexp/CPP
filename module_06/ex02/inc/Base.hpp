@@ -11,7 +11,6 @@ class Base
 {
 public:
 	virtual ~Base();
-	Base* generate(void);
 };
 
 class A : public Base
@@ -21,4 +20,9 @@ class B : public Base
 class C : public Base
 {};
 
+Base* generate(void);
+void identify(Base* p);
+void identify(Base& p);
+
+std::string outputs[] = {"A", "B", "C", "ERROR: invalid argument"};
 #endif     //BASE_H
