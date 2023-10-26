@@ -1,5 +1,9 @@
 #include <Serializer.hpp>
 
+Serializer::Serializer(void)
+{
+}
+
 uintptr_t  Serializer::serialize(Data* ptr)
 {
 	return reinterpret_cast<uintptr_t>(ptr);

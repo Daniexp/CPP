@@ -26,7 +26,7 @@ OBJS        =    $(DSRC:.cpp=.o)
 TEST_OBJS   =    $(TEST_DSRC:.cpp=.o)
 
 # Variable condicional para compilar main.cpp dependiendo del objetivo
-ifeq ($(MAKECMDGOALS), debug)
+ifeq ($(MAKECMDGOALS), test)
 	SRCS := $(filter-out main.cpp, $(SRCS))
 	OBJS := $(filter-out $(SRCDIR)main.o, $(OBJS))
 endif
@@ -44,17 +44,11 @@ fclean: clean
 
 re: fclean all
 
-test: func_test exec_test
+test: fclean func_test
 
 func_test: $(OBJS) $(TESTDIR)main_func_test.o
 	$(CXX) -o $(TEST_NAME) $(CXXFLAGS) $^
 	./$(TEST_NAME)
-
-exec_test: $(SRCDIR)main.o $(TESTDIR)main_exec_test.o $(TEST_OBJS)
-	$(CXX) -o $(EXEC_TEST_NAME) $(CXXFLAGS) $^
-	./$(EXEC_TEST_NAME)
-debug: fclean func_test
-	make clean
 
 test_objs: $(TEST_OBJS)
 
@@ -64,4 +58,4 @@ $(TESTDIR)%.o: $(TESTDIR)%.cpp
 $(SRCDIR)%.o: $(SRCDIR)%.cpp
 	$(CXX) -c -o $@ $(CXXFLAGS) $<
 
-.PHONY: all clean fclean re test func_test exec_test debug
+.PHONY: all clean fclean re test func_test

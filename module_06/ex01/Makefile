@@ -12,7 +12,8 @@ RM			=	rm -rf
 SRCS		=	\
     Serializer.cpp \
 				main.cpp
-TEST_SRCS	=	$(TEST_NAME).cpp
+TEST_SRCS	=	$(TEST_NAME).cpp \
+			test_utils.cpp
 SRCDIR		=	./src/
 INCDIR		=	./inc/
 TESTDIR		=	./test/
@@ -43,8 +44,6 @@ test:	$(OBJS) $(TEST_OBJS)
 	./$(TEST_NAME)
 
 re:	fclean all
-
-test_objs: $(TEST_OBJS)
 
 bonus:
 

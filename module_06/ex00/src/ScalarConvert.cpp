@@ -8,6 +8,10 @@ ScalarConvert::ScalarConvert(const std::string& execArgument) : execArgument(exe
 	explicitCast();
 }
 
+ScalarConvert::ScalarConvert()
+{
+}
+
 ScalarConvert::ScalarConvert(const ScalarConvert& src) : execArgument(src.getExecArgument())
 {
 //Copy Const
@@ -35,7 +39,7 @@ ScalarConvert& ScalarConvert::operator = (const ScalarConvert& src)
 
 const std::string& ScalarConvert::getExecArgument() const
 {
-	return execArgument;
+	return this->execArgument;
 }
 
 int ScalarConvert::getInt() const
@@ -131,12 +135,6 @@ void ScalarConvert::saveType()
 	if (std::all_of((argument.begin() + sign), argument.end(), ::isdigit) == true)
 		setType(INT);
 	argument = this->getExecArgument();
-/*
-	if (argument.find("f") != std::string::npos)
-		setType(FLOAT);
-	if (argument.find('.') != std::string::npos && argument.find('f') == std::string::npos)
-		setType(DOUBLE);
-*/
 	if (std::regex_match(argument, std::regex("(-?[0-9]+\\.[0-9]+f)")))
        		setType(FLOAT);
     	if (std::regex_match(argument, std::regex("(-?[0-9]+\\.[0-9]+)")))
@@ -252,11 +250,9 @@ void ScalarConvert::floatExplicitCast()
 		break;
 		case INT:
 			this->toFloat = static_cast<float>(this->getInt()); 
-			//this->toFloat = static_cast<double>(this->getInt()); 
 		break;
 		case DOUBLE:
 			this->toFloat = static_cast<float>(this->getDouble()); 
-			//this->toFloat = static_cast<double>(this->getDouble()); 
 		break;
 	}
 }
@@ -324,4 +320,10 @@ void ScalarConvert::explicitCast()
 	        this->error[CHAR] = "Non displayable";
 	}
 
+}
+
+int ScalarConvert::protectExplicitCast()
+{
+	ScalarConvert arg;
+	return (!arg.isBiggerThanMaxInt() && !arg.isBiggerThanMaxFloat());
 }

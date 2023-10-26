@@ -37,6 +37,7 @@ public:
 	bool isPseudoLiteral();
 	void explicitCast();
 private:
+	ScalarConvert();
 	std::string execArgument;
 	unsigned char toChar;
 	int toInt;
@@ -45,15 +46,16 @@ private:
 	std::string error[4];
 	int	type;
 
-	void convertStringToLiteral();
-	void convertLiteralToScalarType();
-	void tryConvertToType(int type, void (ScalarConvert::*convertFunction)());
-	void charExplicitCast();
-	void intExplicitCast();
-	void floatExplicitCast();
-	void doubleExplicitCast();
-	int  isBiggerThanMaxInt();
-	int  isBiggerThanMaxFloat();
+void convertStringToLiteral();
+void convertLiteralToScalarType();
+void tryConvertToType(int type, void (ScalarConvert::*convertFunction)());
+void charExplicitCast();
+void intExplicitCast();
+void floatExplicitCast();
+void doubleExplicitCast();
+int  isBiggerThanMaxInt();
+int  isBiggerThanMaxFloat();
+static int protectExplicitCast();
 };
 std::ostream& operator << (std::ostream& os,const ScalarConvert& src);
 
