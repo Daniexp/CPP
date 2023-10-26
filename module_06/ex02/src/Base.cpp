@@ -55,13 +55,30 @@ void identify(Base& p)
 	{
 		A& a = dynamic_cast<A&>(p);
 		a.~A();
-		B& b = dynamic_cast<B&>(p);
-		b.~B();
-		C& c = dynamic_cast<C&>(p);
-		c.~C();
+		std::cout << "A" << std::endl;
+		return ;
 	}
 	catch(...)
 	{
-		std::cout << "fallo al convertir" << std::endl;
+	}
+	try
+	{
+		B& b = dynamic_cast<B&>(p);
+		b.~B();
+		std::cout << "B" << std::endl;
+		return ;
+	}
+	catch(...)
+	{
+	}
+	try
+	{
+		C& c = dynamic_cast<C&>(p);
+		c.~C();
+		std::cout << "C" << std::endl;
+	}
+	catch(...)
+	{
+		std::cout << "ERROR: invalid argument" << std::endl;
 	}
 }
