@@ -126,7 +126,7 @@ TEST_CASE("Subject output examples")
 TEST_CASE("non displayable int 9")
 {
 	ScalarConvert example = ScalarConvert("9");
-	std::cout << example;
+//	std::cout << example;
 	CHECK(example.getError(CHAR) == "Non displayable");
 	CHECK(example.getType() == INT);
 }

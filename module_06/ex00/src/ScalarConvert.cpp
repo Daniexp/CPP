@@ -135,10 +135,33 @@ void ScalarConvert::saveType()
 	if (std::all_of((argument.begin() + sign), argument.end(), ::isdigit) == true)
 		setType(INT);
 	argument = this->getExecArgument();
-	if (std::regex_match(argument, std::regex("(-?[0-9]+\\.[0-9]+f)")))
-       		setType(FLOAT);
-    	if (std::regex_match(argument, std::regex("(-?[0-9]+\\.[0-9]+)")))
-       		 setType(DOUBLE);
+	int f_count = 0;
+	int point = 0;
+	for (int i = 0; i < (int) argument.size() && point == 0; i++)
+	{
+		if (argument[i] == '.')
+		{
+			point++;
+			if ( i == 0 || std::all_of((argument.begin() + sign), argument.begin() + i, ::isdigit) == false)
+				return ;
+			for (int j = i + 1; j < (int) argument.size() && f_count == 0; j++)
+				if (argument[j] == 'f')
+				{
+					f_count++;
+					if (i + 1 == j)
+						return ;
+					if (std::all_of((argument.begin() + i + 1), argument.begin() + j, ::isdigit) == false)
+						return ;
+				}
+		}
+	}
+	if (point == 1)
+	{
+		if (f_count  == 1 && argument.back() == 'f')
+       			setType(FLOAT);
+		else if (f_count == 0 && argument.front() != '.' && argument.back() != '.')
+       		 	setType(DOUBLE);
+	}
 }
 int ScalarConvert::getType() const
 {

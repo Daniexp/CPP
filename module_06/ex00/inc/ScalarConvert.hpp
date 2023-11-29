@@ -9,7 +9,6 @@
 
 #include <iostream>
 #include <string>
-#include <regex>
 #include <iomanip>
 #include <limits>
 #include <cfloat>
