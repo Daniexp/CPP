@@ -7,7 +7,8 @@
 int main(int argc, char **argv)
 {
 	if (argc == 2)
-		std::cout << ScalarConvert(argv[1]);
+		ScalarConvert::convert(argv[1]);
+		//std::cout << ScalarConvert(argv[1]);
 	return (0);
 }
 

@@ -1,11 +1,25 @@
 #include <ScalarConvert.hpp>
 
-ScalarConvert::ScalarConvert(const std::string& execArgument) : execArgument(execArgument)
+void ScalarConvert::convert(const std::string& src)
 {
 //Const
-	saveType();
-	convertLiteralToScalarType();
-	explicitCast();
+	std::string error[4];
+	for (int i = 0; i < 4 ; i++)
+		error[i] = "clean";
+	int type = saveType(src, error);
+	if (type == NOTYPE)
+		return ;
+//	convertLiteralToScalarType();
+//	explicitCast();
+	std::cout << "char: ";
+	(error[CHAR] == "clean") ? std::cout << "elchar" : std::cout << error[CHAR];
+	std::cout << std::endl << "int: ";
+	(error[INT] == "clean") ? std::cout << "elint" : std::cout << error[INT];
+	std::cout << std::endl << "float: ";
+	(error[FLOAT] == "clean") ? std::cout << std::fixed << std::setprecision(1) << "elFloat" << "f" : std::cout << error[FLOAT];
+	std::cout << std::endl << "double: ";
+	(error[DOUBLE] == "clean") ? std::cout << std::fixed << std::setprecision(1) << "elDouble" : std::cout << error[DOUBLE];
+	std::cout << std::endl;
 }
 
 ScalarConvert::ScalarConvert()
@@ -61,32 +75,32 @@ double ScalarConvert::getDouble() const
 {
 	return toDouble;
 }
-bool ScalarConvert::isPseudoLiteral()
+int ScalarConvert::isPseudoLiteral(const std::string& src, std::string error[])
 {
 	std::string literals[] = {"-inff", "+inff", "nanf", "-inf", "+inf", "nan"};
 	bool isLiteral = false;
-	this->setType(NOTYPE);
+	int type = NOTYPE;
 
 	for (int i = 0; !isLiteral && i < 6; i++)
 	{
-		if (literals[i] == this->getExecArgument())
+		if (literals[i] == src)
 		{
 			if (i >= 0 && i <= 2)
 			{
-				this->error[FLOAT] = literals[i];
-				this->error[DOUBLE] = literals[i + 3];
+				error[FLOAT] = literals[i];
+				error[DOUBLE] = literals[i + 3];
 			}
 			else
 			{
-				this->error[DOUBLE] = literals[i];
-				this->error[FLOAT] = literals[i - 3];
+				error[DOUBLE] = literals[i];
+				error[FLOAT] = literals[i - 3];
 			}
 			isLiteral = true;
-			this->error[CHAR] = this->error[INT] = "impossible";
-			this->setType(LITERAL);
+			error[CHAR] = error[INT] = "impossible";
+			type = LITERAL;
 		}
 	}
-	return isLiteral;
+	return type;
 }
 
 std::string ScalarConvert::getError(int type) const
@@ -102,15 +116,15 @@ std::string ScalarConvert::getError(int type) const
 
 std::ostream& operator << (std::ostream& os, const ScalarConvert& src) 
 {
-	os << "char: ";
-	(src.getError(CHAR) == "clean") ? os << src.getChar() : os << src.getError(CHAR);
-	os  << std::endl << "int: ";
-	(src.getError(INT) == "clean") ? os << src.getInt() : os << src.getError(INT);
-	os << std::endl << "float: ";
-	(src.getError(FLOAT) == "clean") ? os << std::fixed << std::setprecision(1) << src.getFloat() << "f" : os << src.getError(FLOAT);
-	os << std::endl << "double: ";
-	(src.getError(DOUBLE) == "clean") ? os << std::fixed << std::setprecision(1) << src.getDouble() : os << src.getError(DOUBLE);
-	os << std::endl;
+	std::cout << "char: ";
+	(src.getError(CHAR) == "clean") ? std::cout << src.getChar() : std::cout << src.getError(CHAR);
+	std::cout  << std::endl << "int: ";
+	(src.getError(INT) == "clean") ? std::cout << src.getInt() : std::cout << src.getError(INT);
+	std::cout << std::endl << "float: ";
+	(src.getError(FLOAT) == "clean") ? std::cout << std::fixed << std::setprecision(1) << src.getFloat() << "f" : std::cout << src.getError(FLOAT);
+	std::cout << std::endl << "double: ";
+	(src.getError(DOUBLE) == "clean") ? std::cout << std::fixed << std::setprecision(1) << src.getDouble() : std::cout << src.getError(DOUBLE);
+	std::cout << std::endl;
 
 	return os;
 }
@@ -119,22 +133,23 @@ void ScalarConvert::setType(int type)
 {
 	this->type = type;
 }
-void ScalarConvert::saveType()
+int ScalarConvert::saveType(const std::string& src, std::string error[])
 {
-	if (isPseudoLiteral() == true)
-		return;
-	int length = this->getExecArgument().length();
+	int type = isPseudoLiteral(src, error);
+	if (type == LITERAL)
+		return type;
+	int length =src.length();
 	char* char_str = new char[length];
-	std::strcpy(char_str, this->getExecArgument().c_str());
+	std::strcpy(char_str,src.c_str());
 	if (length == 1 && !isdigit(*char_str) && isascii(*char_str))
-		setType(CHAR);
+		type = (CHAR);
 	delete[](char_str);
 
-	std::string argument = this->getExecArgument();
+	std::string argument =src;
 	int sign = (argument[0] == '-' || argument[0] == '+') ? 1 : 0;
 	if (std::all_of((argument.begin() + sign), argument.end(), ::isdigit) == true)
-		setType(INT);
-	argument = this->getExecArgument();
+		type = (INT);
+	argument =src;
 	int f_count = 0;
 	int point = 0;
 	for (int i = 0; i < (int) argument.size() && point == 0; i++)
@@ -143,25 +158,24 @@ void ScalarConvert::saveType()
 		{
 			point++;
 			if ( i == 0 || std::all_of((argument.begin() + sign), argument.begin() + i, ::isdigit) == false)
-				return ;
+				return type;
 			for (int j = i + 1; j < (int) argument.size() && f_count == 0; j++)
 				if (argument[j] == 'f')
 				{
 					f_count++;
 					if (i + 1 == j)
-						return ;
-					if (std::all_of((argument.begin() + i + 1), argument.begin() + j, ::isdigit) == false)
-						return ;
+						return type;
 				}
 		}
 	}
 	if (point == 1)
 	{
 		if (f_count  == 1 && argument.back() == 'f')
-       			setType(FLOAT);
+       			type = (FLOAT);
 		else if (f_count == 0 && argument.front() != '.' && argument.back() != '.')
-       		 	setType(DOUBLE);
+       		 	type = (DOUBLE);
 	}
+	return type;
 }
 int ScalarConvert::getType() const
 {

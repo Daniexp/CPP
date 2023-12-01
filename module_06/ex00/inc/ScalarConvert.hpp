@@ -16,6 +16,7 @@
 class ScalarConvert
 {
 public:
+	static void convert(const std::string& src);
 	ScalarConvert(const std::string& execArgument);
 	~ScalarConvert();
    ScalarConvert(const ScalarConvert& src);
@@ -31,12 +32,13 @@ public:
 	void setFloat();
 	void setDouble();
 	void setType(int type);
-	void saveType();
 	std::string getError(int type) const;
-	bool isPseudoLiteral();
 	void explicitCast();
 private:
 	ScalarConvert();
+	static int saveType(const std::string& src, std::string error[]);
+	static int isPseudoLiteral(const std::string& src, std::string error[]);
+
 	std::string execArgument;
 	unsigned char toChar;
 	int toInt;
