@@ -100,7 +100,9 @@ TEST_CASE("Valid explicit conversion, int scalar")
 TEST_CASE("Valid explicit conversion, float scalar")
 {
 	CHECK(ScalarConvert("65.0f").getChar() == 'A');
-	CHECK(ScalarConvert("-66f").getInt() == -66.0f);
+	CHECK(ScalarConvert("-66.0f").getFloat() == -66.0f);
+	CHECK(ScalarConvert("-66.f").getError(FLOAT) == "impossible");
+	CHECK(ScalarConvert("-66.f").getError(INT) == "impossible");
 	CHECK(ScalarConvert("-67.0f").getDouble() == -67.0);
 }
 TEST_CASE("Valid explicit conversion, doublescalar")
