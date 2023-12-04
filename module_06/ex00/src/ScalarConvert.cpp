@@ -4,12 +4,13 @@ void ScalarConvert::convert(const std::string& src)
 {
 //Const
 	std::string error[4];
+	void* conversion[4];
 	for (int i = 0; i < 4 ; i++)
 		error[i] = "clean";
 	int type = saveType(src, error);
 	if (type == NOTYPE)
 		return ;
-//	convertLiteralToScalarType();
+//	convertLiteralToScalarType(conversion, error, src);
 //	explicitCast();
 	std::cout << "char: ";
 	(error[CHAR] == "clean") ? std::cout << "elchar" : std::cout << error[CHAR];
@@ -182,9 +183,11 @@ int ScalarConvert::getType() const
 	return this->type;
 }
 
-void ScalarConvert::convertLiteralToScalarType()
+void ScalarConvert::convertLiteralToScalarType(int type, void* conversion[], std::string error[], const std::string src)
 {
-	switch (getType())
+	if (type == NOTYPE)
+		return ;
+	switch (type)
 	{
 		case CHAR:
 			tryConvertToType(CHAR, &ScalarConvert::setChar);
@@ -200,13 +203,28 @@ void ScalarConvert::convertLiteralToScalarType()
 		break;
 	}
 }
-void ScalarConvert::tryConvertToType(int type, void (ScalarConvert::*convertFunction)(void))
+void ScalarConvert::tryConvertToType(int type, void* conversion[], std::string error[])
 {
 	if (type == LITERAL || type == NOTYPE)
 		return ;
 	try
 	{
 		(this->*convertFunction)();
+		switch (type)
+		{
+			case CHAR:
+				this->toChar = *(this->getExecArgument().c_str());
+			break;
+			case INT:
+				this->toInt =  std::stoi(this->getExecArgument());
+			case FLOAT:
+			break;
+				this->toFloat = std::stof(this->getExecArgument().c_str());
+			case DOUBLE:
+				this->toDouble = std::stod(this->getExecArgument().c_str());
+			break;
+
+		}
 	}
 	catch(std::invalid_argument& message)
 	{
@@ -298,6 +316,8 @@ void ScalarConvert::doubleExplicitCast()
 	switch (this->getType())
 	{
 		case CHAR:
+			this->toInt = static_cast<int>(this->getChar()); 
+			this->toFloat = static_cast<float>(this->getChar()); 
 			this->toDouble = static_cast<double>(this->getChar()); 
 		break;
 		case INT:
@@ -349,6 +369,23 @@ void ScalarConvert::explicitCast()
 	tryConvertToType(INT, &ScalarConvert::intExplicitCast);
 	tryConvertToType(FLOAT, &ScalarConvert::floatExplicitCast);
 	tryConvertToType(DOUBLE, &ScalarConvert::doubleExplicitCast);
+	switch (this->getType())
+	{
+		case CHAR:
+			this->toInt = static_cast<int>(this->getChar()); 
+			this->toFloat = static_cast<float>(this->getChar()); 
+			this->toDouble = static_cast<double>(this->getChar()); 
+		break;
+		case INT:
+			this->toChar = static_cast<char>(this->getInt()); 
+			this->toFloat = static_cast<float>(this->getInt()); 
+			this->toDouble = static_cast<double>(this->getInt()); 
+		break;
+		case FLOAT:
+		break;
+		case DOUBLE:
+		break;
+	}
 	if (getError(CHAR) == "clean")
 	{
 	    if (getInt() < CHAR_MIN || getInt() > CHAR_MAX)

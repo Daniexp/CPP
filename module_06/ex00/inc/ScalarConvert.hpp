@@ -38,6 +38,8 @@ private:
 	ScalarConvert();
 	static int saveType(const std::string& src, std::string error[]);
 	static int isPseudoLiteral(const std::string& src, std::string error[]);
+//	static void convertLiteralToScalarType(int type, void* conversion[], std::string error[], const std::string src);
+//	static void tryConvertToType(int type, void* conversion[], std::string error[]);
 
 	std::string execArgument;
 	unsigned char toChar;
@@ -48,8 +50,6 @@ private:
 	int	type;
 
 void convertStringToLiteral();
-void convertLiteralToScalarType();
-void tryConvertToType(int type, void (ScalarConvert::*convertFunction)());
 void charExplicitCast();
 void intExplicitCast();
 void floatExplicitCast();
