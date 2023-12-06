@@ -17,51 +17,13 @@ class ScalarConvert
 {
 public:
 	static void convert(const std::string& src);
-/*
-	ScalarConvert(const std::string& execArgument);
-	~ScalarConvert();
-   ScalarConvert(const ScalarConvert& src);
-   ScalarConvert& operator=(const ScalarConvert& src);
-	int getInt() const;
-	char getChar() const;
-	float getFloat() const;
-	double getDouble() const;
-	int getType() const;
-	const std::string& getExecArgument() const;
-	void setInt();
-	void setChar();
-	void setFloat();
-	void setDouble();
-	void setType(int type);
-	std::string getError(int type) const;
-	void explicitCast();
-*/
 private:
 	ScalarConvert();
 	static int saveType(const std::string& src, std::string error[]);
 	static int isPseudoLiteral(const std::string& src, std::string error[]);
 	static int  isBiggerThanMaxInt(int type, double valueDouble, float valueFloat, std::string error[]);
 	static int  isBiggerThanMaxFloat(int type, double valueDouble, std::string error[]);
-
-/*
-	std::string execArgument;
-	unsigned char toChar;
-	int toInt;
-	float toFloat;
-	double toDouble;
-	std::string error[4];
-	int	type;
-
-void convertStringToLiteral();
-void convertLiteralToScalarType();
-void tryConvertToType(int type, void (ScalarConvert::*convertFunction)());
-void charExplicitCast();
-void intExplicitCast();
-void floatExplicitCast();
-void doubleExplicitCast();
-static int protectExplicitCast();
-*/
+	static void printValues(std::string error[], char valueChar, int valueInt, double valueDouble, float valueFloat);
 };
-//std::ostream& operator << (std::ostream& os,const ScalarConvert& src);
 
 #endif     //SCALARCONVERT_H
