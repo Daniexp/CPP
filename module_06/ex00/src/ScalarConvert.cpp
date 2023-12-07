@@ -66,10 +66,11 @@ void ScalarConvert::convert(const std::string& src)
 	}
 	if (error[CHAR] == "clean")
 	{
-	    if (valueInt < CHAR_MIN || valueInt > CHAR_MAX)
-	        error[CHAR] = "impossible";
-	    else if (!std::isprint(valueChar))
-	        error[CHAR] = "Non displayable";
+	    if (valueInt < 0 || valueInt < CHAR_MIN || valueInt > CHAR_MAX)
+//		if (valueInt < 0 || valueInt > 255)
+	       		error[CHAR] = "impossible";
+		else if (!std::isprint(valueChar))
+	        	error[CHAR] = "Non displayable";
 	}
 	printValues(error, valueChar, valueInt, valueDouble, valueFloat);
 }
@@ -122,7 +123,8 @@ int ScalarConvert::saveType(const std::string& src, std::string error[])
 	int length =src.length();
 	char* char_str = new char[length];
 	std::strcpy(char_str,src.c_str());
-	if (length == 1 && !isdigit(*char_str) && isascii(*char_str))
+//	if (length == 1 && (int) *char_str >= 0 && (int) *char_str <= 255)
+	if (length == 1 && isascii(*char_str))//!isdigit(*char_str) && isascii(*char_str))
 		type = (CHAR);
 	delete[](char_str);
 
