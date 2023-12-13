@@ -8,8 +8,10 @@ NC='\033[0m'  # No Color
 compare_strings() {
     if [ "$1" == "$2" ]; then
         echo -e "${NC}${3}: ${GREEN}$1${NC}"
+	return 0
     else
         echo -e "${NC}${3}: ${RED}$1${NC} - ${GREEN}$2${NC}"
+	return 1
     fi
 }
 
@@ -21,7 +23,6 @@ print_test_title() {
         echo -e "${RED}----------\n$2\n----------${NC}"
     fi
 }
-
 # Function to run the test and check the output
 run_test() {
     example="$1"

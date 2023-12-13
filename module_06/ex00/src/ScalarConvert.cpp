@@ -3,7 +3,7 @@
 void ScalarConvert::convert(const std::string& src)
 {
 	int	valueInt = 0;
-	char	valueChar = '\0';
+	char	valueChar;
 	float	valueFloat = 0.0f;
 	double	valueDouble = 0.0;
 	std::string	error[4];
@@ -19,7 +19,8 @@ void ScalarConvert::convert(const std::string& src)
 				valueInt =  std::stoi(src);
 			break;
 			case CHAR:
-				valueChar = *(src.c_str());
+//				valueChar = *(src.c_str());
+				valueChar = src.at(0);
 			break;
 			case FLOAT:
 				valueFloat = std::stof(src.c_str());
@@ -124,14 +125,19 @@ int ScalarConvert::saveType(const std::string& src, std::string error[])
 	char* char_str = new char[length];
 	std::strcpy(char_str,src.c_str());
 //	if (length == 1 && (int) *char_str >= 0 && (int) *char_str <= 255)
-	if (length == 1 && isascii(*char_str))//!isdigit(*char_str) && isascii(*char_str))
-		type = (CHAR);
-	delete[](char_str);
+//	if (length == 1 && isascii(*char_str))//!isdigit(*char_str) && isascii(*char_str))
+//	if (length == 1 && isascii(*char_str))
+	if (length == 1 && isascii(src[0]) && !isdigit(src[0]))
+//		return (delete[](char_str), CHAR);	
+		return CHAR;
+		//type = CHAR;
+//	delete[](char_str);
 
-	std::string argument =src;
+	std::string argument = src;
 	int sign = (argument[0] == '-' || argument[0] == '+') ? 1 : 0;
 	if (std::all_of((argument.begin() + sign), argument.end(), ::isdigit) == true)
-		type = (INT);
+		return INT;
+//		type = (INT);
 	argument =src;
 	int f_count = 0;
 	int point = 0;
@@ -164,7 +170,7 @@ int ScalarConvert::isBiggerThanMaxFloat(int type, double valueDouble, std::strin
 {
 	int res = 0;
 
-	if ((type == DOUBLE && (valueDouble > FLT_MAX || valueDouble <  FLT_MIN)))
+	if ((type == DOUBLE && (valueDouble > (double) FLT_MAX || valueDouble <  (double) FLT_MIN)))
 	{
 		error[INT] = "impossible";
 		error[CHAR] = "impossible";
@@ -177,7 +183,7 @@ int ScalarConvert::isBiggerThanMaxInt(int type, double valueDouble, float valueF
 {
 	int res = 0;
 
-	if ((type == DOUBLE && (valueDouble >  INT_MAX || valueDouble <  INT_MIN))
+	if ((type == DOUBLE && (valueDouble >  (double) INT_MAX || valueDouble <  (double) INT_MIN))
 		|| (type == FLOAT && (valueFloat > (float)  INT_MAX || valueFloat < (float) INT_MIN)))
 	{
 		error[INT] = "impossible";
