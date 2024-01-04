@@ -10,6 +10,7 @@ CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
 SRCS		=	\
+    Empty.cpp \
     Object.cpp \
 				main.cpp
 TEST_SRCS	=	$(TEST_NAME).cpp

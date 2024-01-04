@@ -27,12 +27,25 @@ Object& Object::operator = (const Object& src)
 	return *this;
 }
 
-int Object::operator < (const Object& src)
+bool Object::operator < (const Object& src)
 {
 	return this->value < src.value;
 }
 
-int Object::operator > (const Object& src)
+bool Object::operator > (const Object& src)
 {
-	return (this->value > src.value ? this->value : src.value);
+	return this->value > src.value;
 }
+
+bool Object::operator == (const Object& src) const
+{
+	return this->value == src.value;
+}
+
+int Object::getValue()
+{
+	return this->value;
+}
+
+
+

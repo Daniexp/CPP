@@ -11,8 +11,10 @@ public:
 	~Object();
    Object(const Object& src);
    Object& operator=(const Object& src);
-   int operator<(const Object& src);
-   int operator>(const Object& src);
+   bool operator<(const Object& src);
+   bool operator>(const Object& src);
+	bool operator==(const Object& src) const;
+	int getValue();
 private:
 	int value;
 };
