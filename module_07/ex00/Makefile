@@ -10,6 +10,7 @@ CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
 SRCS		=	\
+    Object.cpp \
 				main.cpp
 TEST_SRCS	=	$(TEST_NAME).cpp
 SRCDIR		=	./src/
