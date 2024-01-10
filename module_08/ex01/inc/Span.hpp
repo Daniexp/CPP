@@ -5,17 +5,16 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include <list>
 
-class Span : public std::vector<int>
+class Span : public std::list<int>
 {
 public:
 	Span(const unsigned int N);
-/*
 	Span();
 	~Span();
    Span(const Span& src);
    Span& operator=(const Span& src);
-*/
 	void addNumber(const int &number);
 	unsigned int shortestSpan() const;
 	unsigned int longestSpan() const;
@@ -28,6 +27,7 @@ private:
 	unsigned int calculateSpan(bool (*comparador)(unsigned int, unsigned int)) const;
 	static bool isLess(unsigned int a, unsigned int b);
 	static bool isMore(unsigned int a, unsigned int b);
+	unsigned int numbers;
 };
 
 #endif     //SPAN_H
