@@ -1,7 +1,14 @@
 #include <ex01.hpp>
 #include <Span.hpp>
+
+void leaks(void)
+{
+	system("leaks ex01");
+}
+
 int main(void)
 {
+	atexit(leaks);
 	std::cout << "The proyect was created sucessfully." << std::endl;
 Span sp = Span(5);
 sp.addNumber(6);

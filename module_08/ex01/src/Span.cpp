@@ -1,9 +1,9 @@
 #include <Span.hpp>
 
-Span::Span() : std::list<int>(0)
+Span::Span()
 {
 //Const
-	numbers = 0;
+	maxNumbers = 0;
 }
 
 Span::~Span()
@@ -22,35 +22,34 @@ Span& Span::operator = (const Span& src)
 	if (this != &src)
 	{
 		this->numbers = src.numbers;
-		std::list<int>::operator=(src);
+		this->maxNumbers = src.maxNumbers;
 	}
 	return *this;
 }
-Span::Span(const unsigned int N)// : std::list<int>(N)
+Span::Span(const unsigned int N)
 {
-	numbers = N;
+	maxNumbers = N;
 }
 
 void Span::addNumber(const int &number)
 {
-	if (this->size() + 1 > numbers)
+	if (numbers.size() + 1 > maxNumbers)
 		throw std::runtime_error("Span: trying to add more than N numbers.");
-	this->push_back(number);
-//	std::list<int>::operator[](numbers) = number;
-//	(*this)[numbers] = number;
-//	numbers++;
+	numbers.push_back(number);
+	maxNumbers++;
 }
 
 unsigned int Span::calculateSpan(bool (*comparador)(unsigned int, unsigned int)) const
 {
-	if (this->size() < 2)
+	if (numbers.size() < 2)
 		throw std::runtime_error("Span error: no span can be found");
 	unsigned int span;
-	unsigned int minSpan = 0;
-	std::list<int>::const_iterator prev = this->begin();
+	unsigned int minSpan;
+	std::list<int>::const_iterator prev = numbers.begin();
 	std::list<int>::const_iterator it  = prev;
 	it++;
-	while(it != this->end())
+	span = minSpan = std::abs(*prev - *it);
+	while(it != numbers.end())
 	{
 		span = std::abs(*prev - *it);
 		prev++;
@@ -79,4 +78,15 @@ bool Span::isLess(unsigned int a, unsigned int b)
 bool Span::isMore(unsigned int a, unsigned int b)
 {
 	return a > b;
+}
+
+int Span::operator [] (std::size_t index) const
+{
+	if (index >= maxNumbers)
+		throw std::runtime_error("Span: index out of N");
+	std::size_t i = 0;
+	std::list<int>::const_iterator it = numbers.begin();
+	while(it != numbers.end() && i++ != index)
+		it++;
+	return *it;
 }
