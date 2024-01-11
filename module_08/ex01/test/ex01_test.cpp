@@ -40,7 +40,7 @@ TEST_CASE("Invalid - addNumber")
 	}
 	catch(std::exception& e)
 	{
-		CHECK(e.what() == "Span - impossible to add more than N numbers");
+		CHECK(std::string(e.what()) == "Span - trying to add more than N numbers");
 	}
 }
 

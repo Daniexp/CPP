@@ -34,7 +34,7 @@ Span::Span(const unsigned int N)
 void Span::addNumber(const int &number)
 {
 	if (numbers.size() + 1 > maxNumbers)
-		throw std::runtime_error("Span: trying to add more than N numbers.");
+		throw std::runtime_error("Span - trying to add more than N numbers");
 	numbers.push_back(number);
 	maxNumbers++;
 }
@@ -42,7 +42,7 @@ void Span::addNumber(const int &number)
 unsigned int Span::calculateSpan(bool (*comparador)(unsigned int, unsigned int)) const
 {
 	if (numbers.size() < 2)
-		throw std::runtime_error("Span error: no span can be found");
+		throw std::runtime_error("Span - no span can be found");
 	unsigned int span;
 	unsigned int minSpan;
 	std::list<int>::const_iterator prev = numbers.begin();
@@ -83,7 +83,7 @@ bool Span::isMore(unsigned int a, unsigned int b)
 int Span::operator [] (std::size_t index) const
 {
 	if (index >= maxNumbers)
-		throw std::runtime_error("Span: index out of N");
+		throw std::runtime_error("Span: index out of range");
 	std::size_t i = 0;
 	std::list<int>::const_iterator it = numbers.begin();
 	while(it != numbers.end() && i++ != index)
