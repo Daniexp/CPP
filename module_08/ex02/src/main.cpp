@@ -1,15 +1,13 @@
 #include <ex02.hpp>
 #include <MutantStack.hpp>
 
-/*
 void leaks(void)
 {
 	system("leaks ex02");
 }
-*/
 int main(void)
 {
-//	atexit(leaks);
+	atexit(leaks);
 MutantStack<int> mstack;
 mstack.push(5);
 mstack.push(17);
