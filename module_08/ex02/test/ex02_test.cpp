@@ -25,6 +25,8 @@ TEST_CASE("Compare subject main usign MutantStack and list")
 
 	CHECK(mstack.size() == 1);
 	CHECK(mslist.size() == 1);
+	CHECK(mstack.top() == 5);
+	CHECK(5 == mslist.back());
 	mstack.push(3);
 	mstack.push(5);
 	mstack.push(737);
