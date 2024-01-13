@@ -25,11 +25,12 @@ private:
 	std::ifstream input;
 	
 	//check csvPath
-	void mapContent(std::ifstream& file, std::map<std::string, std::string>& map, const std::string& split, void (BitcoinExchange::*checkValue)(const std::string& str));
+	void mapContent(std::ifstream& file, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str));
 	void openFile(std::ifstream& file, const std::string& path);
 	void checkDate(const std::string& str);
 	void checkPrice(const std::string& str);
 	void checkAmount(const std::string& str);
+	const std::string parseHeader(const std::string& str);
 	//check inputPath
 	//save csvData
 	//search Amount

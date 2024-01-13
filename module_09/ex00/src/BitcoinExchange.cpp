@@ -4,14 +4,16 @@ BitcoinExchange::BitcoinExchange()
 {
 //Const
 	openFile(csv, "data.csv");
-	mapContent(csv, dataBase, ",", &BitcoinExchange::checkPrice);
+	mapContent(csv, dataBase, &BitcoinExchange::checkPrice);
 }
 
 BitcoinExchange::BitcoinExchange(const std::string& inputPath)
 {
 //Const
 	openFile(csv, "data.csv");
+	mapContent(csv, dataBase, &BitcoinExchange::checkPrice);
 	openFile(input, inputPath);
+	mapContent(input, amounts, &BitcoinExchange::checkPrice);
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& src)
@@ -60,14 +62,15 @@ void BitcoinExchange::openFile(std::ifstream& file, const std::string& path)
 		throw std::runtime_error("Error : could not open file.");
 }
 
-void BitcoinExchange::mapContent(std::ifstream& file, std::map<std::string, std::string>& map, const std::string& split, void (BitcoinExchange::*checkValue)(const std::string& str))
+void BitcoinExchange::mapContent(std::ifstream& file, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str))
 {
 	std::string line;
 	
 	std::string date;
 	std::string value;
 	std::size_t splitPos;
-
+	std::getline(file,line);
+	const std::string& split = parseHeader(line);
 	while (std::getline(file, line))
 	{
 		splitPos = line.find_first_of(split);
@@ -75,7 +78,7 @@ void BitcoinExchange::mapContent(std::ifstream& file, std::map<std::string, std:
 			throw std::logic_error("Error : file doesn't contain the separator");
 		date = line.substr(0, splitPos);
 		checkDate(date);
-		value = line.substr(splitPos, line.length());
+		value = line.substr(splitPos + 1, line.length());
 		(this->*checkValue)(value);
 		map.insert(std::make_pair(date, value));
 	}
@@ -86,7 +89,7 @@ void BitcoinExchange::checkDate(const std::string& str)
 	std::stringstream fecha;
 	std::tm tm;
 	fecha << str;
-	if (static_cast<bool>(fecha >> std::get_time(&tm, "%Y/%m/%d")) == false)
+	if (static_cast<bool>(fecha >> std::get_time(&tm, "%Y-%m-%d")) == false)
 		throw std::logic_error("Error : bad date => " + str);
 }
 
@@ -99,6 +102,17 @@ void BitcoinExchange::checkPrice(const std::string& str)
 	{
 		throw std::logic_error("Error : bad price format => " + str);
 	}
+}
+const std::string BitcoinExchange::parseHeader(const std::string& str)
+{
+	std::string split;
+	if("date,exchange_rate" == str)
+		split = ",";
+	else if ("date | value" == str)
+		split = "|";
+	else
+		throw std::logic_error("Error : no valid header in the file.");
+	return split;
 }
 /*
 void BitcoinExchange::checkAmount(const std::string& str)
