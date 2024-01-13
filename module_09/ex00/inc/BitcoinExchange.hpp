@@ -5,25 +5,36 @@
 #include <string>
 #include <algorithm>
 #include <map>
+#include <fstream>
+#include <iomanip>
+#include <sstream>
 
-template <class T>
 class BitcoinExchange
 {
 public:
 	BitcoinExchange();
 	~BitcoinExchange();
-	BitcoinExchange(const std::string& csvPath);
-   BitcoinExchange(const BitcoinExchange<T>& src);
-   BitcoinExchange& operator=(const BitcoinExchange<T>& src);
+	BitcoinExchange(const std::string& inputPath);
+   BitcoinExchange(const BitcoinExchange& src);
+   BitcoinExchange& operator=(const BitcoinExchange& src);
+	const std::map<std::string, std::string>& getDataBase() const;
 private:
-	std::map<std::string, T> dataBase;
+	std::map<std::string, std::string> dataBase;
+	std::map<std::string, std::string> amounts;
+	std::ifstream csv;
+	std::ifstream input;
+	
 	//check csvPath
+	void mapContent(std::ifstream& file, std::map<std::string, std::string>& map, const std::string& split, void (BitcoinExchange::*checkValue)(const std::string& str));
+	void openFile(std::ifstream& file, const std::string& path);
+	void checkDate(const std::string& str);
+	void checkPrice(const std::string& str);
+	void checkAmount(const std::string& str);
 	//check inputPath
 	//save csvData
 	//search Amount
 	//search fil
 };
-template <class T>
-std::ostream& operator<<(std::ostream& os, const BitcoinExchange<T>& src);
+std::ostream& operator<<(std::ostream& os, const BitcoinExchange& src);
 
 #endif     //BITCOINEXCHANGE_H

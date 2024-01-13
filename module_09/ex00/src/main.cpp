@@ -11,4 +11,6 @@ int main(void)
 {
 //	atexit(leaks);
 	std::cout << "The proyect was created sucessfully." << std::endl;
+	BitcoinExchange example;
+	std::cout << example << std::endl;
 }
