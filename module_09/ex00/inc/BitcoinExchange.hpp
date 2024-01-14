@@ -20,6 +20,7 @@ public:
 	const std::map<std::string, std::string>& getDataBase() const;
 	void printResults();
 	void printResults(const std::string& inputPath);
+	float getExchangeRateByNearDate(const std::string& date);
 private:
 	std::map<std::string, std::string> dataBase;
 	std::map<std::string, std::string> amounts;
@@ -28,7 +29,7 @@ private:
 	
 	//check csvPath
 	void mapContent(std::ifstream& file, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str));
-	void saveLineValues(const std::string& split, std::string& line, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str));
+	std::map<std::string, std::string>::iterator saveLineValues(const std::string& split, std::string& line, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str));
 	void openFile(std::ifstream& file, const std::string& path);
 	void checkDate(const std::string& str);
 	void checkPrice(const std::string& str);

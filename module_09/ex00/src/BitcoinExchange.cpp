@@ -73,7 +73,7 @@ void BitcoinExchange::mapContent(std::ifstream& file, std::map<std::string, std:
 	while (std::getline(file, line))
 		saveLineValues(split, line, map, checkValue);
 }
-void BitcoinExchange::saveLineValues(const std::string& split, std::string& line, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str))
+std::map<std::string, std::string>::iterator BitcoinExchange::saveLineValues(const std::string& split, std::string& line, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str))
 {
 		std::size_t splitPos = line.find_first_of(split);
 		if (splitPos == std::string::npos)
@@ -82,32 +82,43 @@ void BitcoinExchange::saveLineValues(const std::string& split, std::string& line
 		checkDate(date);
 		std::string value = line.substr(splitPos + 1, line.length());
 		(this->*checkValue)(value);
-		map.insert(std::make_pair(date, value));
+		return map.insert(map.begin(), std::make_pair(date, value));
 	
 }
 
 void BitcoinExchange::printResults(const std::string& inputPath)
 {
-	openFile(input, inputPath);
 	std::string line;
+	openFile(input, inputPath);
 	std::getline(input, line);
 	const std::string& split = parseHeader(line);
 	while (std::getline(input, line))
 	{
 		try
 		{
-			saveLineValues(split, line, amounts, &BitcoinExchange::checkAmount);
 			//el nodo ha sido guardado
+			std::map<std::string, std::string>::iterator iter = saveLineValues(split, line, amounts, &BitcoinExchange::checkAmount);
 			//entrar nodo del map
+			std::string amount = iter->second.c_str();
 			//apartir de key ( date ) buscar en database
+			iter = dataBase.find(iter->first);
+			std::string lineResult = iter->first + " => " + amount + " = ";
 				//si una date no existe buscar la anterior
+			float result = std::atof(amount.c_str()) * getExchangeRateByNearDate(iter->first);
+			lineResult += std::to_string(result);
 			//printear feccha amoont => amount * exchange_rate de ese día
+			std::cout << lineResult << std::endl;
+			
 		}
 		catch(std::exception& e)
 		{
 			std::cout << e.what() << std::endl;
 		}
 	}
+}
+
+float BitcoinExchange::getExchangeRateByNearDate(const std::string& date)
+{
 }
 
 void BitcoinExchange::checkDate(const std::string& str)
