@@ -25,6 +25,8 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange& src)
 BitcoinExchange::~BitcoinExchange()
 {
 //Dest
+	csv.close();
+	input.close();
 }
 
 BitcoinExchange& BitcoinExchange::operator = (const BitcoinExchange& src)
@@ -66,21 +68,45 @@ void BitcoinExchange::mapContent(std::ifstream& file, std::map<std::string, std:
 {
 	std::string line;
 	
-	std::string date;
-	std::string value;
-	std::size_t splitPos;
 	std::getline(file,line);
 	const std::string& split = parseHeader(line);
 	while (std::getline(file, line))
-	{
-		splitPos = line.find_first_of(split);
+		saveLineValues(split, line, map, checkValue);
+}
+void BitcoinExchange::saveLineValues(const std::string& split, std::string& line, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str))
+{
+		std::size_t splitPos = line.find_first_of(split);
 		if (splitPos == std::string::npos)
 			throw std::logic_error("Error : file doesn't contain the separator");
-		date = line.substr(0, splitPos);
+		std::string date = line.substr(0, splitPos);
 		checkDate(date);
-		value = line.substr(splitPos + 1, line.length());
+		std::string value = line.substr(splitPos + 1, line.length());
 		(this->*checkValue)(value);
 		map.insert(std::make_pair(date, value));
+	
+}
+
+void BitcoinExchange::printResults(const std::string& inputPath)
+{
+	openFile(input, inputPath);
+	std::string line;
+	std::getline(input, line);
+	const std::string& split = parseHeader(line);
+	while (std::getline(input, line))
+	{
+		try
+		{
+			saveLineValues(split, line, amounts, &BitcoinExchange::checkAmount);
+			//el nodo ha sido guardado
+			//entrar nodo del map
+			//apartir de key ( date ) buscar en database
+				//si una date no existe buscar la anterior
+			//printear feccha amoont => amount * exchange_rate de ese día
+		}
+		catch(std::exception& e)
+		{
+			std::cout << e.what() << std::endl;
+		}
 	}
 }
 
@@ -95,13 +121,16 @@ void BitcoinExchange::checkDate(const std::string& str)
 
 void BitcoinExchange::checkPrice(const std::string& str)
 {
+	float value = 0.0;
 	try
 	{
-		std::atof(str.c_str());
+		value = std::atof(str.c_str());
 	}catch(std::exception& e)
 	{
 		throw std::logic_error("Error : bad price format => " + str);
 	}
+	if (isLess(value, 0.0f, 0.009))
+		throw std::logic_error("Error : bad price format => " + str);
 }
 const std::string BitcoinExchange::parseHeader(const std::string& str)
 {
@@ -114,16 +143,30 @@ const std::string BitcoinExchange::parseHeader(const std::string& str)
 		throw std::logic_error("Error : no valid header in the file.");
 	return split;
 }
-/*
+
 void BitcoinExchange::checkAmount(const std::string& str)
 {
+	float value = 0.0;
 	try
 	{
+		value = std::atof(str.c_str());
 	}catch(std::exception& e)
 	{
-		throw std::logic_error("Error : bad amount format => " + str);
+		throw std::logic_error("Error : bad price format => " + str);
 	}
+	if (isLess(value, 0.0f, 0.009) || isMore(value, 1000.0f, 0.009))
+		throw std::logic_error("Error : bad price format => " + str);
 }
-	
+
+bool BitcoinExchange::equalFloats(const float&a, const float&b, const float& epsilon)
+{
+	return (a - b < epsilon);
 }
-*/
+bool BitcoinExchange::isMore(const float&a, const float&b, const float& epsilon)
+{
+	return (a - b > epsilon);
+}
+bool BitcoinExchange::isLess(const float&a, const float&b, const float& epsilon)
+{
+	return (b - a > epsilon);
+}

@@ -18,6 +18,8 @@ public:
    BitcoinExchange(const BitcoinExchange& src);
    BitcoinExchange& operator=(const BitcoinExchange& src);
 	const std::map<std::string, std::string>& getDataBase() const;
+	void printResults();
+	void printResults(const std::string& inputPath);
 private:
 	std::map<std::string, std::string> dataBase;
 	std::map<std::string, std::string> amounts;
@@ -26,11 +28,16 @@ private:
 	
 	//check csvPath
 	void mapContent(std::ifstream& file, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str));
+	void saveLineValues(const std::string& split, std::string& line, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str));
 	void openFile(std::ifstream& file, const std::string& path);
 	void checkDate(const std::string& str);
 	void checkPrice(const std::string& str);
 	void checkAmount(const std::string& str);
 	const std::string parseHeader(const std::string& str);
+	float searchPriceByDate(const std::string& date);	
+	bool equalFloats(const float& a, const float& b, const float& epsilon);
+	bool isLess(const float& a, const float& b, const float& epsilon);
+	bool isMore(const float& a, const float& b, const float& epsilon);
 	//check inputPath
 	//save csvData
 	//search Amount
