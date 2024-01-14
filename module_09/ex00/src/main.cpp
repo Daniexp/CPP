@@ -13,4 +13,5 @@ int main(void)
 	std::cout << "The proyect was created sucessfully." << std::endl;
 	BitcoinExchange example;
 	std::cout << example << std::endl;
+	example.printResults("input.txt");
 }

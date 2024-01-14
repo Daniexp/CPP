@@ -20,7 +20,6 @@ public:
 	const std::map<std::string, std::string>& getDataBase() const;
 	void printResults();
 	void printResults(const std::string& inputPath);
-	float getExchangeRateByNearDate(const std::string& date);
 private:
 	std::map<std::string, std::string> dataBase;
 	std::map<std::string, std::string> amounts;
@@ -36,6 +35,7 @@ private:
 	void checkAmount(const std::string& str);
 	const std::string parseHeader(const std::string& str);
 	float searchPriceByDate(const std::string& date);	
+	std::map<std::string, std::string>::iterator searchNearestDate(const std::string& date);
 	bool equalFloats(const float& a, const float& b, const float& epsilon);
 	bool isLess(const float& a, const float& b, const float& epsilon);
 	bool isMore(const float& a, const float& b, const float& epsilon);

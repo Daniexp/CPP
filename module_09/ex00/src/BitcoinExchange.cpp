@@ -102,9 +102,11 @@ void BitcoinExchange::printResults(const std::string& inputPath)
 			std::string amount = iter->second.c_str();
 			//apartir de key ( date ) buscar en database
 			iter = dataBase.find(iter->first);
+			//si una date no existe buscar la anterior
+			if (dataBase.end() == iter)
+				iter = searchNearestDate(iter->first);
 			std::string lineResult = iter->first + " => " + amount + " = ";
-				//si una date no existe buscar la anterior
-			float result = std::atof(amount.c_str()) * getExchangeRateByNearDate(iter->first);
+			float result = std::atof(amount.c_str()) * std::atof(iter->second.c_str());
 			lineResult += std::to_string(result);
 			//printear feccha amoont => amount * exchange_rate de ese día
 			std::cout << lineResult << std::endl;
@@ -117,16 +119,29 @@ void BitcoinExchange::printResults(const std::string& inputPath)
 	}
 }
 
-float BitcoinExchange::getExchangeRateByNearDate(const std::string& date)
+std::map<std::string, std::string>::iterator BitcoinExchange::searchNearestDate(const std::string& date)
 {
+	std::map<std::string, std::string>::iterator iter = dataBase.begin();
+	while (iter != dataBase.end())
+	{
+		iter++;
+	}
+	if (date.size() != 0)
+		iter = dataBase.begin();
+	return iter;
 }
 
 void BitcoinExchange::checkDate(const std::string& str)
 {
+/*
 	std::stringstream fecha;
 	std::tm tm;
 	fecha << str;
 	if (static_cast<bool>(fecha >> std::get_time(&tm, "%Y-%m-%d")) == false)
+		throw std::logic_error("Error : bad date => " + str);
+*/
+	std::tm tm;
+	if (std::sscanf(str.c_str(), "%4d-%2d-%2d", &tm.tm_year, &tm.tm_mon, &tm.tm_mday) != 3)
 		throw std::logic_error("Error : bad date => " + str);
 }
 
