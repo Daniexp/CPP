@@ -15,9 +15,11 @@ public:
 	BitcoinExchange();
 	~BitcoinExchange();
 	BitcoinExchange(const std::string& inputPath);
+	BitcoinExchange(const std::string& dataBase, const std::string& inputPath);
    BitcoinExchange(const BitcoinExchange& src);
    BitcoinExchange& operator=(const BitcoinExchange& src);
 	const std::map<std::string, std::string>& getDataBase() const;
+	const std::map<std::string, std::string>& getAmounts() const;
 	void printResults();
 	void printResults(const std::string& inputPath);
 private:
