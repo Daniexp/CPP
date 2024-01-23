@@ -18,8 +18,11 @@ class ScalarConvert
 {
 public:
 	static void convert(const std::string& src);
+	~ScalarConvert();
+	ScalarConvert& operator = (const ScalarConvert& src);
 private:
 	ScalarConvert();
+	ScalarConvert(const ScalarConvert& src);
 	static int saveType(const std::string& src, std::string error[]);
 	static int isPseudoLiteral(const std::string& src, std::string error[]);
 	static int  isBiggerThanMaxInt(int type, double valueDouble, float valueFloat, std::string error[]);

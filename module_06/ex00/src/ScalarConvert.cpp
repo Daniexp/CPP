@@ -1,5 +1,22 @@
 #include <ScalarConvert.hpp>
 
+ScalarConvert::ScalarConvert()
+{
+}
+ScalarConvert::~ScalarConvert()
+{
+}
+ScalarConvert::ScalarConvert(const ScalarConvert& src)
+{
+	*this = src;
+
+}
+ScalarConvert& ScalarConvert::operator = (const ScalarConvert& src)
+{
+	if (this != &src)
+		;
+	return *this;
+}
 void ScalarConvert::convert(const std::string& src)
 {
 	int	valueInt = 0;
