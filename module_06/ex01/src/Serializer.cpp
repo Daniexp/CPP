@@ -3,6 +3,17 @@
 Serializer::Serializer(void)
 {
 }
+Serializer::~Serializer(void)
+{
+}
+Serializer& Serializer::operator=(const Serializer& src)
+{
+	if (this != &src)
+	{
+		this->data = src.data;
+	}
+	return *this;
+}
 
 uintptr_t  Serializer::serialize(Data* ptr)
 {
