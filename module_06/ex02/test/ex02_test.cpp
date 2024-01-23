@@ -2,6 +2,9 @@
 #include <iostream>
 #include <sstream>
 #include <Base.hpp>
+#include <A.hpp>
+#include <B.hpp>
+#include <C.hpp>
 #include <doctest.h>
 
 TEST_CASE("Instanciate a Base class object")
@@ -97,6 +100,7 @@ TEST_CASE("identify(Base& p) Invalid address")
 	outStream.str(outStream.str().substr(0, outStream.str().size() - 1));
 	std::cout.rdbuf(oldOut);
 	CHECK(outStream.str() == "ERROR: invalid argument");
+	std::string otherClass;
 }
 /*
 	std::ostringstream outStream;
