@@ -57,7 +57,7 @@ void ScalarConvert::convert(const std::string& src)
 			if (i != type)
 				error[i] = "impossible";
 	}
-	if (!isBiggerThanMaxFloat(type, valueDouble, error))
+	isBiggerThanMaxFloat(type, valueDouble, error);
 		isBiggerThanMaxInt(type, valueDouble, valueFloat, error);
 	switch(type)
 	{
@@ -163,7 +163,8 @@ int ScalarConvert::saveType(const std::string& src, std::string error[])
 		if (argument[i] == '.')
 		{
 			point++;
-			if ( i == 0 || std::all_of((argument.begin() + sign), argument.begin() + i, ::isdigit) == false)
+			if ( i == 0 || std::all_of((argument.begin() + sign), argument.begin() + i, ::isdigit) == false ||
+				((size_t) i + 1 < argument.size() && argument[i + 1] == '.'))
 				return type;
 			for (int j = i + 1; j < (int) argument.size() && f_count == 0; j++)
 				if (argument[j] == 'f')
@@ -187,8 +188,9 @@ int ScalarConvert::isBiggerThanMaxFloat(int type, double valueDouble, std::strin
 {
 	int res = 0;
 
-	if ((type == DOUBLE && (valueDouble > (double) FLT_MAX || valueDouble <  (double) FLT_MIN)))
+	if ((type == DOUBLE && (valueDouble > FLT_MAX || valueDouble < FLT_MIN)))
 	{
+		std::cout << "double value: " << valueDouble << " " << FLT_MAX << "entra aquí" << std::endl;
 		error[INT] = "impossible";
 		error[CHAR] = "impossible";
 		error[FLOAT] = "impossible";
@@ -200,8 +202,7 @@ int ScalarConvert::isBiggerThanMaxInt(int type, double valueDouble, float valueF
 {
 	int res = 0;
 
-	if ((type == DOUBLE && (valueDouble >  (double) INT_MAX || valueDouble <  (double) INT_MIN))
-		|| (type == FLOAT && (valueFloat > (float)  INT_MAX || valueFloat < (float) INT_MIN)))
+	if ((type == DOUBLE || type == FLOAT)  && ((valueDouble > INT_MAX || valueDouble < INT_MIN) || (valueFloat > (float)  INT_MAX || valueFloat < (float) INT_MIN)))
 	{
 		error[INT] = "impossible";
 		error[CHAR] = "impossible";
