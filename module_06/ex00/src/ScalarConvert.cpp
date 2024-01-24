@@ -5,6 +5,7 @@ ScalarConvert::ScalarConvert()
 }
 ScalarConvert::~ScalarConvert()
 {
+	delete this;
 }
 ScalarConvert::ScalarConvert(const ScalarConvert& src)
 {
@@ -137,8 +138,8 @@ int ScalarConvert::saveType(const std::string& src, std::string error[])
 	if (type == LITERAL)
 		return type;
 	int length =src.length();
-	char* char_str = new char[length];
-	std::strcpy(char_str,src.c_str());
+//	char* char_str = new char[length];
+//	std::strcpy(char_str,src.c_str());
 	if (length == 1 && isascii(src[0]) && !isdigit(src[0]))
 		return CHAR;
 

@@ -4,7 +4,7 @@
 ################################################################################
 NAME        =    ex00
 CXX         =    clang++
-CXXFLAGS    =    -Wall -Werror -Wextra -std=c++98 -I inc
+CXXFLAGS    =    -Wall -Werror -Wextra -std=c++98 -I inc #-fsanitize=address -g3
 RM          =    rm -rf
 
 SRCS        =    \
