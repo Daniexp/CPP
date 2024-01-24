@@ -15,6 +15,7 @@ SRCDIR      =    ./src/
 INCDIR      =    ./inc/
 DSRC        =    $(addprefix $(SRCDIR), $(SRCS))
 OBJS        =    $(DSRC:.cpp=.o)
+.SILENT:
 
 all: $(NAME)
 
