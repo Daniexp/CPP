@@ -6,7 +6,6 @@ void leaks(void)
 }
 int main(void)
 {
-	atexit(leaks);
 
 	Data data;
 	uintptr_t convert;
