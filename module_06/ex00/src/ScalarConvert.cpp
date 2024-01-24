@@ -36,7 +36,6 @@ void ScalarConvert::convert(const std::string& src)
 				valueInt =  std::stoi(src);
 			break;
 			case CHAR:
-//				valueChar = *(src.c_str());
 				valueChar = src.at(0);
 			break;
 			case FLOAT:
@@ -57,8 +56,6 @@ void ScalarConvert::convert(const std::string& src)
 			if (i != type)
 				error[i] = "impossible";
 	}
-	isBiggerThanMaxFloat(type, valueDouble, error);
-		isBiggerThanMaxInt(type, valueDouble, valueFloat, error);
 	switch(type)
 	{
 		case INT:
@@ -82,10 +79,11 @@ void ScalarConvert::convert(const std::string& src)
 			valueFloat = static_cast<float>(valueDouble);
 		break;
 	}
+	isBiggerThanMaxFloat(type, valueDouble, error);
+		isBiggerThanMaxInt(type, valueDouble, valueFloat, error);
 	if (error[CHAR] == "clean")
 	{
 	    if (valueInt < 0 || valueInt < CHAR_MIN || valueInt > CHAR_MAX)
-//		if (valueInt < 0 || valueInt > 255)
 	       		error[CHAR] = "impossible";
 		else if (!std::isprint(valueChar))
 	        	error[CHAR] = "Non displayable";
@@ -141,20 +139,13 @@ int ScalarConvert::saveType(const std::string& src, std::string error[])
 	int length =src.length();
 	char* char_str = new char[length];
 	std::strcpy(char_str,src.c_str());
-//	if (length == 1 && (int) *char_str >= 0 && (int) *char_str <= 255)
-//	if (length == 1 && isascii(*char_str))//!isdigit(*char_str) && isascii(*char_str))
-//	if (length == 1 && isascii(*char_str))
 	if (length == 1 && isascii(src[0]) && !isdigit(src[0]))
-//		return (delete[](char_str), CHAR);	
 		return CHAR;
-		//type = CHAR;
-//	delete[](char_str);
 
 	std::string argument = src;
 	int sign = (argument[0] == '-' || argument[0] == '+') ? 1 : 0;
 	if (std::all_of((argument.begin() + sign), argument.end(), ::isdigit) == true)
 		return INT;
-//		type = (INT);
 	argument =src;
 	int f_count = 0;
 	int point = 0;
@@ -188,9 +179,9 @@ int ScalarConvert::isBiggerThanMaxFloat(int type, double valueDouble, std::strin
 {
 	int res = 0;
 
-	if ((type == DOUBLE && (valueDouble > FLT_MAX || valueDouble < FLT_MIN)))
+	if ((type == DOUBLE && (valueDouble > FLT_MAX || valueDouble * -1 > FLT_MAX)))
 	{
-		std::cout << "double value: " << valueDouble << " " << FLT_MAX << "entra aquí" << std::endl;
+		std::cout << "double value: " << valueDouble << " " << FLT_MAX << " " <<  FLT_MIN << "entra aquí" << std::endl;
 		error[INT] = "impossible";
 		error[CHAR] = "impossible";
 		error[FLOAT] = "impossible";

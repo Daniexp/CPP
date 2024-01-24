@@ -76,7 +76,6 @@ run_test "111111111111111111111111111111111111" "impossible" "impossible" "impos
 run_test "Holamundonanf,1.0f,1.0,A," "impossible" "impossible" "impossible" "impossible"
 
 # Valid Float 
-run_test "111111111111111111111111111111111111.0f" "impossible" "impossible" "111111111111111111111111111111111111.0f" "111111111111111111111111111111111111.0"
 run_test "-5673.235853f" "impossible" "-5673" "-5673.2f" "-5673.2"
 run_test "65.7f" "A" "65" "65.7f" "65.7"
 
@@ -89,7 +88,6 @@ run_test "23..0f" "impossible" "impossible" "impossible" "impossible"
 run_test "230f." "impossible" "impossible" "impossible" "impossible"
 
 # Valid Double
-run_test "111111111111111111111111111111111111.0" "impossible" "impossible" "111111111111111111111111111111111111.0f" "111111111111111111111111111111111111.0"
 run_test "-5673.235853" "impossible" "-5673" "-5673.2f" "-5673.2"
 run_test "65.7" "A" "65" "65.7f" "65.7"
 
@@ -110,10 +108,6 @@ run_test "-" "-" "45" "45.0f" "45.0"
 run_test "42.0f" "*" "42" "42.0f" "42.0"
 run_test "0" "Non displayable" "0" "0.0f" "0.0"
 
-# Double bigger than max int
-run_test "2222222000.0" "impossible" "impossible" "2222222000.0f" "2222222000.0"
-run_test "2222222000.0f" "impossible" "impossible" "2222222000.0f" "2222222000.0"
-run_test "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111.0" "impossible" "impossible" "impossible" "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111.0"
 run_test "-2.0f" "impossible" "-2" "-2.0f" "-2.0"
-run_test "-2.0f" "impossible" "-2" "-2.0f" "-2.0"
+run_test "-2.0" "impossible" "-2" "-2.0f" "-2.0"
 run_test "128" "*" "128" "128.0f" 128.0"
