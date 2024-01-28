@@ -16,12 +16,12 @@ TEST_CASE("Array of ints")
 
 	int array[5] = {-100, -50, 0, 50, 100};	
 
-	iter(array, 5, printElement);
+	iter<int, void (*)(int)>(array, 5, printElement);
 	std::cout << std::endl;
 
-	iter(array, 5, doubleElement);
+	iter<int, void (*)(int&)>(array, 5, doubleElement);
 
-	iter(array, 5, printElement);
+	iter<int, void (*)(int)>(array, 5, printElement);
 	std::cout << std::endl;
 	std::cout.rdbuf(old_cout_buf);
 	CHECK(os.str() == "-100 -50 0 50 100 \n-200 -100 0 100 200 \n");
@@ -34,12 +34,12 @@ TEST_CASE("Array of Strings")
 
 	std::string array[5] = {"A", "B", "C", "D", "E"};	
 
-	iter(array, 5, printElement);
+	iter<std::string, void (*)(std::string)>(array, 5, printElement);
 	std::cout << std::endl;
 
-	iter(array, 5, doubleElement);
+	iter<std::string, void (*)(std::string&)>(array, 5, doubleElement);
 
-	iter(array, 5, printElement);
+	iter<std::string, void (*)(std::string)>(array, 5, printElement);
 	std::cout << std::endl;
 	std::cout.rdbuf(old_cout_buf);
 	CHECK(os.str() == "A B C D E \nAA BB CC DD EE \n");
