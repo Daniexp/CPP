@@ -13,7 +13,8 @@ public:
 	~Array();
    	Array(const Array& src);
    	Array& operator=(const Array& src);
-	T& operator[](std::size_t index);
+	T& operator[](const std::size_t index);
+	const T& operator[](const std::size_t index) const;
 	std::size_t size(void) const;
 private:
 	T* elements;

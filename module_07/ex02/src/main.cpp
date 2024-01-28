@@ -9,6 +9,7 @@ int main(void)
 	atexit(leaks);
 
 	Array<int> example = Array<int>();
+	example.size();
 	try
 	{
 		example[100];
@@ -23,4 +24,7 @@ int main(void)
 		classExample[i] = "HelloWorld!";
 	for (int i = 0 ; i < length; i++)
 		std::cout << classExample[i] << std::endl;
+	const Array<std::string> classConst = classExample;
+	for (int i = 0 ; i < length; i++)
+		std::cout << classConst[i] << std::endl;
 }
