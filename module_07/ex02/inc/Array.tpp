@@ -1,12 +1,12 @@
 
 template<typename T>
-Array<T>::Array(): elements(nullptr), _size(0)
+Array<T>::Array(): elements(nullptr), _size(nullptr)
 {
 //Const
 }
 
 template<typename T>
-Array<T>::Array(const unsigned int n): elements(new T[n]), _size(n)
+Array<T>::Array(const unsigned int n): elements(new T[n]), _size(new std::size_t(n))
 {
 }
 
@@ -22,6 +22,7 @@ Array<T>::~Array()
 {
 //Dest
 	delete[] elements;
+	delete _size;
 }
 
 template<typename T>
@@ -30,8 +31,9 @@ Array<T>& Array<T>::operator = (const Array<T>& src)
 	if (this != &src)
 	{
 		delete[] this->elements;
+		delete _size;
 		this->elements = new T[src.size()];
-		this->_size = src.size();
+		*_size = src.size();
 		for (std::size_t i = 0; i < src.size(); i++)
 			this->elements[i] = src.elements[i];
 	}
@@ -41,13 +43,13 @@ Array<T>& Array<T>::operator = (const Array<T>& src)
 template<typename T>
 std::size_t Array<T>::size() const
 {
-	return this->_size;
+	return *_size;
 }
 
 template<typename T>
 T& Array<T>::operator [] (std::size_t index)
 {
-	if (index >= _size)
+	if (_size == nullptr || index >= *_size)
 		throw std::out_of_range("Array Exception -> Index out of bounds");
 	return elements[index];
 }

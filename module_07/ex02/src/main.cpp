@@ -1,7 +1,13 @@
 #include <Array.hpp>
+void leaks(void)
+{
+	system("leaks ex02");
+}
+
 int main(void)
 {
-	std::cout << "The proyect was created sucessfully." << std::endl;
+	atexit(leaks);
+
 	Array<int> example = Array<int>();
 	try
 	{

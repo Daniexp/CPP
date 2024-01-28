@@ -17,7 +17,7 @@ public:
 	std::size_t size(void) const;
 private:
 	T* elements;
-	std::size_t _size;
+	std::size_t *_size;
 };
 #include <Array.tpp>
 #endif     //ARRAY_H
