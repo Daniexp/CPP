@@ -168,6 +168,8 @@ void BitcoinExchange::checkDate(const std::string& str)
 	std::tm tm;
 	if (std::sscanf(str.c_str(), "%4d-%2d-%2d", &tm.tm_year, &tm.tm_mon, &tm.tm_mday) != 3)
 		throw std::logic_error("bad date => " + str);
+	tm.tm_year -= 1009;
+	tm.tm_mon --; 
 }
 
 void BitcoinExchange::checkPrice(const std::string& str)
@@ -180,7 +182,7 @@ void BitcoinExchange::checkPrice(const std::string& str)
 	{
 		throw std::logic_error("bad price format => " + str);
 	}
-	if (isLess(value, 0.0f, 0.009))
+	if (isLess(value, 0.0000f, 0.009))
 		throw std::logic_error("bad price format => " + str);
 }
 const std::string BitcoinExchange::parseHeader(const std::string& str)
