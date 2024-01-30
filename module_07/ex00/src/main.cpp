@@ -1,8 +1,15 @@
 #include <ex00.hpp>
 #include <Empty.hpp>
 #include <Object.hpp>
+
+void leaks(void)
+{
+	system("leaks ex00");
+}
 int main(void)
 {
+	atexit(leaks);
+
 	int a = 2;
 	int b = 3;
 	std::cout << "a = " << a << ", b = " << b << std::endl;
