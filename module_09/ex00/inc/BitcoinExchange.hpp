@@ -36,6 +36,7 @@ private:
 	void checkPrice(const std::string& str);
 	void checkAmount(const std::string& str);
 	const std::string parseHeader(const std::string& str);
+	const std::string parseHeader(std::ifstream& input);
 	float searchPriceByDate(const std::string& date);	
 	std::map<std::string, std::string>::iterator searchNearestDate(const std::string& date);
 	bool equalFloats(const float& a, const float& b, const float& epsilon);

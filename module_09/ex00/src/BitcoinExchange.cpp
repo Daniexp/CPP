@@ -41,8 +41,12 @@ BitcoinExchange& BitcoinExchange::operator = (const BitcoinExchange& src)
 {
 	if (this != &src)
 	{
-//		csv.close();
-//		input.close();
+/*
+		if (csv.is_open())
+			csv.close();
+		if (input.is_open())
+			input.close();
+*/
 		this->dataBase = src.dataBase;
 		this->amounts = src.amounts;
 	}
@@ -94,6 +98,8 @@ void BitcoinExchange::mapContent(std::ifstream& file, std::map<std::string, std:
 }
 std::map<std::string, std::string>::iterator BitcoinExchange::saveLineValues(const std::string& split, std::string& line, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str))
 {
+		if (split == "")
+			
 		std::size_t splitPos = line.find_first_of(split);
 		if (splitPos == std::string::npos)
 			throw std::logic_error("file doesn't contain the separator => " + split);
@@ -112,7 +118,7 @@ void BitcoinExchange::printResults(const std::string& inputPath)
 		input.close();
 	openFile(input, inputPath);
 	std::getline(input, line);
-	const std::string& split = parseHeader(line);
+	const std::string& split = parseHeader(input);
 	while (std::getline(input, line))
 	{
 		try
@@ -166,10 +172,10 @@ void BitcoinExchange::checkDate(const std::string& str)
 		throw std::logic_error("Error : bad date => " + str);
 */
 	std::tm tm;
-	if (std::sscanf(str.c_str(), "%4d-%2d-%2d", &tm.tm_year, &tm.tm_mon, &tm.tm_mday) != 3)
-		throw std::logic_error("bad date => " + str);
 	tm.tm_year -= 1009;
 	tm.tm_mon --; 
+	if (std::sscanf(str.c_str(), "%4d-%2d-%2d", &tm.tm_year, &tm.tm_mon, &tm.tm_mday) != 3)
+		throw std::logic_error("bad date => " + str);
 }
 
 void BitcoinExchange::checkPrice(const std::string& str)
@@ -188,12 +194,27 @@ void BitcoinExchange::checkPrice(const std::string& str)
 const std::string BitcoinExchange::parseHeader(const std::string& str)
 {
 	std::string split;
+
 	if("date,exchange_rate" == str)
 		split = ",";
 	else if ("date | value" == str)
 		split = "|";
 	else
-		throw std::logic_error("no valid header in the file.");
+		throw std::logic_error("Error : No valid header in the file.");
+	return split;
+}
+const std::string BitcoinExchange::parseHeader(std::ifstream& input)
+{
+	std::string str;
+	std::string split;
+
+	std::getline(input, str);
+	if("date,exchange_rate" == str)
+		split = ",";
+	else if ("date | value" == str)
+		split = "|";
+	else
+		std::cout << "Error: No valid header in the file" << std::endl;
 	return split;
 }
 

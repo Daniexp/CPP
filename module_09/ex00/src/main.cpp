@@ -10,6 +10,7 @@ void leaks(void)
 int main(void)
 {
 //	atexit(leaks);
+/*
 	std::cout << "The proyect was created sucessfully." << std::endl;
 	BitcoinExchange example;
 	std::cout << example << std::endl;
@@ -17,4 +18,8 @@ int main(void)
 	BitcoinExchange testDate("dataSimple.csv", "simpleInput.txt");
 	std::cout << testDate << std::endl;
 	testDate.printResults("simpleInput.txt");
+*/
+	BitcoinExchange test = BitcoinExchange();
+	test.printResults("inputs/emptyInput.txt");
+	test.printResults("inputs/onlySpaces.txt");
 }

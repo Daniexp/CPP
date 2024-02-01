@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 
-std::string exercisePath = "/Users/dexposit/Documents/CPP/module_09/ex00/";
+std::string exercisePath = "/Users/dexposit/Documents/CPP/module_09/ex00/inputs/";
 
 TEST_CASE("Example Test_Case")
 {
@@ -20,4 +20,9 @@ TEST_CASE("Invalid - INPUT FILE empty")
 {
 	BitcoinExchange bst = BitcoinExchange();
 	bst.printResults(exercisePath + "emptyInput.txt");
+}
+TEST_CASE("Invalid - INPUT FILE with only spaces")
+{
+	BitcoinExchange bst = BitcoinExchange();
+	bst.printResults(exercisePath + "onlySpaces.txt");
 }
