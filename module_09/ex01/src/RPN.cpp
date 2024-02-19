@@ -7,15 +7,17 @@ std::stack<char> newInvertPolishExpression(const std::string& src)
 	{
 		while (src[i] == ' ')
 			i++;
-		if ((src[i] < '0' || src[i] > '9') && (src[i] == ',' || src[i] == '.'))
+		if (src[i] < '*' || src[i] > '9' || src[i] == ',' || src[i] == '.')
 			throw std::logic_error("Error");
 		expression.push(src[i]);
 	}
 	return expression;
 }
-/*
-long calculateExpression(const std::stack<char>& expression)
-{
 
+long calculateExpression(std::stack<char>& expression)
+{
+	long res = 0;
+	if (expression.empty())
+		res = -1;
+	return res;
 }
-*/
