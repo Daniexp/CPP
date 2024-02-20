@@ -6,5 +6,8 @@
 typedef std::basic_string<char> str;
 
 std::stack<char>	newInvertPolishExpression(const std::string& src);
-long			calculateExpression(std::stack<char>& expression);
+long			calculatePolishExpression(std::stack<char>& expression);
+long			calculateExpression(long* nmb2, long *nmb1, char *op);
+bool			isNumber(char element);
+void			printStack(std::stack<char>& expression);
 #endif

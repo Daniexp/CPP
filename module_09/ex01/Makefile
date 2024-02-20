@@ -5,7 +5,7 @@
 NAME		=	RPN
 TEST_NAME	=	RPN_test
 CXX			=	clang++
-CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc
+CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc #-fsanitize=address
 CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 
