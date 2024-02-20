@@ -24,8 +24,8 @@ TEST_CASE("Subject examples")
 
 TEST_CASE("Invalid arguments - Wrong argument expression")
 {
-	int size = 5;
-	std::string inputs[] = {"+ 3 3", "3 - 3", "3 3", "5 5 .","5 5 A"};
+	int size = 10;
+	std::string inputs[] = {"+ 3 3", "3 - 3", "3 3", "5 5 .","5 5 A", "2 -2 *", "( 3 3 ) *", "[ 2 2 ] * 3 -", "hwejrwl iwojwif jfwof", "3 3 * *"};
 	std::stack<char> expression;
 	for (int i = 0; i < size; i++)
 	{
