@@ -98,8 +98,10 @@ void BitcoinExchange::mapContent(std::ifstream& file, std::map<std::string, std:
 }
 std::map<std::string, std::string>::iterator BitcoinExchange::saveLineValues(const std::string& split, std::string& line, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str))
 {
+		if (line == "")
+			return map.end();
 		if (split == "")
-			
+		//	throw std::logic_error("file doesn't contain a valid header" + split);
 		std::size_t splitPos = line.find_first_of(split);
 		if (splitPos == std::string::npos)
 			throw std::logic_error("file doesn't contain the separator => " + split);
