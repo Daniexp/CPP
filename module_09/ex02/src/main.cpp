@@ -12,5 +12,15 @@ int main(int argc, char* argv[])
 //	atexit(leaks);
 	if (argc <= 1)
 		return (-1); 
-	PmergeMe containers(argv);
+	PmergeMe containers; 
+	try
+	{
+		containers = PmergeMe(argv + 1);
+	}
+	catch(std::exception& e)
+	{
+		std::cerr << "Error: invalid positive integer sequence" << std::endl;
+		return (-1);
+	}
+	std::cout << containers;
 }

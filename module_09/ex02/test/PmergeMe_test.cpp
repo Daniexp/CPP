@@ -11,12 +11,35 @@ TEST_CASE("Example Test_Case")
 
 TEST_CASE("Test saveIntegerSequence")
 {
-	PmergeMe example;
+	char* argv[4];
+	argv[0] = new char;
+	*argv[0] = '3';
+	argv[1] = new char;
+	*argv[1] = '5';
+	argv[2] = new char;
+	*argv[2] = '1';
+	argv[3] = new char;
+	*argv[3] = '9';
+	PmergeMe example(argv);
 	std::vector<unsigned int> sequence;
 	sequence.insert(sequence.end(),3);
 	sequence.insert(sequence.end(),5);
 	sequence.insert(sequence.end(),1);
 	sequence.insert(sequence.end(),9);
-	
-	CHECK(example.getFirstContainer() == sequence);
+	const std::vector<unsigned int> saveSequence = example.getFirstContainer();
+	CHECK(saveSequence[0] == sequence[0]);
+	CHECK(saveSequence[1] == sequence[1]);
+	CHECK(saveSequence[2] == sequence[2]);
+	CHECK(saveSequence[3] == sequence[3]);
+	std::list<unsigned int> saveSequence2 = example.getSecondContainer();
+	CHECK(saveSequence2.front() == sequence[0]);
+	saveSequence2.pop_front();
+	CHECK(saveSequence2.front() == sequence[1]);
+	saveSequence2.pop_front();
+	CHECK(saveSequence2.front() == sequence[2]);
+	saveSequence2.pop_front();
+	CHECK(saveSequence2.front() == sequence[3]);
+
+	for (int i = 0; i < 4 ; i++)
+		delete argv[i];
 }

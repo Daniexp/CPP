@@ -21,9 +21,9 @@ PmergeMe::PmergeMe(char* argv[])
 	if (!argv)
 		return ;
 	int number;
-	try
-	{
-		for (int i = 1; argv[i]; i++)
+//	try
+//	{
+		for (int i = 0; argv[i]; i++)
 		{
 			//parse Char to Unsigned Int
 			number = std::stoi(argv[i]);
@@ -33,11 +33,11 @@ PmergeMe::PmergeMe(char* argv[])
 			this->firstContainer.insert(firstContainer.end(), number);
 			this->secondContainer.push_back(number);
 		}
-	}
-	catch (std::exception& e)
-	{
-		std::cerr << "Error: invalid positive integer sequence" << std::endl;
-	}
+//	}
+//	catch (std::exception& e)
+//	{
+//		std::cerr << "Error: invalid positive integer sequence" << std::endl;
+//	}
 }
 
 PmergeMe& PmergeMe::operator = (const PmergeMe& src)
@@ -72,3 +72,16 @@ std::ostream& operator << (std::osteram& os, const PmergeMe& src)
 {
 }
 */
+
+std::ostream& operator << (std::ostream& os, const PmergeMe& src)
+{
+	std::vector<unsigned int> vct = src.getFirstContainer();
+	os << "{";
+	for (std::size_t i = 0; i < vct.size(); i++)
+	{
+		os << " " << vct[i] << " ";
+	}
+	os << "}" << std::endl;
+
+	return os;
+}
