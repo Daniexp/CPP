@@ -12,8 +12,11 @@ TEST_CASE("Example Test_Case")
 TEST_CASE("Test saveIntegerSequence")
 {
 	PmergeMe example;
-	std::vector<unsigned int> sequence = {3, 5, 1 ,9};
+	std::vector<unsigned int> sequence;
+	sequence.insert(sequence.end(),3);
+	sequence.insert(sequence.end(),5);
+	sequence.insert(sequence.end(),1);
+	sequence.insert(sequence.end(),9);
 	
-	example.saveIntegerSequence(sequence);
 	CHECK(example.getFirstContainer() == sequence);
 }

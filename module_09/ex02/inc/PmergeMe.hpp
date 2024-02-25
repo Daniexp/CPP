@@ -11,13 +11,14 @@ class PmergeMe
 public:
 	PmergeMe();
 	~PmergeMe();
+	PmergeMe(char* argv[]);
    PmergeMe(const PmergeMe& src);
    PmergeMe& operator=(const PmergeMe& src);
 	void saveIntegerSequence(const std::vector<unsigned int>& src);
 	void shortFirstContainer(std::vector<unsigned int>& src);
 	void shortSecondContainer(std::list<unsigned int>& src);
-	std::vector<unsigned int> getFirstContainer(void);
-	std::list<unsigned int> getSecondContainer(void);
+	const std::vector<unsigned int> getFirstContainer(void) const;
+	const std::list<unsigned int> getSecondContainer(void) const;
 
 private:
 	std::vector<unsigned int> firstContainer;

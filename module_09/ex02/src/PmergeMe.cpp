@@ -16,6 +16,30 @@ PmergeMe::~PmergeMe()
 //Dest
 }
 
+PmergeMe::PmergeMe(char* argv[])
+{
+	if (!argv)
+		return ;
+	int number;
+	try
+	{
+		for (int i = 1; argv[i]; i++)
+		{
+			//parse Char to Unsigned Int
+			number = std::stoi(argv[i]);
+			if (number < 0)
+				throw std::logic_error("Error");
+				//save Int in both containers
+			this->firstContainer.insert(firstContainer.end(), number);
+			this->secondContainer.push_back(number);
+		}
+	}
+	catch (std::exception& e)
+	{
+		std::cerr << "Error: invalid positive integer sequence" << std::endl;
+	}
+}
+
 PmergeMe& PmergeMe::operator = (const PmergeMe& src)
 {
 	if (this != &src)
@@ -25,11 +49,17 @@ PmergeMe& PmergeMe::operator = (const PmergeMe& src)
 	}
 	return *this;
 }
-/*
-void PmergeMe::saveIntegerSequence(const std::vector<unsigned int>& src)
+
+const std::vector<unsigned int> PmergeMe::getFirstContainer(void) const
 {
+	return this->firstContainer;
 }
 
+const std::list<unsigned int> PmergeMe::getSecondContainer(void) const
+{
+	return this->secondContainer;
+}
+/*
 void PmergeMe::shortFirstContainer(std::vector<unsigned int>& src)
 {
 }

@@ -7,8 +7,10 @@ void leaks(void)
 	system("leaks ex02");
 }
 */
-int main(void)
+int main(int argc, char* argv[])
 {
 //	atexit(leaks);
-	std::cout << "The proyect was created sucessfully." << std::endl;
+	if (argc <= 1)
+		return (-1); 
+	PmergeMe containers(argv);
 }
