@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 	}
 	catch(std::exception& e)
 	{
-		std::cerr << "Error: invalid positive integer sequence" << std::endl;
+		std::cerr << e.what() << std::endl;
 		return (-1);
 	}
 	std::cout << containers;

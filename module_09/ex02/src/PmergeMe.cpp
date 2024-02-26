@@ -21,23 +21,23 @@ PmergeMe::PmergeMe(char* argv[])
 	if (!argv)
 		return ;
 	int number;
-//	try
-//	{
+	try
+	{
 		for (int i = 0; argv[i]; i++)
 		{
 			//parse Char to Unsigned Int
 			number = std::stoi(argv[i]);
 			if (number < 0)
-				throw std::logic_error("Error");
+				throw std::logic_error(std::string("negative integer ") + argv[i]);
 				//save Int in both containers
 			this->firstContainer.insert(firstContainer.end(), number);
 			this->secondContainer.push_back(number);
 		}
-//	}
-//	catch (std::exception& e)
-//	{
-//		std::cerr << "Error: invalid positive integer sequence" << std::endl;
-//	}
+	}
+	catch (std::exception& e)
+	{
+		throw std::logic_error(std::string("Error: invalid positive integer sequence by ") + e.what());
+	}
 }
 
 PmergeMe& PmergeMe::operator = (const PmergeMe& src)
