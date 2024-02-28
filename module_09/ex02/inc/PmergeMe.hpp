@@ -14,16 +14,20 @@ public:
 	PmergeMe(char* argv[]);
    PmergeMe(const PmergeMe& src);
    PmergeMe& operator=(const PmergeMe& src);
-	void saveIntegerSequence(char* argv[], void saveMethod(void));
-	void shortFirstContainer(std::vector<unsigned int>& src);
-	void shortSecondContainer(std::list<unsigned int>& src);
 	const std::vector<unsigned int> getFirstContainer(void) const;
 	const std::list<unsigned int> getSecondContainer(void) const;
+
+	void shortFirstContainer();
+	void shortSecondContainer(std::list<unsigned int>& src);
+
+private:
+	void saveIntegerSequence(char* argv[], void saveMethod(void));
 	void saveInfirstContainer(void);
 	void saveInSecondContainer(void);
 	void saveInAllContainers(void);
 
-private:
+	void shortLargerElements(std::vector<unsigned int>& src, int start, int end);
+
 	std::vector<unsigned int> firstContainer;
 	std::list<unsigned int> secondContainer;
 	 
