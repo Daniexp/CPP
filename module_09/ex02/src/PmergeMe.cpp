@@ -71,6 +71,25 @@ void PmergeMe::shortFirstContainer()
 	//Recursively short the n/2 larger elements from each pair, creating a sorted sequence of n/2
 	// of the input elements, in ascending order.
 	shortLargerElements(firstContainer, 0, firstContainer.size() - 1);
+	std::vector<unsigned int> shortedContainer;
+	shortedContainer.push_back(firstContainer[0]);
+	firstContainer.erase(firstContainer.begin());
+	for (std::size_t i = 1; firstContainer.size() > i + 1; i++)
+	{
+		shortedContainer.push_back(firstContainer[i]);
+		firstContainer.erase(firstContainer.begin() + i);
+	}
+	//Insert first pair of S
+	shortedContainer.insert(shortedContainer.begin(), firstContainer[0]);
+	firstContainer.erase(firstContainer.begin());
+	
+	//firstContainer = shortedContainer;
+	std::cout << "S: " << "{";
+	for (std::size_t i = 0; i < shortedContainer.size(); i++)
+	{
+		std::cout << " " << shortedContainer[i] << " ";
+	}
+	std::cout << "}" << std::endl;
 }
 
 void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, int end)
@@ -92,6 +111,11 @@ void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, in
             shortLargerElements(src, start, mid);
             shortLargerElements(src, mid + 1, end);
 }
+/*
+void PmergeMe::binarySearch(std::vector<unsigned int>& src, int start, int end)
+{
+}
+*/
 /*
 void PmergeMe::shortSecondContainer(std::list<unsigned int>& src)
 {
