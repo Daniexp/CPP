@@ -27,7 +27,7 @@ private:
 	void saveInAllContainers(void);
 
 	void shortLargerElements(std::vector<unsigned int>& src, int start, int end);
-	void binarySearch(std::vector<unsigned int>& src, int start, int end);
+	void binarySearchInsertionVector(std::vector<unsigned int>& src, const unsigned int value, int start, int end);
 
 	std::vector<unsigned int> firstContainer;
 	std::list<unsigned int> secondContainer;

@@ -80,8 +80,14 @@ void PmergeMe::shortFirstContainer()
 		firstContainer.erase(firstContainer.begin() + i);
 	}
 	//Insert first pair of S
-	shortedContainer.insert(shortedContainer.begin(), firstContainer[0]);
-	firstContainer.erase(firstContainer.begin());
+	//shortedContainer.insert(shortedContainer.begin(), firstContainer[0]);
+	//firstContainer.erase(firstContainer.begin());
+	while (shortedContainer.empty() == false)
+	{
+		binarySearchInsertionVector(shortedContainer, firstContainer[0], 0, firstContainer.size() - 1);
+		shortedContainer.erase(shortedContainer.begin());
+	}
+	firstContainer = shortedContainer;
 	
 	//firstContainer = shortedContainer;
 	std::cout << "S: " << "{";
@@ -94,7 +100,7 @@ void PmergeMe::shortFirstContainer()
 
 void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, int end)
 {
-	if (end - start > 0)
+	if (end - start <= 0)
 		return ;
 	if (start < end)
 	{
@@ -111,11 +117,24 @@ void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, in
             shortLargerElements(src, start, mid);
             shortLargerElements(src, mid + 1, end);
 }
-/*
-void PmergeMe::binarySearch(std::vector<unsigned int>& src, int start, int end)
+void PmergeMe::binarySearchInsertionVector(std::vector<unsigned int>& src, const unsigned int value, int start, int end)
 {
+//	if (0 > end - start)
+//		return ;
+	if (1 == end - start)
+	{
+		src.insert(src.begin() + start, value);
+		return;
+	}
+	int middle = (start + end) / 2;
+	if ((unsigned int) middle < value)
+		binarySearchInsertionVector(src, value, middle, end);
+	else
+		binarySearchInsertionVector(src, value, start, middle);
+	
+		
+		
 }
-*/
 /*
 void PmergeMe::shortSecondContainer(std::list<unsigned int>& src)
 {
