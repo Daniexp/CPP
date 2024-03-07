@@ -120,7 +120,6 @@ void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, in
 }
 void PmergeMe::binarySearchInsertionVector(std::vector<unsigned int>& src, const unsigned int value, int start, int end)
 {
-/*
 	std::cout << "Value: " << value << " start: " << start << " end: " << end << std::endl;
 	std::cout << "vector: ";
 	for (std::size_t i = 0; i<src.size() ; i++)
@@ -128,20 +127,26 @@ void PmergeMe::binarySearchInsertionVector(std::vector<unsigned int>& src, const
 		std::cout << " "  << src[i] << " ";
 	}
 	std::cout << std::endl;
-*/
 //	if (0 < end - start)
+//		return ;
+//	if (src[end] == src[start] && end - start <= 0)
 //		return ;
 	if (1 == end - start)
 	{
-		if (value > src[end])
+		if (value >= src[end])
 			src.insert(src.begin() + end + 1, value);
-		else
+		else if (value > src[start] && value < src[end])
 			src.insert(src.begin() + end, value);
+		else if (value <= src[start])
+			src.insert(src.begin() + start, value);
 		return;
 	}
 	int middle = (start + end) / 2;
 	if ((unsigned int) middle < value)
+	{
 		binarySearchInsertionVector(src, value, middle, end);
+//		binarySearchInsertionVector(src, value, start, middle);
+	}
 	else
 		binarySearchInsertionVector(src, value, start, middle);
 }
