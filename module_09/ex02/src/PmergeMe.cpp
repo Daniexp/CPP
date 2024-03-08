@@ -63,15 +63,26 @@ void PmergeMe::shortFirstContainer()
 {
 	//Ordenar por parejas
 	int size = firstContainer.size();
+	std::vector<unsigned int> splitPairs;
 	for (int i = 0; size > 1 + i; i += 2)
 	{
 		if (firstContainer[i] > firstContainer[i + 1])
 			std::swap(firstContainer[i], firstContainer[i + 1]);
 	}
-	for (int i = 0; size / 2  > 1 + i; i += 2)
+	std::cout << "split an order pairs: " << "{";
+	for (std::size_t i = 0; i < firstContainer.size(); i++)
 	{
+		std::cout << " " << firstContainer[i] << " ";
 	}
-	std::cout << "Vct after split an order pairs: " << "{";
+	std::cout << "}" << std::endl;
+/*
+	for (int i = 0; size  > i; i += 2)
+		splitPairs.push_back(firstContainer[i]);
+	for (int i = 1; size > i; i += 2)
+		splitPairs.push_back(firstContainer[i]);
+	firstContainer = splitPairs;
+*/
+	std::cout << "Vct after separate pairs: " << "{";
 	for (std::size_t i = 0; i < firstContainer.size(); i++)
 	{
 		std::cout << " " << firstContainer[i] << " ";
@@ -79,7 +90,8 @@ void PmergeMe::shortFirstContainer()
 	std::cout << "}" << std::endl;
 	//Recursively short the n/2 larger elements from each pair, creating a sorted sequence of n/2
 	// of the input elements, in ascending order.
-	shortLargerElements(firstContainer, 0, firstContainer.size() - 1 - (firstContainer.size() % 2));
+	//shortLargerElements(firstContainer, 0, firstContainer.size() - 1 - (firstContainer.size() % 2 ));
+	shortLargerElements(firstContainer, 0, firstContainer.size() / 2 - 1);
 
 /*
 	std::cout << "Vct after short pairs: " << "{";
