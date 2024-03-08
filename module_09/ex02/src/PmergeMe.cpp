@@ -68,6 +68,9 @@ void PmergeMe::shortFirstContainer()
 		if (firstContainer[i] > firstContainer[i + 1])
 			std::swap(firstContainer[i], firstContainer[i + 1]);
 	}
+	for (int i = 0; size / 2  > 1 + i; i += 2)
+	{
+	}
 	std::cout << "Vct after split an order pairs: " << "{";
 	for (std::size_t i = 0; i < firstContainer.size(); i++)
 	{
@@ -76,8 +79,9 @@ void PmergeMe::shortFirstContainer()
 	std::cout << "}" << std::endl;
 	//Recursively short the n/2 larger elements from each pair, creating a sorted sequence of n/2
 	// of the input elements, in ascending order.
-	shortLargerElements(firstContainer, 0, firstContainer.size() - 1);
+	shortLargerElements(firstContainer, 0, firstContainer.size() - 1 - (firstContainer.size() % 2));
 
+/*
 	std::cout << "Vct after short pairs: " << "{";
 	for (std::size_t i = 0; i < firstContainer.size(); i++)
 	{
@@ -105,17 +109,19 @@ void PmergeMe::shortFirstContainer()
 	firstContainer = shortedContainer;
 	
 	//firstContainer = shortedContainer;
+*/
 }
 
 void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, int end)
 {
 	if (end - start <= 0)
 		return ;
+	int size = (int) src.size();
 	if (start < end)
 	{
-		for (int i = start; end > i + 2; i += 2)
+		for (int i = start; end >= i; i += 2)
 		{
-			if (src[i] > src[i + 2])
+			if (size > i + 3 && src[i] > src[i + 2])
 			{
 				std::swap(src[i], src[i + 2]);
 				std::swap(src[i + 1], src[i + 3]);
