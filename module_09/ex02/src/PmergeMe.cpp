@@ -68,9 +68,23 @@ void PmergeMe::shortFirstContainer()
 		if (firstContainer[i] > firstContainer[i + 1])
 			std::swap(firstContainer[i], firstContainer[i + 1]);
 	}
+	std::cout << "Vct after split an order pairs: " << "{";
+	for (std::size_t i = 0; i < firstContainer.size(); i++)
+	{
+		std::cout << " " << firstContainer[i] << " ";
+	}
+	std::cout << "}" << std::endl;
 	//Recursively short the n/2 larger elements from each pair, creating a sorted sequence of n/2
 	// of the input elements, in ascending order.
 	shortLargerElements(firstContainer, 0, firstContainer.size() - 1);
+
+	std::cout << "Vct after short pairs: " << "{";
+	for (std::size_t i = 0; i < firstContainer.size(); i++)
+	{
+		std::cout << " " << firstContainer[i] << " ";
+	}
+	std::cout << "}" << std::endl;
+
 	std::vector<unsigned int> shortedContainer;
 	shortedContainer.push_back(firstContainer[0]);
 	firstContainer.erase(firstContainer.begin());
@@ -80,8 +94,8 @@ void PmergeMe::shortFirstContainer()
 		firstContainer.erase(firstContainer.begin() + i);
 	}
 	//Insert first pair of S
-	//shortedContainer.insert(shortedContainer.begin(), firstContainer[0]);
-	//firstContainer.erase(firstContainer.begin());
+//	shortedContainer.insert(shortedContainer.begin(), firstContainer[0]);
+//	firstContainer.erase(firstContainer.begin());
 	while (firstContainer.empty() == false)
 	{
 		binarySearchInsertionVector(shortedContainer, firstContainer[0], 0, shortedContainer.size() - 1);
@@ -91,12 +105,6 @@ void PmergeMe::shortFirstContainer()
 	firstContainer = shortedContainer;
 	
 	//firstContainer = shortedContainer;
-	std::cout << "S: " << "{";
-	for (std::size_t i = 0; i < shortedContainer.size(); i++)
-	{
-		std::cout << " " << shortedContainer[i] << " ";
-	}
-	std::cout << "}" << std::endl;
 }
 
 void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, int end)
