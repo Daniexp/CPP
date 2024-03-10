@@ -3,7 +3,7 @@
 
 /*
 void leaks(void)
-{
+
 	system("leaks ex02");
 }
 */

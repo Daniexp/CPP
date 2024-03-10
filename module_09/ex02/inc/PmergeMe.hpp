@@ -31,6 +31,7 @@ private:
 
 	std::vector<unsigned int> firstContainer;
 	std::list<unsigned int> secondContainer;
+	std::size_t cntNumbers;
 	 
 };
 std::ostream& operator << (std::ostream& os, const PmergeMe& src);

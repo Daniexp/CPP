@@ -33,6 +33,7 @@ PmergeMe::PmergeMe(char* argv[])
 			this->firstContainer.insert(firstContainer.end(), number);
 			this->secondContainer.push_back(number);
 		}
+		cntNumbers =  firstContainer.size();
 	}
 	catch (std::exception& e)
 	{
@@ -62,12 +63,19 @@ const std::list<unsigned int> PmergeMe::getSecondContainer(void) const
 void PmergeMe::shortFirstContainer()
 {
 	//Ordenar por parejas
-	int size = firstContainer.size();
+	int size = firstContainer.size() / 2;
 	std::vector<unsigned int> splitPairs;
-	for (int i = 0; size > 1 + i; i += 2)
+	unsigned int tmp;
+	for (int i = 0; size > i; i++)
 	{
-		if (firstContainer[i] > firstContainer[i + 1])
-			std::swap(firstContainer[i], firstContainer[i + 1]);
+		std::cout << "i: " << firstContainer[i] << " i + size: " << firstContainer[i + size] << std::endl;
+		if (firstContainer[i] < firstContainer[i + size])
+		{
+			tmp = firstContainer[i];
+			firstContainer[i] = firstContainer[i + size];
+			firstContainer[i + size] = tmp;
+		}
+//			std::swap(firstContainer[i], firstContainer[i + size]);
 	}
 	std::cout << "split an order pairs: " << "{";
 	for (std::size_t i = 0; i < firstContainer.size(); i++)
@@ -75,68 +83,34 @@ void PmergeMe::shortFirstContainer()
 		std::cout << " " << firstContainer[i] << " ";
 	}
 	std::cout << "}" << std::endl;
-/*
-	for (int i = 0; size  > i; i += 2)
-		splitPairs.push_back(firstContainer[i]);
-	for (int i = 1; size > i; i += 2)
-		splitPairs.push_back(firstContainer[i]);
-	firstContainer = splitPairs;
-*/
-	std::cout << "Vct after separate pairs: " << "{";
-	for (std::size_t i = 0; i < firstContainer.size(); i++)
-	{
-		std::cout << " " << firstContainer[i] << " ";
-	}
-	std::cout << "}" << std::endl;
-	//Recursively short the n/2 larger elements from each pair, creating a sorted sequence of n/2
-	// of the input elements, in ascending order.
-	//shortLargerElements(firstContainer, 0, firstContainer.size() - 1 - (firstContainer.size() % 2 ));
-	shortLargerElements(firstContainer, 0, firstContainer.size() / 2 - 1);
-
-/*
-	std::cout << "Vct after short pairs: " << "{";
-	for (std::size_t i = 0; i < firstContainer.size(); i++)
-	{
-		std::cout << " " << firstContainer[i] << " ";
-	}
-	std::cout << "}" << std::endl;
-
-	std::vector<unsigned int> shortedContainer;
-	shortedContainer.push_back(firstContainer[0]);
-	firstContainer.erase(firstContainer.begin());
-	for (std::size_t i = 1; firstContainer.size() > i + 1; i++)
-	{
-		shortedContainer.push_back(firstContainer[i]);
-		firstContainer.erase(firstContainer.begin() + i);
-	}
-	//Insert first pair of S
-//	shortedContainer.insert(shortedContainer.begin(), firstContainer[0]);
-//	firstContainer.erase(firstContainer.begin());
-	while (firstContainer.empty() == false)
-	{
-		binarySearchInsertionVector(shortedContainer, firstContainer[0], 0, shortedContainer.size() - 1);
-		//shortedContainer.erase(shortedContainer.begin());
-		firstContainer.erase(firstContainer.begin());
-	}
-	firstContainer = shortedContainer;
-	
-	//firstContainer = shortedContainer;
-*/
+	//Recursively short the Larger elements to make a shorted size sequence of S
+	//shortLargerElements(firstContainer, firstContainer.size() / 2, firstContainer.size()); 
+	shortLargerElements(firstContainer, 0, size - 1); 
+	firstContainer.insert(firstContainer.begin(), firstContainer[size]);
+	firstContainer.erase(firstContainer.begin() + size + 1);
 }
 
-void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, int end)
-{
+void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, int end) {
 	if (end - start <= 0)
 		return ;
-	int size = (int) src.size();
+	int size = (int) firstContainer.size() / 2;
+	unsigned int tmp;
 	if (start < end)
 	{
-		for (int i = start; end >= i; i += 2)
+		for (int i = end; start <= i; i--)
 		{
-			if (size > i + 3 && src[i] > src[i + 2])
+			std::cout << "i: " << src[i] << " i - 1: " << src[i - 1] << std::endl;
+			std::cout << "i + size: " << src[i + size] << " i + size - 1: " << src[i + size - 1] << std::endl;
+			if (src[i] < src[i - 1])
 			{
-				std::swap(src[i], src[i + 2]);
-				std::swap(src[i + 1], src[i + 3]);
+				tmp = src[i];
+				src[i] = src[i - 1];
+				src[i - 1] = tmp;
+				tmp = src[i + size];
+				src[i + size] = src[i + size - 1];
+				src[i + size - 1] = tmp;
+//				std::swap(src[i], src[i - 1]);
+//				std::swap(src[i + size], src[i + size - 1]);
 			}
 		}
 	}
@@ -144,6 +118,7 @@ void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, in
             shortLargerElements(src, start, mid);
             shortLargerElements(src, mid + 1, end);
 }
+
 void PmergeMe::binarySearchInsertionVector(std::vector<unsigned int>& src, const unsigned int value, int start, int end)
 {
 	std::cout << "Value: " << value << " start: " << start << " end: " << end << std::endl;
