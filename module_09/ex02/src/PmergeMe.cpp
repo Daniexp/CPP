@@ -33,7 +33,6 @@ PmergeMe::PmergeMe(char* argv[])
 			this->firstContainer.insert(firstContainer.end(), number);
 			this->secondContainer.push_back(number);
 		}
-		cntNumbers =  firstContainer.size();
 	}
 	catch (std::exception& e)
 	{
@@ -65,17 +64,12 @@ void PmergeMe::shortFirstContainer()
 	//Ordenar por parejas
 	int size = firstContainer.size() / 2;
 	std::vector<unsigned int> splitPairs;
-	unsigned int tmp;
+//	unsigned int tmp;
 	for (int i = 0; size > i; i++)
 	{
 		std::cout << "i: " << firstContainer[i] << " i + size: " << firstContainer[i + size] << std::endl;
 		if (firstContainer[i] < firstContainer[i + size])
-		{
-			tmp = firstContainer[i];
-			firstContainer[i] = firstContainer[i + size];
-			firstContainer[i + size] = tmp;
-		}
-//			std::swap(firstContainer[i], firstContainer[i + size]);
+			swap(firstContainer[i], firstContainer[i + size]);
 	}
 	std::cout << "split an order pairs: " << "{";
 	for (std::size_t i = 0; i < firstContainer.size(); i++)
@@ -83,34 +77,28 @@ void PmergeMe::shortFirstContainer()
 		std::cout << " " << firstContainer[i] << " ";
 	}
 	std::cout << "}" << std::endl;
-	//Recursively short the Larger elements to make a shorted size sequence of S
-	//shortLargerElements(firstContainer, firstContainer.size() / 2, firstContainer.size()); 
+	//Recursively short the Larger elements to make a shorted size sequence of S.
 	shortLargerElements(firstContainer, 0, size - 1); 
+	//Insert at the start of S the element that was paired with the first and smallest element of S.
 	firstContainer.insert(firstContainer.begin(), firstContainer[size]);
 	firstContainer.erase(firstContainer.begin() + size + 1);
+	//Insert the remaining n / 2 - 1 , S elements into S once at a time, whith binary search in subsequences of S to determine the position at which element should be inserted. 
 }
 
 void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, int end) {
 	if (end - start <= 0)
 		return ;
 	int size = (int) firstContainer.size() / 2;
-	unsigned int tmp;
 	if (start < end)
 	{
-		for (int i = end; start <= i; i--)
+		for (int i = end; start <= i - 1; i--)
 		{
 			std::cout << "i: " << src[i] << " i - 1: " << src[i - 1] << std::endl;
 			std::cout << "i + size: " << src[i + size] << " i + size - 1: " << src[i + size - 1] << std::endl;
 			if (src[i] < src[i - 1])
 			{
-				tmp = src[i];
-				src[i] = src[i - 1];
-				src[i - 1] = tmp;
-				tmp = src[i + size];
-				src[i + size] = src[i + size - 1];
-				src[i + size - 1] = tmp;
-//				std::swap(src[i], src[i - 1]);
-//				std::swap(src[i + size], src[i + size - 1]);
+				swap(src[i], src[i - 1]);
+				swap(src[i + size], src[i + size - 1]);
 			}
 		}
 	}
@@ -160,6 +148,13 @@ std::ostream& operator << (std::osteram& os, const PmergeMe& src)
 {
 }
 */
+void PmergeMe::swap(unsigned int& nmb1, unsigned int& nmb2)
+{
+	unsigned int tmp;
+	tmp = nmb1;
+	nmb1 = nmb2;
+	nmb2 = tmp;
+}
 
 std::ostream& operator << (std::ostream& os, const PmergeMe& src)
 {

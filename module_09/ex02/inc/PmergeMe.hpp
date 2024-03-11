@@ -29,9 +29,11 @@ private:
 	void shortLargerElements(std::vector<unsigned int>& src, int start, int end);
 	void binarySearchInsertionVector(std::vector<unsigned int>& src, const unsigned int value, int start, int end);
 
+	void swap(unsigned int& nmb1, unsigned int& nmb2);
+
 	std::vector<unsigned int> firstContainer;
 	std::list<unsigned int> secondContainer;
-	std::size_t cntNumbers;
+	const std::vector<unsigned int> originalSequence;
 	 
 };
 std::ostream& operator << (std::ostream& os, const PmergeMe& src);
