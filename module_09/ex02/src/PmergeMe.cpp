@@ -63,22 +63,29 @@ void PmergeMe::shortFirstContainer()
 {
 	//Ordenar por parejas
 	int size = firstContainer.size() / 2;
-	std::vector<unsigned int> splitPairs;
+	std::vector<unsigned int> pairs;
 //	unsigned int tmp;
 	for (int i = 0; size > i; i++)
 	{
 		std::cout << "i: " << firstContainer[i] << " i + size: " << firstContainer[i + size] << std::endl;
 		if (firstContainer[i] < firstContainer[i + size])
 			swap(firstContainer[i], firstContainer[i + size]);
+		//añadir iterador al vector de parejas
 	}
 	std::cout << "split an order pairs: " << "{";
 	for (std::size_t i = 0; i < firstContainer.size(); i++)
-	{
 		std::cout << " " << firstContainer[i] << " ";
-	}
 	std::cout << "}" << std::endl;
 	//Recursively short the Larger elements to make a shorted size sequence of S.
 	shortLargerElements(firstContainer, 0, size - 1); 
+	//Save pairs values of the unInsertedElements
+/*
+	pairs = savePairsOfNoInsertedElements();
+	std::cout << "pairs of the unshorted elements (not in order): " << "{";
+	for (std::size_t i = 0; i < pairs.size(); i++)
+		std::cout << " " << pairs[i] << " ";
+	std::cout << "}" << std::endl;
+*/
 	//Insert at the start of S the element that was paired with the first and smallest element of S.
 	firstContainer.insert(firstContainer.begin(), firstContainer[size]);
 	firstContainer.erase(firstContainer.begin() + size + 1);
@@ -109,6 +116,7 @@ void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, in
 
 void PmergeMe::binarySearchInsertionVector(std::vector<unsigned int>& src, const unsigned int value, int start, int end)
 {
+	//Subsequence of S:	Is the sequence starting with pair of the element that is going to be insert to the end of S.
 	std::cout << "Value: " << value << " start: " << start << " end: " << end << std::endl;
 	std::cout << "vector: ";
 	for (std::size_t i = 0; i<src.size() ; i++)
