@@ -79,16 +79,22 @@ void PmergeMe::shortFirstContainer()
 	//Recursively short the Larger elements to make a shorted size sequence of S.
 	shortLargerElements(firstContainer, 0, size - 1); 
 	//Save pairs values of the unInsertedElements
-/*
-	pairs = savePairsOfNoInsertedElements();
+	for (int i = firstContainer.size() - 1 - firstContainer.size() % 2; i > size; i--)
+		pairs.insert(pairs.begin(), firstContainer[i - size]);
+//	pairs = savePairsOfUnshortedElements();
 	std::cout << "pairs of the unshorted elements (not in order): " << "{";
 	for (std::size_t i = 0; i < pairs.size(); i++)
 		std::cout << " " << pairs[i] << " ";
 	std::cout << "}" << std::endl;
-*/
+	
 	//Insert at the start of S the element that was paired with the first and smallest element of S.
 	firstContainer.insert(firstContainer.begin(), firstContainer[size]);
 	firstContainer.erase(firstContainer.begin() + size + 1);
+	
+	//Create groups and short group element in descending order
+	splitUnshortedElements(firstContainer);
+	//Group: the sums of sizes of every two adjacent groups form a sequence of powers of two
+
 	//Insert the remaining n / 2 - 1 , S elements into S once at a time, whith binary search in subsequences of S to determine the position at which element should be inserted. 
 }
 
@@ -112,6 +118,31 @@ void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, in
     int mid = (start + end) / 2;
             shortLargerElements(src, start, mid);
             shortLargerElements(src, mid + 1, end);
+}
+
+void PmergeMe::splitUnshortedElements(std::vector<unsigned int>& src)
+{
+	//4
+	//2 2 6 10 22
+	std::size_t length = src.size() / 2 + (src.size() % 2);
+	std::size_t saved = 2;
+	int i = 2;
+	int groupSize = 2;
+	//invertir primer grupo
+	if (length < 2 - (src.size() % 2))
+		return;
+	swap(src[length], src[length + 1]);
+	
+	std::cout << "Group size: ";
+	while (saved < length)
+	{
+		std::cout << groupSize << " ";
+		//Invertir números desde src[saved] hasta  + length	
+		saved += groupSize;
+		groupSize = pow(2, i - 1) - groupSize;
+		i++;
+	}
+	std::cout << std::endl;
 }
 
 void PmergeMe::binarySearchInsertionVector(std::vector<unsigned int>& src, const unsigned int value, int start, int end)
