@@ -92,7 +92,7 @@ void PmergeMe::shortFirstContainer()
 	firstContainer.erase(firstContainer.begin() + size + 1);
 	
 	//Create groups and short group element in descending order
-	splitUnshortedElements(firstContainer);
+//	splitUnshortedElements(firstContainer);
 	//Group: the sums of sizes of every two adjacent groups form a sequence of powers of two
 
 	//Insert the remaining n / 2 - 1 , S elements into S once at a time, whith binary search in subsequences of S to determine the position at which element should be inserted. 
@@ -124,22 +124,35 @@ void PmergeMe::splitUnshortedElements(std::vector<unsigned int>& src)
 {
 	//4
 	//2 2 6 10 22
+//	test group sizes
+//	std::size_t length = 3000;
 	std::size_t length = src.size() / 2 + (src.size() % 2);
 	std::size_t saved = 2;
-	int i = 2;
+	int i = 3;
 	int groupSize = 2;
 	//invertir primer grupo
 	if (length < 2 - (src.size() % 2))
 		return;
 	swap(src[length], src[length + 1]);
 	
-	std::cout << "Group size: ";
+	std::cout << "Group size: " << groupSize << " ";
 	while (saved < length)
 	{
 		std::cout << groupSize << " ";
-		//Invertir números desde src[saved] hasta  + length	
+		std::size_t start, end;
+		//Invertir números desde src[src.size() / 2 + saved] hasta +groupSize 
+		start = src.size() / 2 + saved;
+		end = (length < saved + groupSize) ? start + groupSize : src.size() - 1;
+		//end = start + groupSize;
+		while (start < end)
+		{
+			swap(src[start], src[end]);
+			start++;
+			end--;
+		}
+//		invertGroupOrder();
 		saved += groupSize;
-		groupSize = pow(2, i - 1) - groupSize;
+		groupSize = pow(2, i) - groupSize;
 		i++;
 	}
 	std::cout << std::endl;
