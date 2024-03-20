@@ -64,38 +64,45 @@ void PmergeMe::shortFirstContainer()
 	//Ordenar por parejas
 	int size = firstContainer.size() / 2;
 	std::vector<unsigned int> pairs;
-//	unsigned int tmp;
 	for (int i = 0; size > i; i++)
 	{
-		std::cout << "i: " << firstContainer[i] << " i + size: " << firstContainer[i + size] << std::endl;
 		if (firstContainer[i] < firstContainer[i + size])
 			swap(firstContainer[i], firstContainer[i + size]);
-		//añadir iterador al vector de parejas
 	}
-	std::cout << "split an order pairs: " << "{";
-	for (std::size_t i = 0; i < firstContainer.size(); i++)
-		std::cout << " " << firstContainer[i] << " ";
-	std::cout << "}" << std::endl;
 	//Recursively short the Larger elements to make a shorted size sequence of S.
 	shortLargerElements(firstContainer, 0, size - 1); 
 	//Save pairs values of the unInsertedElements
-	for (int i = firstContainer.size() - 1 - firstContainer.size() % 2; i > size; i--)
-		pairs.insert(pairs.begin(), firstContainer[i - size]);
-//	pairs = savePairsOfUnshortedElements();
-	std::cout << "pairs of the unshorted elements (not in order): " << "{";
-	for (std::size_t i = 0; i < pairs.size(); i++)
-		std::cout << " " << pairs[i] << " ";
-	std::cout << "}" << std::endl;
+	for (std::size_t i = 1; i < firstContainer.size() / 2; i++)
+		pairs.insert(pairs.end(), firstContainer[i]);
 	
 	//Insert at the start of S the element that was paired with the first and smallest element of S.
 	firstContainer.insert(firstContainer.begin(), firstContainer[size]);
 	firstContainer.erase(firstContainer.begin() + size + 1);
+	std::cout << "Antes firstContainer: " << "{";
+	for (std::size_t i = 0; i < firstContainer.size(); i++)
+		std::cout << " " << firstContainer[i] << " ";
+	std::cout << "}" << std::endl;
 	
 	//Create groups and short group element in descending order
 	splitUnshortedElements(firstContainer);
+	
+	std::cout << "desues firstContainer: " << "{";
+	for (std::size_t i = 0; i < firstContainer.size(); i++)
+		std::cout << " " << firstContainer[i] << " ";
+	std::cout << "}" << std::endl;
 	//Group: the sums of sizes of every two adjacent groups form a sequence of powers of two
 
 	//Insert the remaining n / 2 - 1 , S elements into S once at a time, whith binary search in subsequences of S to determine the position at which element should be inserted. 
+/*
+	int i = firstContainer.size() / 2 + (firstContainer.size() % 2) - 1;
+	while (firstContainer.begin() + i != firstContainer.end())
+	{
+		int pair = 0;
+		while (firstContainer[pair] != pairs[i])
+			pair++;
+		pairs.erase(pairs.begin());
+	}
+*/
 }
 
 void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, int end) {
@@ -106,8 +113,8 @@ void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, in
 	{
 		for (int i = end; start <= i - 1; i--)
 		{
-			std::cout << "i: " << src[i] << " i - 1: " << src[i - 1] << std::endl;
-			std::cout << "i + size: " << src[i + size] << " i + size - 1: " << src[i + size - 1] << std::endl;
+		//	std::cout << "i: " << src[i] << " i - 1: " << src[i - 1] << std::endl;
+		//	std::cout << "i + size: " << src[i + size] << " i + size - 1: " << src[i + size - 1] << std::endl;
 			if (src[i] < src[i - 1])
 			{
 				swap(src[i], src[i - 1]);
@@ -135,23 +142,22 @@ void PmergeMe::splitUnshortedElements(std::vector<unsigned int>& src)
 		return;
 	swap(src[src.size() / 2 + 1], src[src.size() / 2 + 2]);
 	
-	std::cout << "Group size: " << groupSize << " " << std::endl;
-	while (saved < length)
+	while (saved < length - (src.size() % 2))
 	{
-	std::cout << "Group size: " << groupSize << " " << std::endl;
+	//std::cout << "Group size: " << groupSize << " " << std::endl;
 		int start, end;
 		//Invertir números desde src[src.size() / 2 + saved] hasta +groupSize 
 		start = src.size() / 2 + saved + 1;
-		end = (length + 1 < saved + groupSize) ? start + groupSize - 1 : src.size() - 1;
-		//end = start + groupSize;
-		std::cout << "Start: " << start << " , End: " << end << std::endl;
+		//end = (length + 1 < saved + groupSize) ? start + groupSize - 1 : src.size() - 1;
+		
+		end = start + groupSize / 2;
+	//	std::cout << "Start: " << start << " , End: " << end << std::endl;
 		while (start < end)
 		{
 			swap(src[start], src[end]);
 			start++;
 			end--;
 		}
-//		invertGroupOrder();
 		saved += groupSize;
 		groupSize = pow(2, i) - groupSize;
 		i++;
@@ -161,42 +167,26 @@ void PmergeMe::splitUnshortedElements(std::vector<unsigned int>& src)
 void PmergeMe::binarySearchInsertionVector(std::vector<unsigned int>& src, const unsigned int value, int start, int end)
 {
 	//Subsequence of S:	Is the sequence starting with pair of the element that is going to be insert to the end of S.
-	std::cout << "Value: " << value << " start: " << start << " end: " << end << std::endl;
-	std::cout << "vector: ";
-	for (std::size_t i = 0; i<src.size() ; i++)
+	if (end - start <= 0)
+		return ;
+	if (end - start == 1)
 	{
-		std::cout << " "  << src[i] << " ";
+		firstContainer.insert(src.begin() + end, src[value]);
+		firstContainer.erase(src.begin() + value);
 	}
-	std::cout << std::endl;
-//	if (0 < end - start)
-//		return ;
-//	if (src[end] == src[start] && end - start <= 0)
-//		return ;
-	if (1 == end - start)
-	{
-		if (value >= src[end])
-			src.insert(src.begin() + end + 1, value);
-		else if (value > src[start] && value < src[end])
-			src.insert(src.begin() + end, value);
-		else if (value <= src[start])
-			src.insert(src.begin() + start, value);
-		return;
-	}
-	int middle = (start + end) / 2;
-	if ((unsigned int) middle < value)
-	{
-		binarySearchInsertionVector(src, value, middle, end);
-//		binarySearchInsertionVector(src, value, start, middle);
-	}
+	int middle = (end + start) / 2;
+	if (src[middle] >= src[value])
+		binarySearchInsertionVector(src, value, start, middle); 
 	else
-		binarySearchInsertionVector(src, value, start, middle);
+		binarySearchInsertionVector(src, value, middle, end); 
+	
 }
 /*
 void PmergeMe::shortSecondContainer(std::list<unsigned int>& src)
 {
 }
 
-std::ostream& operator << (std::osteram& os, const PmergeMe& src)
+std::ostream& operator < (std::osteram& os, const PmergeMe& src)
 {
 }
 */
