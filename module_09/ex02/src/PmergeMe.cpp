@@ -84,15 +84,23 @@ void PmergeMe::shortFirstContainer()
 	std::cout << "}" << std::endl;
 	
 	//Create groups and short group element in descending order
+	//Group: the sums of sizes of every two adjacent groups form a sequence of powers of two
 	splitUnshortedElements(firstContainer);
 	
 	std::cout << "desues firstContainer: " << "{";
 	for (std::size_t i = 0; i < firstContainer.size(); i++)
 		std::cout << " " << firstContainer[i] << " ";
 	std::cout << "}" << std::endl;
-	//Group: the sums of sizes of every two adjacent groups form a sequence of powers of two
 
 	//Insert the remaining n / 2 - 1 , S elements into S once at a time, whith binary search in subsequences of S to determine the position at which element should be inserted. 
+	while (!pairs.empty())
+	{
+		binarySearchInsertionVector(firstContainer, 
+		std::find(firstContainer.begin(), firstContainer.end(), pairs[0]),
+		firstContainer.begin(), //calcular final a partir de la longuitud de pairs
+);
+		pairs.erase(pairs.begin());
+	}
 /*
 	int i = firstContainer.size() / 2 + (firstContainer.size() % 2) - 1;
 	while (firstContainer.begin() + i != firstContainer.end())
