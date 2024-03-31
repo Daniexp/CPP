@@ -31,7 +31,7 @@ private:
 	void binarySearchInsertionVector(std::vector<unsigned int>& src, const unsigned int value, int start, int end);
 
 	void swap(unsigned int& nmb1, unsigned int& nmb2);
-	void splitUnshortedElements(std::vector<unsigned int>& src);
+	void splitUnshortedElements(std::vector<unsigned int>& src, std::vector<unsigned int>& pairs);
 
 	std::vector<unsigned int> firstContainer;
 	std::list<unsigned int> secondContainer;

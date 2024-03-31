@@ -78,28 +78,65 @@ void PmergeMe::shortFirstContainer()
 	//Insert at the start of S the element that was paired with the first and smallest element of S.
 	firstContainer.insert(firstContainer.begin(), firstContainer[size]);
 	firstContainer.erase(firstContainer.begin() + size + 1);
+/*
 	std::cout << "Antes firstContainer: " << "{";
 	for (std::size_t i = 0; i < firstContainer.size(); i++)
 		std::cout << " " << firstContainer[i] << " ";
 	std::cout << "}" << std::endl;
+	std::cout << "Antes pairs: " << "{";
+	for (std::size_t i = 0; i < pairs.size(); i++)
+		std::cout << " " << pairs[i] << " ";
+	std::cout << "}" << std::endl;
+*/
 	
 	//Create groups and short group element in descending order
 	//Group: the sums of sizes of every two adjacent groups form a sequence of powers of two
-	splitUnshortedElements(firstContainer);
+	size_t unPairElement = firstContainer[firstContainer.size() - 1];
+
+	splitUnshortedElements(firstContainer, pairs);
 	
+/*
 	std::cout << "desues firstContainer: " << "{";
 	for (std::size_t i = 0; i < firstContainer.size(); i++)
 		std::cout << " " << firstContainer[i] << " ";
 	std::cout << "}" << std::endl;
+	std::cout << "Despues pairs: " << "{";
+	for (std::size_t i = 0; i < pairs.size(); i++)
+		std::cout << " " << pairs[i] << " ";
+	std::cout << "}" << std::endl;
+*/
+	
 
 	//Insert the remaining n / 2 - 1 , S elements into S once at a time, whith binary search in subsequences of S to determine the position at which element should be inserted. 
+	bool odd = (firstContainer.size() % 2) == 1;
+	int cnt = (firstContainer.size() / 2) + 1;
 	while (!pairs.empty())
 	{
-		binarySearchInsertionVector(firstContainer, 
-		std::find(firstContainer.begin(), firstContainer.end(), pairs[0]),
-		firstContainer.begin(), //calcular final a partir de la longuitud de pairs
-);
-		pairs.erase(pairs.begin());
+/*
+		std::cout << "index to insert :" << cnt << std::endl;
+		std::cout << "value to insert :" << firstContainer[cnt] << std::endl;
+		std::cout << "index of the pair :" <<  std::find(firstContainer.begin(), firstContainer.end(), pairs[0]) - firstContainer.begin() << std::endl;
+*/
+		if (odd && firstContainer[cnt] == unPairElement)
+			binarySearchInsertionVector(firstContainer, cnt, 0, cnt - 1);
+		else
+		{
+			binarySearchInsertionVector(firstContainer, cnt, 0,
+				std::find(firstContainer.begin(), firstContainer.end(), pairs[0]) - firstContainer.begin());
+			pairs.erase(pairs.begin());
+		}
+		cnt++;
+/*
+	std::cout << "AFter insert elemtn: " << "{";
+	for (std::size_t i = 0; i < firstContainer.size(); i++)
+		std::cout << " " << firstContainer[i] << " ";
+	std::cout << "}" << std::endl;
+	std::cout << "after insett elent pairs: " << "{";
+	for (std::size_t i = 0; i < pairs.size(); i++)
+		std::cout << " " << pairs[i] << " ";
+	std::cout << "}" << std::endl;
+	std::cout << std::endl;
+*/
 	}
 /*
 	int i = firstContainer.size() / 2 + (firstContainer.size() % 2) - 1;
@@ -131,11 +168,11 @@ void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, in
 		}
 	}
     int mid = (start + end) / 2;
-            shortLargerElements(src, start, mid);
+         shortLargerElements(src, start, mid);
             shortLargerElements(src, mid + 1, end);
 }
 
-void PmergeMe::splitUnshortedElements(std::vector<unsigned int>& src)
+void PmergeMe::splitUnshortedElements(std::vector<unsigned int>& src, std::vector<unsigned int>& pairs)
 {
 	//4
 	//2 2 6 10 22
@@ -149,7 +186,7 @@ void PmergeMe::splitUnshortedElements(std::vector<unsigned int>& src)
 	if (length < 2)
 		return;
 	swap(src[src.size() / 2 + 1], src[src.size() / 2 + 2]);
-	
+	swap(pairs[0], pairs[1]);
 	while (saved < length - (src.size() % 2))
 	{
 	//std::cout << "Group size: " << groupSize << " " << std::endl;
@@ -163,6 +200,7 @@ void PmergeMe::splitUnshortedElements(std::vector<unsigned int>& src)
 		while (start < end)
 		{
 			swap(src[start], src[end]);
+			swap(pairs[start - src.size() / 2 - 1], pairs[end - src.size() / 2 - 1]);
 			start++;
 			end--;
 		}
@@ -175,12 +213,21 @@ void PmergeMe::splitUnshortedElements(std::vector<unsigned int>& src)
 void PmergeMe::binarySearchInsertionVector(std::vector<unsigned int>& src, const unsigned int value, int start, int end)
 {
 	//Subsequence of S:	Is the sequence starting with pair of the element that is going to be insert to the end of S.
+	//std::cout << "start: " << start << " end: " << end << " src start: "<< src[start]<<" src end: " << src[end] << std::endl;
 	if (end - start <= 0)
 		return ;
 	if (end - start == 1)
 	{
-		firstContainer.insert(src.begin() + end, src[value]);
-		firstContainer.erase(src.begin() + value);
+//		std::cout << "pos to erase: " << value << " value: " << src[value] << std::endl;
+//		std::cout << "pos to insert: " << end << " value: " << src[value] << std::endl;
+		if (src[value] <= src[start])
+			firstContainer.insert(src.begin() + start, src[value]);
+		else if (src[value] >= src[end])
+			firstContainer.insert(src.begin() + end + 1, src[value]);
+		else
+			firstContainer.insert(src.begin() + end, src[value]);
+		firstContainer.erase(src.begin() + value + 1);
+		return ;
 	}
 	int middle = (end + start) / 2;
 	if (src[middle] >= src[value])
