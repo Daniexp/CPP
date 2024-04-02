@@ -66,15 +66,29 @@ void PmergeMe::shortFirstContainer()
 	std::vector<unsigned int> pairs;
 	for (int i = 0; size > i; i++)
 	{
+//		std::cout << "number: " << firstContainer[i] << " pair: " << firstContainer[i + size] << std::endl;
 		if (firstContainer[i] < firstContainer[i + size])
 			swap(firstContainer[i], firstContainer[i + size]);
 	}
-	//Recursively short the Larger elements to make a shorted size sequence of S.
-	shortLargerElements(firstContainer, 0, size - 1); 
 	//Save pairs values of the unInsertedElements
-	for (std::size_t i = 1; i < firstContainer.size() / 2; i++)
+	for (std::size_t i = 0; i < firstContainer.size() / 2; i++)
 		pairs.insert(pairs.end(), firstContainer[i]);
-	
+	//Recursively short the Larger elements to make a shorted size sequence of S.
+//	shortLargerElements(firstContainer, 0, size - 1); 
+	for (int i = 0; i < size - 1; i++)
+		for (int j = 0; j < size - i - 1; j++)
+			if (firstContainer[j] > firstContainer[j + 1])
+			{
+				swap(firstContainer[j], firstContainer[j + 1]);
+				swap(pairs[j], pairs[j + 1]);
+			}
+	pairs.erase(pairs.begin());
+/*
+	std::cout << "despues de ordenar por parejas: " << "{";
+	for (std::size_t i = 0; i < firstContainer.size(); i++)
+		std::cout << " " << firstContainer[i] << " ";
+	std::cout << "}" << std::endl;
+*/	
 	//Insert at the start of S the element that was paired with the first and smallest element of S.
 	firstContainer.insert(firstContainer.begin(), firstContainer[size]);
 	firstContainer.erase(firstContainer.begin() + size + 1);
@@ -158,8 +172,8 @@ void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, in
 	{
 		for (int i = end; start <= i - 1; i--)
 		{
-		//	std::cout << "i: " << src[i] << " i - 1: " << src[i - 1] << std::endl;
-		//	std::cout << "i + size: " << src[i + size] << " i + size - 1: " << src[i + size - 1] << std::endl;
+			std::cout << "i: " << src[i] << " i - 1: " << src[i - 1] << std::endl;
+			std::cout << "i + size: " << src[i + size] << " i + size - 1: " << src[i + size - 1] << std::endl;
 			if (src[i] < src[i - 1])
 			{
 				swap(src[i], src[i - 1]);
@@ -171,14 +185,14 @@ void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, in
          shortLargerElements(src, start, mid);
             shortLargerElements(src, mid + 1, end);
 }
-
+//Debugear segfault
 void PmergeMe::splitUnshortedElements(std::vector<unsigned int>& src, std::vector<unsigned int>& pairs)
 {
 	//4
 	//2 2 6 10 22
 //	test group sizes
 //	std::size_t length = 3000;
-	std::size_t length = src.size() / 2 + (src.size() % 2) - 1;
+	std::size_t length = (src.size() / 2) + (src.size() % 2) - 1;
 	std::size_t saved = 2;
 	int i = 3;
 	int groupSize = 2;
@@ -194,9 +208,8 @@ void PmergeMe::splitUnshortedElements(std::vector<unsigned int>& src, std::vecto
 		//Invertir números desde src[src.size() / 2 + saved] hasta +groupSize 
 		start = src.size() / 2 + saved + 1;
 		//end = (length + 1 < saved + groupSize) ? start + groupSize - 1 : src.size() - 1;
-		
 		end = start + groupSize / 2;
-	//	std::cout << "Start: " << start << " , End: " << end << std::endl;
+		std::cout << "Start: " << start << " , End: " << end << std::endl;
 		while (start < end)
 		{
 			swap(src[start], src[end]);
