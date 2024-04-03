@@ -124,7 +124,7 @@ void PmergeMe::shortFirstContainer()
 
 	//Insert the remaining n / 2 - 1 , S elements into S once at a time, whith binary search in subsequences of S to determine the position at which element should be inserted. 
 	bool odd = (firstContainer.size() % 2) == 1;
-	int cnt = (firstContainer.size() / 2) + 1;
+	int cnt = (firstContainer.size() / 2);
 	while (!pairs.empty())
 	{
 /*
@@ -137,7 +137,7 @@ void PmergeMe::shortFirstContainer()
 		else
 		{
 			binarySearchInsertionVector(firstContainer, cnt, 0,
-				std::find(firstContainer.begin(), firstContainer.end(), pairs[0]) - firstContainer.begin());
+				std::find(firstContainer.begin(), firstContainer.end(), pairs[0]) - firstContainer.begin() - 1);
 		}
 		pairs.erase(pairs.begin());
 		cnt++;
@@ -173,8 +173,8 @@ void PmergeMe::shortLargerElements(std::vector<unsigned int>& src, int start, in
 	{
 		for (int i = end; start <= i - 1; i--)
 		{
-			std::cout << "i: " << src[i] << " i - 1: " << src[i - 1] << std::endl;
-			std::cout << "i + size: " << src[i + size] << " i + size - 1: " << src[i + size - 1] << std::endl;
+	//		std::cout << "i: " << src[i] << " i - 1: " << src[i - 1] << std::endl;
+	//		std::cout << "i + size: " << src[i + size] << " i + size - 1: " << src[i + size - 1] << std::endl;
 			if (src[i] < src[i - 1])
 			{
 				swap(src[i], src[i - 1]);

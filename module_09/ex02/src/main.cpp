@@ -17,12 +17,13 @@ int main(int argc, char* argv[])
 	{
 		containers = PmergeMe(argv + 1);
 		containers.shortFirstContainer();
-		std::cout << containers;
+//		std::cout << containers;
 	}
 	catch(std::exception& e)
 	{
 		std::cerr << e.what() << std::endl;
 		return (-1);
 	}
+	std::vector<unsigned int> result = containers.getFirstContainer();
 	std::cout << containers;
 }
