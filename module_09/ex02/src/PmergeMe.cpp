@@ -82,7 +82,6 @@ void PmergeMe::shortFirstContainer()
 				swap(firstContainer[j], firstContainer[j + 1]);
 				swap(pairs[j], pairs[j + 1]);
 			}
-	pairs.erase(pairs.begin());
 /*
 	std::cout << "despues de ordenar por parejas: " << "{";
 	for (std::size_t i = 0; i < firstContainer.size(); i++)
@@ -92,6 +91,7 @@ void PmergeMe::shortFirstContainer()
 	//Insert at the start of S the element that was paired with the first and smallest element of S.
 	firstContainer.insert(firstContainer.begin(), firstContainer[size]);
 	firstContainer.erase(firstContainer.begin() + size + 1);
+	pairs.erase(pairs.begin());
 /*
 	std::cout << "Antes firstContainer: " << "{";
 	for (std::size_t i = 0; i < firstContainer.size(); i++)
@@ -106,6 +106,7 @@ void PmergeMe::shortFirstContainer()
 	//Create groups and short group element in descending order
 	//Group: the sums of sizes of every two adjacent groups form a sequence of powers of two
 	size_t unPairElement = firstContainer[firstContainer.size() - 1];
+	pairs.insert(pairs.end(), UINT_MAX);
 
 	splitUnshortedElements(firstContainer, pairs);
 	
@@ -131,14 +132,14 @@ void PmergeMe::shortFirstContainer()
 		std::cout << "value to insert :" << firstContainer[cnt] << std::endl;
 		std::cout << "index of the pair :" <<  std::find(firstContainer.begin(), firstContainer.end(), pairs[0]) - firstContainer.begin() << std::endl;
 */
-		if (odd && firstContainer[cnt] == unPairElement)
+		if (odd && firstContainer[cnt] == unPairElement && pairs[0] == UINT_MAX)
 			binarySearchInsertionVector(firstContainer, cnt, 0, cnt - 1);
 		else
 		{
 			binarySearchInsertionVector(firstContainer, cnt, 0,
 				std::find(firstContainer.begin(), firstContainer.end(), pairs[0]) - firstContainer.begin());
-			pairs.erase(pairs.begin());
 		}
+		pairs.erase(pairs.begin());
 		cnt++;
 /*
 	std::cout << "AFter insert elemtn: " << "{";
@@ -192,6 +193,7 @@ void PmergeMe::splitUnshortedElements(std::vector<unsigned int>& src, std::vecto
 	//2 2 6 10 22
 //	test group sizes
 //	std::size_t length = 3000;
+/*
 	std::size_t length = (src.size() / 2) + (src.size() % 2) - 1;
 	std::size_t saved = 2;
 	int i = 3;
@@ -220,6 +222,49 @@ void PmergeMe::splitUnshortedElements(std::vector<unsigned int>& src, std::vecto
 		saved += groupSize;
 		groupSize = pow(2, i) - groupSize;
 		i++;
+	}
+*/
+	int saved= 2;
+	int notReverse = src.size() / 2 - 1 + src.size() % 2;
+	int nextPowIndex = 3;
+	int groupSize = 2;
+	int prevGroupSize = 2;
+	int firstUnshortedIndex = src.size() / 2 + 1;
+	int unshortedIndexPairs = 2;
+/*
+	std::size_t saved= 2;
+	std::size_t notReverse = src.size() / 2 - 1 + src.size() % 2;
+	std::size_t nextPowIndex = 3;
+	std::size_t groupSize = 2;
+	std::size_t prevGroupSize = 2;
+	std::size_t firstUnshortedIndex = src.size() / 2 + 1;
+	std::size_t unshortedIndexPairs = 2;
+ */
+	if (notReverse < 2)
+		return ;
+	swap(src[firstUnshortedIndex], src[firstUnshortedIndex + 1]);
+	swap(pairs[0], pairs[1]);
+	while (saved < notReverse)
+	{
+		int first, last;
+		first = firstUnshortedIndex + prevGroupSize;
+		last = first + groupSize;
+		if (last > (int) src.size())
+			last = src.size() - 1;
+		while (first < last)
+		{
+//			std::cout << "first: " << first << " last: " << last<< " unshortedIndexPairs: " << unshortedIndexPairs << " end unshorted: " << unshortedIndexPairs + (first - last) << " pairs lenght: " << pairs.size() << std::endl;
+
+			swap(src[first], src[last]);
+			swap(pairs[unshortedIndexPairs], pairs[unshortedIndexPairs + (last - first)]);
+			unshortedIndexPairs++;
+			first++;
+			last--;
+		}
+
+		prevGroupSize = groupSize;
+		saved += groupSize;
+		groupSize = pow(2, nextPowIndex) - groupSize;
 	}
 }
 
