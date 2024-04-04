@@ -244,16 +244,19 @@ void PmergeMe::splitUnshortedElements(std::vector<unsigned int>& src, std::vecto
 		return ;
 	swap(src[firstUnshortedIndex], src[firstUnshortedIndex + 1]);
 	swap(pairs[0], pairs[1]);
+	std::cout << firstUnshortedIndex << " " << firstUnshortedIndex + 1 << std::endl;
 	while (saved < notReverse)
 	{
 		int first, last;
 		first = firstUnshortedIndex + prevGroupSize;
+//		last = first + groupSize - 1;
 		last = first + groupSize;
-		if (last > (int) src.size())
+		if ((std::size_t) last > src.size())
 			last = src.size() - 1;
+		std::cout << "-- --" << std::endl;
 		while (first < last)
 		{
-//			std::cout << "first: " << first << " last: " << last<< " unshortedIndexPairs: " << unshortedIndexPairs << " end unshorted: " << unshortedIndexPairs + (first - last) << " pairs lenght: " << pairs.size() << std::endl;
+			std::cout << "first: " << first << " last: " << last<< " unshortedIndexPairs: " << unshortedIndexPairs << " end unshorted: " << unshortedIndexPairs + (last - first) << " pairs lenght: " << pairs.size() << " last - first: " << last - first << std::endl;
 
 			swap(src[first], src[last]);
 			swap(pairs[unshortedIndexPairs], pairs[unshortedIndexPairs + (last - first)]);
