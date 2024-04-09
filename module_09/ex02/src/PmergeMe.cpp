@@ -59,6 +59,29 @@ const std::list<unsigned int> PmergeMe::getSecondContainer(void) const
 {
 	return this->secondContainer;
 }
+void PmergeMe::shortFirstContainer(std::vector<unsigned int> src)
+{
+	std::vector<unsigned int> shorted;
+	std::vector<int> pairs;
+	int middle = (src.size() / 2);
+	for (int i = 0; i < middle; i++)
+	{
+		if (src[i] < src[i + middle])
+			swap(src[i], src[i + middle]);
+	}
+	std::cout << "src size / 2 - 1: " << src.size() / 2 - 1 << std::endl;
+	shorted.insert(shorted.begin(), src.begin(), src.begin() + (src.size() / 2));
+	std::cout << "middle - 1: " << middle - 1 << std::endl;
+	src.erase(src.begin(), src.begin() + middle);
+	std::cout << "src: " << "{";
+	for (std::size_t i = 0; i < src.size(); i++)
+		std::cout << " " << src[i];
+	std::cout << "}" << std::endl;
+	std::cout << "S: " << "{";
+	for (std::size_t i = 0; i < shorted.size(); i++)
+		std::cout << " " << shorted[i];
+	std::cout << "}" << std::endl;
+}
 void PmergeMe::shortFirstContainer()
 {
 	//Ordenar por parejas

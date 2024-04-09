@@ -19,6 +19,7 @@ public:
 	const std::list<unsigned int> getSecondContainer(void) const;
 
 	void shortFirstContainer();
+	void shortFirstContainer(std::vector<unsigned int> src);
 	void shortSecondContainer(std::list<unsigned int>& src);
 
 private:

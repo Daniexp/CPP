@@ -16,7 +16,8 @@ int main(int argc, char* argv[])
 	try
 	{
 		containers = PmergeMe(argv + 1);
-		containers.shortFirstContainer();
+//		containers.shortFirstContainer();
+		containers.shortFirstContainer(containers.getFirstContainer());
 //		std::cout << containers;
 	}
 	catch(std::exception& e)
