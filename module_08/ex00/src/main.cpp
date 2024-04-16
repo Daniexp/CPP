@@ -1,9 +1,13 @@
 #include <iostream>
 #include <vector>
-#include "easyfind.hpp"
+#include <easyfind.hpp>
 
+void leaks(void)
+{ system("leaks -q ex00");}
 int main() {
-	std::cout << "The proyect was created sucessfully." << std::endl;
+
+	atexit(leaks);
+
     try {
         std::vector<int> vec;
         vec.push_back(1);
