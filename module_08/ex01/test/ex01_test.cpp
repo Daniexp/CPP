@@ -17,8 +17,8 @@ TEST_CASE("Canonical form of Span class")
 	Span comparatorOperator = example;
 	Span byCopyConstructor(example);
 	
-	CHECK(example[0] == comparatorOperator[1]);
-	CHECK(example[0] == byCopyConstructor[1]);
+	CHECK(example[0] == comparatorOperator[0]);
+	CHECK(example[0] == byCopyConstructor[0]);
 	Span defaultConstructor = Span();
 	Span* dynamicSpan = new Span();
 	delete dynamicSpan;
