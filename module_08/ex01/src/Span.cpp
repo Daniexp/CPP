@@ -1,5 +1,9 @@
 #include <Span.hpp>
-
+void addElement(Span& object, int number)
+{
+	//container.push_back(number);
+	object.addNumber(number);
+}	
 Span::Span()
 {
 //Const
@@ -31,7 +35,7 @@ Span::Span(const unsigned int N)
 	maxNumbers = N;
 }
 
-void Span::addNumber(const int &number)
+void Span::addNumber(const int number)
 {
 	if (numbers.size() + 1 > maxNumbers)
 		throw std::runtime_error("Span - trying to add more than N numbers");
@@ -39,54 +43,33 @@ void Span::addNumber(const int &number)
 	maxNumbers++;
 }
 
-unsigned int Span::calculateSpan(bool (*comparador)(unsigned int, unsigned int)) const
+template<typename iterator>
+void Span::addNumbers(iterator first, iterator last)
 {
-	if (numbers.size() < 2)
-		throw std::runtime_error("Span - no span can be found");
-	unsigned int span;
-	unsigned int minSpan;
-	std::list<int>::const_iterator prev = numbers.begin();
-	std::list<int>::const_iterator it  = prev;
-	it++;
-	span = minSpan = std::abs(*prev - *it);
-	while(it != numbers.end())
-	{
-		span = std::abs(*prev - *it);
-		prev++;
-		if (comparador(span,minSpan))
-			minSpan = span;
-		it++;
-	}
-	return minSpan;
+	std::size_t newNumbers = last - first;
+	if (numbers.size() + newNumbers > maxNumbers)
+		throw std::runtime_error("Span - trying to add more than N numbers");
+	for_each(first, last, addElement);
+	maxNumbers += newNumbers;
 }
 
+//La menor distancia posible entre dos números en el vct es la menor distancia entre dos números consecutivos 
 unsigned int Span::shortestSpan() const
 {
-	return calculateSpan(&isLess);
+	// to do
+	return 100;
 }
 
+//La mayor distancia posible entre dos números del vct es maxElement - minElement
 unsigned int Span::longestSpan() const
 {
-	return calculateSpan(&isMore);
+	return (*max_element(numbers.begin(), numbers.end()) - *min_element(numbers.begin(), numbers.end()));
 }
 
-bool Span::isLess(unsigned int a, unsigned int b)
-{
-	return a < b;
-}
-
-bool Span::isMore(unsigned int a, unsigned int b)
-{
-	return a > b;
-}
 
 int Span::operator [] (std::size_t index) const
 {
 	if (index >= maxNumbers)
 		throw std::runtime_error("Span: index out of range");
-	std::size_t i = 0;
-	std::list<int>::const_iterator it = numbers.begin();
-	while(it != numbers.end() && i++ != index)
-		it++;
-	return *it;
+	return numbers[index];
 }
