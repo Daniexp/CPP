@@ -30,6 +30,20 @@ TEST_CASE("Valid - addNumber")
 	example.addNumber(-1);
 	CHECK(example[0] == -1);
 }
+TEST_CASE("Valid - addNumbers")
+{
+	std::vector<int> numbers;
+	numbers.push_back(2);
+	numbers.push_back(1);
+	numbers.push_back(-1);
+	numbers.push_back(-2);
+	Span example = Span(4);
+	example.addNumbers(numbers.begin(), numbers.end());
+	CHECK(example[0] == 2);
+	CHECK(example[1] == 1);
+	CHECK(example[2] == -1);
+	CHECK(example[3] == -2);
+}
 
 TEST_CASE("Invalid - addNumber")
 {
