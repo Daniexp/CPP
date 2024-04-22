@@ -17,16 +17,24 @@ public:
    Span& operator=(const Span& src);
 	int operator[](std::size_t index) const;
 	void addNumber(const int number);
+	std::vector<int> getNumbers(void)
+	{
+		return numbers;
+	}
 	unsigned int shortestSpan() const;
 	unsigned int longestSpan() const;
 	template<typename iterator>
-	void addNumbers(iterator first, iterator last);
-/*
+	void addNumbers(iterator first, iterator last)
 {
+	std::cout << "last - afist: " << last - first << std::endl;
+	std::cout << "size + last - afist: " << numbers.size() + last - first << std::endl;
+	std::cout << "maxNumbers " << maxNumbers << std::endl;
+	if (numbers.size() + (last - first) > maxNumbers)
+		throw std::runtime_error("Span - trying to add more than N numbers");
 	for (iterator it = first; it != last; it++)
-		numbers.push_back(it);
+		numbers.push_back(*it);
+	maxNumbers += last - first;
 }
-*/
 private:
 	unsigned int calculateSpan(bool (*comparador)(unsigned int, unsigned int)) const;
 	static bool isLess(unsigned int a, unsigned int b);
@@ -36,7 +44,5 @@ private:
 };
 
 std::ostream& operator << (std::ostream& os, Span& src);
-//void addElement(std::vector<int>& container, int number);
-void addElement(Span& container, int number);
 
 #endif     //SPAN_H

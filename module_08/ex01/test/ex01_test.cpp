@@ -72,11 +72,8 @@ TEST_CASE("Valid - shortestSpan and longestSpan")
 
 TEST_CASE("Invalid - shortestSpan and longestSpan")
 {
-	Span example = Span(4);
-	example.addNumber(-1);
+	Span example = Span(1);
 	example.addNumber(1);
-	example.addNumber(-5);
-	example.addNumber(5);
 	try
 	{
 		example.shortestSpan();

@@ -1,9 +1,5 @@
 #include <Span.hpp>
-void addElement(Span& object, int number)
-{
-	//container.push_back(number);
-	object.addNumber(number);
-}	
+
 Span::Span()
 {
 //Const
@@ -43,26 +39,33 @@ void Span::addNumber(const int number)
 	maxNumbers++;
 }
 
-template<typename iterator>
-void Span::addNumbers(iterator first, iterator last)
-{
-	std::size_t newNumbers = last - first;
-	if (numbers.size() + newNumbers > maxNumbers)
-		throw std::runtime_error("Span - trying to add more than N numbers");
-	for_each(first, last, addElement);
-	maxNumbers += newNumbers;
-}
-
 //La menor distancia posible entre dos números en el vct es la menor distancia entre dos números consecutivos 
 unsigned int Span::shortestSpan() const
 {
 	// to do
-	return 100;
+	if (maxNumbers < 2)
+		throw std::logic_error("Span - At least two numbers are required to get the shortestSpan.");
+	std::vector<int> differences;//(maxNumbers - 1);
+	std::cout << "prev: ";
+	for (std::size_t i = 0; i < differences.size(); i++)
+		std::cout << " " << differences[i] << std::endl;
+	std::cout << std::endl;
+
+	for (std::size_t i = 0; i + 1 < numbers.size(); i++)
+		 differences.push_back(std::abs(numbers[i] - numbers[i + 1]));
+	std::cout << "Llega hasta aquí" << std::endl;
+	std::cout << "After: ";
+	for (std::size_t i = 0; i < differences.size(); i++)
+		std::cout << " " << differences[i] << std::endl;
+	std::cout << std::endl;
+	return (*min_element(differences.begin(), differences.end()));
 }
 
 //La mayor distancia posible entre dos números del vct es maxElement - minElement
 unsigned int Span::longestSpan() const
 {
+	if (maxNumbers < 2)
+		throw std::logic_error("Span - At least two numbers are required to get the longestSpan.");
 	return (*max_element(numbers.begin(), numbers.end()) - *min_element(numbers.begin(), numbers.end()));
 }
 
@@ -72,4 +75,12 @@ int Span::operator [] (std::size_t index) const
 	if (index >= maxNumbers)
 		throw std::runtime_error("Span: index out of range");
 	return numbers[index];
+}
+std::ostream& operator << (std::ostream& os, Span& src)
+{
+	os << "Numbers: {";
+	for (std::size_t i = 0; i < src.getNumbers().size(); i++)
+		os << " " << src.getNumbers()[i];	
+	os << "}" << std::endl;
+	return os;
 }
