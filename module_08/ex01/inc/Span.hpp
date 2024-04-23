@@ -21,19 +21,14 @@ public:
 	{
 		return numbers;
 	}
+	std::vector<int> calculateSpans() const;
 	unsigned int shortestSpan() const;
 	unsigned int longestSpan() const;
 	template<typename iterator>
 	void addNumbers(iterator first, iterator last)
 {
-	std::cout << "last - afist: " << last - first << std::endl;
-	std::cout << "size + last - afist: " << numbers.size() + last - first << std::endl;
-	std::cout << "maxNumbers " << maxNumbers << std::endl;
-	if (numbers.size() + (last - first) > maxNumbers)
-		throw std::runtime_error("Span - trying to add more than N numbers");
 	for (iterator it = first; it != last; it++)
-		numbers.push_back(*it);
-	maxNumbers += last - first;
+		addNumber(*it);
 }
 private:
 	unsigned int calculateSpan(bool (*comparador)(unsigned int, unsigned int)) const;

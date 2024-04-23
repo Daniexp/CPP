@@ -4,11 +4,6 @@
 #include <sstream>
 #include <Span.hpp>
 
-TEST_CASE("Example Test_Case")
-{
-	MESSAGE("Example test case is executed successfully...");
-}
-
 TEST_CASE("Canonical form of Span class")
 {
 	Span example = Span(1);
@@ -58,6 +53,31 @@ TEST_CASE("Invalid - addNumber")
 	}
 }
 
+TEST_CASE("Invalid - addNumbers")
+{
+	std::list<int> numbers;
+	numbers.push_back(2);
+	numbers.push_back(1);
+	numbers.push_back(-1);
+	numbers.push_back(-2);
+	Span example = Span(4);
+	example.addNumbers(numbers.begin(), numbers.end());
+	CHECK(example[0] == 2);
+	CHECK(example[1] == 1);
+	CHECK(example[2] == -1);
+	CHECK(example[3] == -2);
+	try
+	{
+		example.addNumbers(numbers.begin(), numbers.end());
+		CHECK("Add numbers throws an exception when trying to add more than N numbers" == "Add numbers is adding more than N numbers to the span container");
+	}
+	catch (std::exception& e)
+	{
+		CHECK(std::string(e.what()) == "Span - trying to add more than N numbers");
+	}
+
+}
+
 TEST_CASE("Valid - shortestSpan and longestSpan")
 {
 	Span example = Span(4);
@@ -77,17 +97,19 @@ TEST_CASE("Invalid - shortestSpan and longestSpan")
 	try
 	{
 		example.shortestSpan();
+		CHECK("The shortest Span throws an exception" == "the shortest span less than two numbers is not throwing the exception needed");
 	}
 	catch (std::exception& e)
 	{
-		CHECK(e.what() == "Span - no span can be found");
+		CHECK(std::string(e.what()) == "Span - At least two numbers are required to get the shortestSpan.");
 	}
 	try
 	{
 		example.longestSpan();
+		CHECK("The shortest Span throws an exception" == "the shortest span less than two numbers is not throwing the exception needed");
 	}
 	catch (std::exception& e)
 	{
-		CHECK(e.what() == "Span - no span can be found");
+		CHECK(std::string(e.what()) == "Span - At least two numbers are required to get the longestSpan.");
 	}
 }
