@@ -113,3 +113,13 @@ TEST_CASE("Invalid - shortestSpan and longestSpan")
 		CHECK(std::string(e.what()) == "Span - At least two numbers are required to get the longestSpan.");
 	}
 }
+
+TEST_CASE("Valid - Add more than 10000 numbers to the Span class")
+{
+		int maxNumbers = 10001;
+		Span example = Span(maxNumbers);
+		for (int i = 0; i < maxNumbers; i ++)
+			example.addNumber(i);
+		CHECK(example.shortestSpan() == 1);
+		CHECK(example.longestSpan() == 1);
+}
