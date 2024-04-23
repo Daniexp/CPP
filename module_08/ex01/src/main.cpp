@@ -15,17 +15,23 @@ int main(void)
 	sp.addNumber(17);
 	sp.addNumber(9);
 	sp.addNumber(11);
-	std::cout << sp.shortestSpan() << std::endl;
-	std::cout << sp.longestSpan() << std::endl;
+	std::cout << "Shortest Span: " << sp.shortestSpan() << std::endl;
+	std::cout << "Longest Span: " << sp.longestSpan() << std::endl;
 	std::vector<int> copy = sp.getNumbers();
-	std::cout << sp;
 	sp.addNumbers(copy.begin(), copy.end());
-	std::cout << sp;
 	Span sp2 = Span(1);
 	sp2.addNumber(10);
 	try
 	{
 			sp2.shortestSpan();
+	}
+	catch(std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	try
+	{
+			sp2.longestSpan();
 	}
 	catch(std::exception& e)
 	{
