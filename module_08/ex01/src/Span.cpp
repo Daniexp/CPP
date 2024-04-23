@@ -40,16 +40,14 @@ void Span::addNumber(const int number)
 
 std::vector<int> Span::calculateSpans(void) const
 {
-	std::vector<int> differences;//(maxNumbers - 1);
+	std::vector<int> differences;
 
 	for (std::size_t i = 0; i + 1 < numbers.size(); i++)
 		 differences.push_back(std::abs(numbers[i] - numbers[i + 1]));
 	return (differences);
 }
-//La menor distancia posible entre dos números en el vct es la menor distancia entre dos números consecutivos 
 unsigned int Span::shortestSpan() const
 {
-	// to do
 	if (maxNumbers < 2)
 		throw std::logic_error("Span - At least two numbers are required to get the shortestSpan.");
 	std::vector<int> differences = calculateSpans();
@@ -57,7 +55,6 @@ unsigned int Span::shortestSpan() const
 	return (*min_element(differences.begin(), differences.end()));
 }
 
-//La mayor distancia posible entre dos números del vct es maxElement - minElement
 unsigned int Span::longestSpan() const
 {
 	if (maxNumbers < 2)
