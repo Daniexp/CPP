@@ -1,14 +1,7 @@
 #include <Span.hpp>
 
-void leaks(void)
-{
-	system("leaks -q ex01");
-}
-
 int main(void)
 {
-	atexit(leaks);
-
 	Span sp = Span(10);
 	sp.addNumber(6);
 	sp.addNumber(3);

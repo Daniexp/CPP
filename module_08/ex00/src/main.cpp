@@ -6,7 +6,7 @@ void leaks(void)
 { system("leaks -q ex00");}
 int main() {
 
-	atexit(leaks);
+//	atexit(leaks);
 
     try {
         std::vector<int> vec;

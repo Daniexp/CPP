@@ -4,8 +4,8 @@
 ################################################################################
 NAME		=	ex01
 TEST_NAME	=	ex01_test
-CXX			=	clang++
-CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc #-fsanitize=address
+CXX			=	c++
+CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc
 CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
 

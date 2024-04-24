@@ -4,7 +4,7 @@
 ################################################################################
 NAME		=	ex02
 TEST_NAME	=	ex02_test
-CXX			=	clang++
+CXX			=	c++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc
 CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf

@@ -1,13 +1,7 @@
 #include <MutantStack.hpp>
 
-void leaks(void)
-{
-	system("leaks -q ex02");
-}
 int main(void)
 {
-//	atexit(leaks);
-
 	MutantStack<int> mstack;
 	mstack.push(5);
 	mstack.push(17);
