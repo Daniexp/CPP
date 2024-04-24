@@ -13,13 +13,6 @@ char **createArgumentArray(const std::size_t length)
 	return ptr;
 }
 */
-TEST_CASE("Example Test_Case")
-{
-	MESSAGE("Example test case is executed successfully...");
-}
-TEST_CASE("Test short by larger number of Pairs")
-{
-}
 TEST_CASE("Test saveIntegerSequence")
 {
 	char* argv[4];

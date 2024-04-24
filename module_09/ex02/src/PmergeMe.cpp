@@ -149,20 +149,18 @@ void PmergeMe::shortFirstContainer(std::vector<unsigned int> src)
 	}
 
 	printShortFirst(src, shorted, pairs);
-	/*
-	int cnt = (firstContainer.size() / 2);
-	while (!pairs.empty())
+
+	while (!pairs.empty() && !src.empty())
 	{
-		if (odd && firstContainer[cnt] == unPairElement && pairs[0] == UINT_MAX)
-			binarySearchInsertionVector(firstContainer, cnt, 0, cnt - 1);
+		if (pairs[0] == INT_MIN)
+			binarySearchInsertionVector(shorted, src[0], 0, src.size() - 1);
 		else
-		{
-			binarySearchInsertionVector(firstContainer, cnt, 0,
-				std::find(firstContainer.begin(), firstContainer.end(), pairs[0]) - firstContainer.begin() - 1);
-		}
+			binarySearchInsertionVector(shorted, src[0], 0,
+					std::find(shorted.begin(), shorted.end(), pairs[0]) - shorted.begin() - 1);
 		pairs.erase(pairs.begin());
-		cnt++;
-	*/
+		src.erase(src.begin());
+	}
+	printShortFirst(src, shorted, pairs);
 }
 
 void PmergeMe::binarySearchInsertionVector(std::vector<unsigned int>& S, const unsigned int srcValue, int start, int end)
