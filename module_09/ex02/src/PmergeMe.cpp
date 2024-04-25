@@ -88,9 +88,7 @@ void PmergeMe::shortFirstContainer(std::vector<unsigned int> src)
 		if (src[i] < src[i + middle])
 			swap(src[i], src[i + middle]);
 	}
-	std::cout << "src size / 2 - 1: " << src.size() / 2 - 1 << std::endl;
 	shorted.insert(shorted.begin(), src.begin(), src.begin() + (src.size() / 2));
-	std::cout << "middle - 1: " << middle - 1 << std::endl;
 	src.erase(src.begin(), src.begin() + middle);
 
 	printShortFirst(src, shorted, pairs);
@@ -107,11 +105,11 @@ void PmergeMe::shortFirstContainer(std::vector<unsigned int> src)
 	printShortFirst(src, shorted, pairs);
 
 	for (std::size_t i = 1; i < shorted.size(); i++)
-		pairs.insert(pairs.end()--, shorted[i]);
+		pairs.insert(pairs.end(), shorted[i]);
 	std::size_t S = shorted.size();
 	bool odd = S + S != S + src.size();
 	if (odd)
-		pairs.insert(pairs.end()--, INT_MIN);
+		pairs.insert(pairs.end(), INT_MIN);
 	shorted.insert(shorted.begin(), *src.begin());
 	src.erase(src.begin());
 
@@ -165,6 +163,7 @@ void PmergeMe::shortFirstContainer(std::vector<unsigned int> src)
 
 void PmergeMe::binarySearchInsertionVector(std::vector<unsigned int>& S, const unsigned int srcValue, int start, int end)
 {
+	std::cout << "value to insert: " << srcValue << " start: " << start << " end: " << end << std::endl;
 	if (end - start <= 0)
 		return ;
 	if (end - start == 1)
