@@ -50,7 +50,7 @@
 // =================================================================================================
 // == VERSION ======================================================================================
 // =================================================================================================
-
+#define SIGSTKSZ 8196
 #define DOCTEST_VERSION_MAJOR 1
 #define DOCTEST_VERSION_MINOR 2
 #define DOCTEST_VERSION_PATCH 9
@@ -4403,7 +4403,7 @@ namespace detail
         static bool             isSet;
         static struct sigaction oldSigActions[DOCTEST_COUNTOF(signalDefs)];
         static stack_t          oldSigStack;
-        static char             altStackMem[4 * SIGSTKSZ];
+        static char             altStackMem[4 * 8196];
 
         static void handleSignal(int sig) {
             std::string name = "<unknown signal>";

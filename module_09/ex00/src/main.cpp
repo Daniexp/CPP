@@ -20,6 +20,14 @@ int main(void)
 	testDate.printResults("simpleInput.txt");
 */
 	BitcoinExchange test = BitcoinExchange();
+	std::cout << "emptyInput:" << std::endl;
 	test.printResults("inputs/emptyInput.txt");
+	std::cout << "onlySpaces:" << std::endl;
 	test.printResults("inputs/onlySpaces.txt");
+	std::cout << "noContent:" << std::endl;
+	test.printResults("inputs/noContent.txt");
+	std::cout << "input:" << std::endl;
+	test.printResults("inputs/input.txt");
+	std::cout << "inputSubject:" << std::endl;
+	test.printResults("inputs/inputSubject.txt");
 }

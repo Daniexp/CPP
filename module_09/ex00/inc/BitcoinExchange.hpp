@@ -14,8 +14,7 @@ class BitcoinExchange
 public:
 	BitcoinExchange();
 	~BitcoinExchange();
-	BitcoinExchange(const std::string& inputPath);
-	BitcoinExchange(const std::string& dataBase, const std::string& inputPath);
+	BitcoinExchange(const std::string& dataBase);
    BitcoinExchange(const BitcoinExchange& src);
    BitcoinExchange& operator=(const BitcoinExchange& src);
 	const std::map<std::string, std::string>& getDataBase() const;

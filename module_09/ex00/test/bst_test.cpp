@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 
-std::string exercisePath = "/Users/dexposit/Documents/CPP/module_09/ex00/inputs/";
+std::string exercisePath = "/home/dexposit/Documents/CPP/module_09/ex00/inputs/";
 
 TEST_CASE("Example Test_Case")
 {
