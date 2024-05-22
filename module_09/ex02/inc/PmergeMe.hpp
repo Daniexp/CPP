@@ -6,6 +6,9 @@
 #include <vector>
 #include <list>
 #include <math.h>
+#include <algorithm>
+#include <limits.h>
+#include <sstream>
 
 class PmergeMe
 {

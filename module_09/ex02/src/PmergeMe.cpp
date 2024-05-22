@@ -26,7 +26,11 @@ PmergeMe::PmergeMe(char* argv[])
 		for (int i = 0; argv[i]; i++)
 		{
 			//parse Char to Unsigned Int
-			number = std::stoi(argv[i]);
+			std::stringstream ss(argv[i]);
+			ss >> number;
+			if (ss.fail()) {
+				throw std::logic_error(std::string("not a number") + argv[i]);
+			}
 			if (number < 0)
 				throw std::logic_error(std::string("negative integer ") + argv[i]);
 				//save Int in both containers
