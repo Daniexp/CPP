@@ -16,6 +16,8 @@ public:
 	PmergeMe();
 	~PmergeMe();
 	PmergeMe(char* argv[]);
+	//mover a cppPARA CORRECCION
+	PmergeMe(std::vector<unsigned int> src): firstContainer(src) {};
    PmergeMe(const PmergeMe& src);
    PmergeMe& operator=(const PmergeMe& src);
 	const std::vector<unsigned int> getFirstContainer(void) const;
@@ -41,7 +43,8 @@ private:
 	std::vector<unsigned int> firstContainer;
 	std::list<unsigned int> secondContainer;
 	const std::vector<unsigned int> originalSequence;
-	 
+
+	void shortPairs(std::vector<unsigned int>& src);
 };
 std::ostream& operator << (std::ostream& os, const PmergeMe& src);
 #endif     //PMERGEME_H

@@ -81,22 +81,28 @@ void printShortFirst(std::vector<unsigned int>& src, std::vector<unsigned int>& 
 	std::cout << "}" << std::endl;
 	std::cout << "-------------------" << std::endl;
 }
-
-void PmergeMe::shortFirstContainer(std::vector<unsigned int> src)
+void PmergeMe::shortPairs(std::vector<unsigned int>& src)
 {
-	std::vector<unsigned int> shorted;
-	std::vector<int> pairs;
 	int middle = (src.size() / 2);
 	for (int i = 0; i < middle; i++)
 	{
 		if (src[i] < src[i + middle])
 			swap(src[i], src[i + middle]);
 	}
+}
+
+void PmergeMe::shortFirstContainer(std::vector<unsigned int> src)
+{
+	std::vector<unsigned int> shorted;
+	std::vector<int> pairs;// = savePairs(shorted);
+	int middle = (src.size() / 2);
+	shortPairs(src);
 	shorted.insert(shorted.begin(), src.begin(), src.begin() + (src.size() / 2));
 	src.erase(src.begin(), src.begin() + middle);
 
 	printShortFirst(src, shorted, pairs);
-
+//Order by biggest pairs
+	
 	int size = (int) shorted.size();
 	for (int i = 0; i < size - 1; i++)
 		for (int j = 0; j < size - i - 1; j++)
@@ -106,8 +112,7 @@ void PmergeMe::shortFirstContainer(std::vector<unsigned int> src)
 				swap(src[j], src[j + 1]);
 			}
 
-	printShortFirst(src, shorted, pairs);
-
+//	printShortFirst(src, shorted, pairs);
 	for (std::size_t i = 1; i < shorted.size(); i++)
 		pairs.insert(pairs.end(), shorted[i]);
 	std::size_t S = shorted.size();
@@ -117,7 +122,7 @@ void PmergeMe::shortFirstContainer(std::vector<unsigned int> src)
 	shorted.insert(shorted.begin(), *src.begin());
 	src.erase(src.begin());
 
-	printShortFirst(src, shorted, pairs);
+//	printShortFirst(src, shorted, pairs);
 
 	int saved= 2;
 	int notReverse = src.size();
@@ -150,7 +155,7 @@ void PmergeMe::shortFirstContainer(std::vector<unsigned int> src)
 		groupSize = pow(2, nextPowIndex) - groupSize;
 	}
 
-	printShortFirst(src, shorted, pairs);
+//	printShortFirst(src, shorted, pairs);
 
 	while (!pairs.empty() && !src.empty())
 	{
@@ -162,7 +167,7 @@ void PmergeMe::shortFirstContainer(std::vector<unsigned int> src)
 		pairs.erase(pairs.begin());
 		src.erase(src.begin());
 	}
-	printShortFirst(src, shorted, pairs);
+//	printShortFirst(src, shorted, pairs);
 }
 
 void PmergeMe::binarySearchInsertionVector(std::vector<unsigned int>& S, const unsigned int srcValue, int start, int end)

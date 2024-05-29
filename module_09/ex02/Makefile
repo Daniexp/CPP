@@ -5,8 +5,7 @@
 NAME		=	PmergeMe
 TEST_NAME	=	PmergeMe_test
 CXX			=	clang++
-CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc -g3 -fsanitize=address
-CXXLFLAGS	=	-L inc -lm
+CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc #-g3 -fsanitize=address
 RM			=	rm -rf
 
 SRCS		=	\
@@ -26,6 +25,7 @@ TEST_OBJS	=	$(DTESTSRC:.cpp=.o)
 ifeq ($(MAKECMDGOALS), test)
 	SRCS := $(filter-out main.cpp, $(SRCS))
 	OBJS := $(filter-out $(SRCDIR)main.o, $(OBJS))
+	CXXFLAGS := $(filter-out -std=c++98, $(CXXFLAGS))
 endif
 
 all:	$(NAME)
