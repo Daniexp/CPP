@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <limits.h>
 #include <sstream>
+typedef std::vector<unsigned int> vector;
 
 class PmergeMe
 {
@@ -16,15 +17,13 @@ public:
 	PmergeMe();
 	~PmergeMe();
 	PmergeMe(char* argv[]);
-	//mover a cppPARA CORRECCION
-	PmergeMe(std::vector<unsigned int> src): firstContainer(src) {};
+	PmergeMe(vector& src);
    PmergeMe(const PmergeMe& src);
    PmergeMe& operator=(const PmergeMe& src);
-	const std::vector<unsigned int> getFirstContainer(void) const;
+	const vector getFirstContainer(void) const;
 	const std::list<unsigned int> getSecondContainer(void) const;
 
 	void shortFirstContainer();
-	void shortFirstContainer(std::vector<unsigned int> src);
 	void shortSecondContainer(std::list<unsigned int>& src);
 
 private:
@@ -33,18 +32,20 @@ private:
 	void saveInSecondContainer(void);
 	void saveInAllContainers(void);
 
-	void shortLargerElements(std::vector<unsigned int>& src, int start, int end);
-//	void binarySearchInsertionVector(std::vector<unsigned int>& src, const unsigned int value, int start, int end);
-	void binarySearchInsertionVector(std::vector<unsigned int>& S, const unsigned int srcValue, int start, int end);
+	void binarySearchInsertionVector(vector& S, const unsigned int srcValue, int start, int end);
 
 	void swap(unsigned int& nmb1, unsigned int& nmb2);
-	void splitUnshortedElements(std::vector<unsigned int>& src, std::vector<unsigned int>& pairs);
 
-	std::vector<unsigned int> firstContainer;
+	vector firstContainer;
 	std::list<unsigned int> secondContainer;
-	const std::vector<unsigned int> originalSequence;
+	const vector originalSequence;
 
-	void shortPairs(std::vector<unsigned int>& src);
+	void shortPairs(vector& src);
+	void splitPairs(vector& src, vector& shorted);
+	void orderBiggestPairs(vector& shorted, vector& src);
+	std::vector<int> savePairsOfUnshorted(vector& src, vector& shorted);
+	void	reverseUnshortedPairsInGroupsOfPowerTwo(vector& src, std::vector<int>& pairs);
+	void	insertPowerTwoGroupsByBinarySearchInSubsequences(vector& src, vector& shorted, std::vector<int>& pairs);
 };
 std::ostream& operator << (std::ostream& os, const PmergeMe& src);
 #endif     //PMERGEME_H
