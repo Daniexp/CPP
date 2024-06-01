@@ -30,6 +30,11 @@ private:
 	//check csvPath
 	void mapContent(std::ifstream& file, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str));
 	std::map<std::string, std::string>::iterator saveLineValues(const std::string& split, std::string& line, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str));
+	template<class UnaryPred>
+	void rmchr(std::string& str, UnaryPred p)
+	{
+		str.erase(std::remove_if(str.begin(), str.end(), p), str.end());
+	}
 	void openFile(std::ifstream& file, const std::string& path);
 	void checkDate(const std::string& str);
 	void checkPrice(const std::string& str);

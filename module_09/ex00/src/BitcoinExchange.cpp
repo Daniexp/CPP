@@ -30,12 +30,10 @@ BitcoinExchange& BitcoinExchange::operator = (const BitcoinExchange& src)
 {
 	if (this != &src)
 	{
-/*
 		if (csv.is_open())
 			csv.close();
 		if (input.is_open())
 			input.close();
-*/
 		this->dataBase = src.dataBase;
 		this->amounts = src.amounts;
 	}
@@ -94,10 +92,13 @@ std::map<std::string, std::string>::iterator BitcoinExchange::saveLineValues(con
 			throw std::logic_error("line doesn't contain the separator => " + split);
 		std::string date = line.substr(0, splitPos);
 		checkDate(date);
-		std::string value = line.substr(splitPos + 1, line.length());
+		std::string value = line.substr(splitPos + 1);//, line.length());
 		(this->*checkValue)(value);
-
-		return map.insert(map.begin(), std::make_pair(date, value));
+		rmchr(date, ::isspace);
+		rmchr(value, ::isspace);
+		map[date] = value;
+		//return (map.insert(map.begin(), std::pair<std::string, std::string>(date, value)));
+		return map.find(date);
 }
 
 void BitcoinExchange::printResults(const std::string& inputPath)
@@ -110,26 +111,35 @@ void BitcoinExchange::printResults(const std::string& inputPath)
 	if (line == "date | value")
 		std::getline(input, line);
 	std::string split = "|";
+	std::map<std::string, std::string>::iterator iter;
+	std::string amount;
+	std::string dateToSearch;
 	do
 	{
 		try
 		{ //el nodo ha sido guardado 
-			std::map<std::string, std::string>::iterator iter = saveLineValues(split, line, amounts, &BitcoinExchange::checkAmount);
+			iter = saveLineValues(split, line, amounts, &BitcoinExchange::checkAmount);
 			//entrar nodo del map
-			std::string amount = iter->second.c_str();
+			amount = iter->second;
 			//apartir de key ( date ) buscar en database
-			std::string dateToSearch = iter->first;
+			dateToSearch = iter->first;
 			iter = dataBase.find(dateToSearch);
 			//si una date no existe buscar la anterior
 			if (dataBase.end() == iter)
 			{
 				iter = dataBase.lower_bound(dateToSearch);
-				if (dataBase.end() == iter)
+//				if (iter != dataBase.begin());
+//					--iter;
+				if (dataBase.begin() == iter)
 					throw std::logic_error("can't provide a exchange rate for the date => " + dateToSearch);
+				--iter;
+//				if (dataBase.end() == iter)
+//					throw std::logic_error("can't provide a exchange rate for the date => " + dateToSearch);
 			}
 			//if (dataBase.end() == iter)
 			//	iter = searchNearestDate(iter->first);
-			std::string lineResult = iter->first + " => " + amount + " = ";
+			//std::string lineResult = iter->first + " => " + amount + " = ";
+			std::string lineResult = dateToSearch + " => " + amount + " = ";
 			float result = std::atof(amount.c_str()) * std::atof(iter->second.c_str());
 			std::ostringstream os;
 			os << result;
@@ -165,11 +175,11 @@ void BitcoinExchange::checkDate(const std::string& str)
 	if (static_cast<bool>(fecha >> std::get_time(&tm, "%Y-%m-%d")) == false)
 		throw std::logic_error("Error : bad date => " + str);
 */
-	tm tm;
-	tm.tm_year -= 1009;
-	tm.tm_mon --; 
+	tm tm = {};
 	if (std::sscanf(str.c_str(), "%4d-%2d-%2d", &tm.tm_year, &tm.tm_mon, &tm.tm_mday) != 3)
 		throw std::logic_error("bad date => " + str);
+	tm.tm_year -= 1009;
+	tm.tm_mon--; 
 }
 
 void BitcoinExchange::checkPrice(const std::string& str)
