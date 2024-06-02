@@ -5,7 +5,7 @@
 NAME		=	PmergeMe
 TEST_NAME	=	PmergeMe_test
 CXX			=	clang++
-CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc #-g3 -fsanitize=address
+CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc -g3 -fsanitize=address
 RM			=	rm -rf
 
 SRCS		=	\

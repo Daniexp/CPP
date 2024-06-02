@@ -68,8 +68,9 @@ const list PmergeMe::getSecondContainer(void) const
 {
 	return this->secondContainer;
 }
-void printShortFirst(vector& src, vector& shorted, std::vector<int>& pairs)
+void printShort(vector& src, vector& shorted, std::vector<int>& pairs)
 {
+	std::cout << "Vector print" << std::endl;
 	std::cout << "src: " << "{";
 	for (std::size_t i = 0; i < src.size(); i++)
 		std::cout << " " << src[i];
@@ -83,6 +84,25 @@ void printShortFirst(vector& src, vector& shorted, std::vector<int>& pairs)
 	std::cout << "Pairs: " << "{";
 	for (std::size_t i = 0; i < pairs.size(); i++)
 		std::cout << " " << pairs[i];
+	std::cout << "}" << std::endl;
+	std::cout << "-------------------" << std::endl;
+}
+void printShort(list& src, list& shorted, std::list<int>& pairs)
+{
+	std::cout << "List print" << std::endl;
+	std::cout << "src: " << "{";
+	for (list::iterator it = src.begin(); it != src.end(); it++)
+		std::cout << " " << *it;
+	std::cout << "}" << std::endl;
+	std::cout << "-------------------" << std::endl;
+	std::cout << "S: " << "{";
+	for (list::iterator it = shorted.begin(); it != shorted.end(); it++)
+		std::cout << " " << *it;
+	std::cout << "}" << std::endl;
+	std::cout << "-------------------" << std::endl;
+	std::cout << "Pairs: " << "{";
+	for (std::list<int>::iterator it = pairs.begin(); it != pairs.end(); it++)
+		std::cout << " " << *it;
 	std::cout << "}" << std::endl;
 	std::cout << "-------------------" << std::endl;
 }
@@ -184,19 +204,20 @@ std::vector<int> PmergeMe::savePairsOfUnshorted(vector& src, vector& shorted)
 std::list<int> PmergeMe::savePairsOfUnshorted(list& src, list& shorted)
 {
 	std::list<int> pairs;
-	for (std::size_t i = 1; i < shorted.size(); i++)
+	for (std::size_t i = 1; i < shorted.size(); ++i)
 		pairs.insert(pairs.end(), *getIterator(shorted, i));
-	std::size_t S = shorted.size();
-	bool odd = S + S != S + src.size();
-	if (odd)
+	if ((src.size() + shorted.size()) % 2 != 0)
 		pairs.insert(pairs.end(), INT_MIN);
-	shorted.insert(shorted.begin(), *src.begin());
-	src.erase(src.begin());
+	if (!src.empty())
+	{
+		shorted.insert(shorted.begin(), *src.begin());
+		src.erase(src.begin());
+	}
 	return pairs;
 }
 void	PmergeMe::reverseUnshortedPairsInGroupsOfPowerTwo(vector& src, std::vector<int>& pairs)
 {
-	int saved= 2;
+	int saved = 2;
 	int notReverse = src.size();
 	int nextPowIndex = 3;
 	int groupSize = 2;
@@ -208,19 +229,28 @@ void	PmergeMe::reverseUnshortedPairsInGroupsOfPowerTwo(vector& src, std::vector<
 	std::swap(pairs[0], pairs[1]);
 	swap(src[0], src[1]);
 	while (saved < notReverse)
+	//while (notReverse - saved >= 2)
 	{
 		int first, last;
 		first = firstUnshortedIndex + prevGroupSize;
-		last = first + groupSize;
+		last = first + groupSize - 1;
 		if ((std::size_t) last > src.size())
 			last = src.size() - 1;
-		while (first < last)
+		int firstPair, lastPair;
+		firstPair = unshortedIndexPairs;
+		lastPair = unshortedIndexPairs + (last - first);
+		lastPair = (lastPair > (int) pairs.size() - 1)? (int) pairs.size() - 1: lastPair;
+		while (first <= last)
 		{
 			swap(src[first], src[last]);
-			std::swap(pairs[unshortedIndexPairs], pairs[unshortedIndexPairs + (last - first)]);
+			std::swap(pairs[firstPair], pairs[lastPair]);
+			//swap(src[first], src[last]);
+			//swap(pairs[unshortedIndexPairs], pairs[unshortedIndexPairs + (last - first)]);
 			unshortedIndexPairs++;
 			first++;
 			last--;
+			firstPair++;
+			lastPair--;
 		}
 		prevGroupSize = groupSize;
 		saved += groupSize;
@@ -239,8 +269,8 @@ void PmergeMe::reverseUnshortedPairsInGroupsOfPowerTwo(list& src, std::list<int>
 	int unshortedIndexPairs = 2;
 	if (notReverse < 2)
 		return ;
-	std::swap(*pairs.begin(), *getIterator(pairs, 1));
-	swap(*src.begin(), *getIterator(src, 1));
+	std::iter_swap(pairs.begin(), getIterator(pairs, 1));
+	std::iter_swap(src.begin(), getIterator(src, 1));
 	while (saved < notReverse)
 	{
 		int first, last;
@@ -250,8 +280,8 @@ void PmergeMe::reverseUnshortedPairsInGroupsOfPowerTwo(list& src, std::list<int>
 			last = src.size() - 1;
 		while (first < last)
 		{
-			swap(*getIterator(src,first), *getIterator(src, last));
-			std::swap(*getIterator(pairs, unshortedIndexPairs), *getIterator(pairs, (unshortedIndexPairs + last - first)));
+			std::iter_swap(getIterator(src, first), getIterator(src, last));
+			std::iter_swap(getIterator(pairs, unshortedIndexPairs), getIterator(pairs, (unshortedIndexPairs + last - first)));
 			unshortedIndexPairs++;
 			first++;
 			last--;
@@ -267,7 +297,7 @@ void PmergeMe::insertPowerTwoGroupsByBinarySearchInSubsequences(vector& src, vec
 	while (!pairs.empty() && !src.empty())
 	{
 		if (pairs[0] == INT_MIN)
-			binarySearchInsertion(shorted, src[0], 0, src.size() - 1);
+			binarySearchInsertion(shorted, src[0], 0, src.size());
 		else
 			binarySearchInsertion(shorted, src[0], 0,
 					std::find(shorted.begin(), shorted.end(), pairs[0]) - shorted.begin() - 1);
@@ -284,7 +314,7 @@ void PmergeMe::insertPowerTwoGroupsByBinarySearchInSubsequences(list& src, list&
 			binarySearchInsertion(shorted, *src.begin(), 0, src.size() - 1);
 		else
 		{
-			list::iterator end = getIterator(shorted, *pairs.begin());
+			list::iterator end = getIterator(shorted, *src.begin());
 			binarySearchInsertion(shorted, *src.begin(), 0, getIndex(shorted, end));
 		}
 		pairs.erase(pairs.begin());
@@ -381,6 +411,20 @@ void PmergeMe::swap(unsigned int& nmb1, unsigned int& nmb2)
 	nmb1 = nmb2;
 	nmb2 = tmp;
 }
+void PmergeMe::swap(list::iterator it1, list::iterator it2)
+{
+	unsigned int tmp;
+	tmp = *it1;
+	*it1 = *it2;
+	*it2 = tmp;
+}
+void PmergeMe::swap(std::list<int>::iterator it1, std::list<int>::iterator it2)
+{
+	unsigned int tmp;
+	tmp = *it1;
+	*it1 = *it2;
+	*it2 = tmp;
+}
 
 std::ostream& operator << (std::ostream& os, const PmergeMe& src)
 {
@@ -407,42 +451,18 @@ list::iterator PmergeMe::getIterator(list& src, int index)
 	int size = src.size();
 	if (size == 0 || index < 0)
 		return src.end();
-	list::iterator it;
-	int middle = src.size() / 2;
-	if (index <= middle)
-	{
-		it = src.begin();
-		for (int it = 0; it < index; it++)
-				++it;
-	}
-	else
-	{
-		it = src.end();
-		for (int it = size; it > index; --it)
-			--it;
-	}
+	list::iterator it = src.begin();
+	std::advance(it, index);
 	return it;
 }
 
 std::list<int>::iterator PmergeMe::getIterator(std::list<int>& src, int index)
 {
 	int size = src.size();
-	if (size == 0 || index < 0)
+	if (size == 0 || index < 0 || index >= size)
 		return src.end();
-	std::list<int>::iterator it;
-	int middle = src.size() / 2;
-	if (index <= middle)
-	{
-		it = src.begin();
-		for (int it = 0; it < index; it++)
-				++it;
-	}
-	else
-	{
-		it = src.end();
-		for (int it = size; it > index; --it)
-			--it;
-	}
+	std::list<int>::iterator it = src.begin();
+	std::advance(it, index);
 	return it;
 }
 

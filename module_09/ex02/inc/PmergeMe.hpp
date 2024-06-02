@@ -37,6 +37,8 @@ private:
 	void binarySearchInsertion(list& S, const unsigned int srcValue, int start, int end);
 
 	void swap(unsigned int& nmb1, unsigned int& nmb2);
+	void swap(list::iterator it1, list::iterator it2);
+	void swap(std::list<int>::iterator it1, std::list<int>::iterator it2);
 
 	vector firstContainer;
 	list secondContainer;
