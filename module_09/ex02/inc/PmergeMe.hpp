@@ -57,7 +57,7 @@ private:
 	std::list<int> savePairsOfUnshorted(list& src, list& shorted);
 	void	reverseUnshortedPairsInGroupsOfPowerTwo(list& src, std::list<int>& pairs);
 	void	insertPowerTwoGroupsByBinarySearchInSubsequences(list& src, list& shorted, std::list<int>& pairs);
-	list::iterator getIterator(list& src, int index);
+	list::iterator getIterator(list& src, unsigned int index);
 	std::list<int>::iterator getIterator(std::list<int>& src, int index);
 	int getIndex(list& src, list::iterator it);
 };

@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 	{
 		containers = PmergeMe(argv + 1);
 		containers.shortFirstContainer();
-//		containers.shortSecondContainer();
+		containers.shortSecondContainer();
 	}
 	catch(std::exception& e)
 	{
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 	}
 	std::cout << containers;
 	vector first = containers.getFirstContainer();
-//	list second = containers.getSecondContainer();
+	list second = containers.getSecondContainer();
 	isSorted(first);
-//	isSorted(second);
+	isSorted(second);
 }

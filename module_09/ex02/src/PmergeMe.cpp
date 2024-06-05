@@ -207,12 +207,9 @@ std::list<int> PmergeMe::savePairsOfUnshorted(list& src, list& shorted)
 	for (std::size_t i = 1; i < shorted.size(); ++i)
 		pairs.insert(pairs.end(), *getIterator(shorted, i));
 	if ((src.size() + shorted.size()) % 2 != 0)
-		pairs.insert(pairs.end(), INT_MIN);
-	if (!src.empty())
-	{
-		shorted.insert(shorted.begin(), *src.begin());
-		src.erase(src.begin());
-	}
+		pairs.insert(pairs.end(), -1);
+	shorted.insert(shorted.begin(), *src.begin());
+	src.erase(src.begin());
 	return pairs;
 }
 void	PmergeMe::reverseUnshortedPairsInGroupsOfPowerTwo(vector& src, std::vector<int>& pairs)
@@ -221,38 +218,26 @@ void	PmergeMe::reverseUnshortedPairsInGroupsOfPowerTwo(vector& src, std::vector<
 	int notReverse = src.size();
 	int nextPowIndex = 3;
 	int groupSize = 2;
-	int prevGroupSize = 2;
-	int firstUnshortedIndex = 0;
 	int unshortedIndexPairs = 2;
 	if (notReverse < 2)
 		return ;
 	std::swap(pairs[0], pairs[1]);
 	swap(src[0], src[1]);
 	while (saved < notReverse)
-	//while (notReverse - saved >= 2)
 	{
 		int first, last;
-		first = firstUnshortedIndex + prevGroupSize;
+		first = unshortedIndexPairs;
 		last = first + groupSize - 1;
-		if ((std::size_t) last > src.size())
+		if ((std::size_t) last >= src.size())
 			last = src.size() - 1;
-		int firstPair, lastPair;
-		firstPair = unshortedIndexPairs;
-		lastPair = unshortedIndexPairs + (last - first);
-		lastPair = (lastPair > (int) pairs.size() - 1)? (int) pairs.size() - 1: lastPair;
-		while (first <= last)
+		while (first < last)
 		{
 			swap(src[first], src[last]);
-			std::swap(pairs[firstPair], pairs[lastPair]);
-			//swap(src[first], src[last]);
-			//swap(pairs[unshortedIndexPairs], pairs[unshortedIndexPairs + (last - first)]);
-			unshortedIndexPairs++;
+			std::swap(pairs[first], pairs[last]);
 			first++;
 			last--;
-			firstPair++;
-			lastPair--;
 		}
-		prevGroupSize = groupSize;
+		unshortedIndexPairs += groupSize - 1;
 		saved += groupSize;
 		groupSize = pow(2, nextPowIndex) - groupSize;
 	}
@@ -264,8 +249,6 @@ void PmergeMe::reverseUnshortedPairsInGroupsOfPowerTwo(list& src, std::list<int>
 	int notReverse = src.size();
 	int nextPowIndex = 3;
 	int groupSize = 2;
-	int prevGroupSize = 2;
-	int firstUnshortedIndex = 0;
 	int unshortedIndexPairs = 2;
 	if (notReverse < 2)
 		return ;
@@ -274,19 +257,18 @@ void PmergeMe::reverseUnshortedPairsInGroupsOfPowerTwo(list& src, std::list<int>
 	while (saved < notReverse)
 	{
 		int first, last;
-		first = firstUnshortedIndex + prevGroupSize;
-		last = first + groupSize;
-		if ((std::size_t) last > src.size())
+		first = unshortedIndexPairs;
+		last = first + groupSize - 1;
+		if ((std::size_t) last >= src.size())
 			last = src.size() - 1;
 		while (first < last)
 		{
 			std::iter_swap(getIterator(src, first), getIterator(src, last));
-			std::iter_swap(getIterator(pairs, unshortedIndexPairs), getIterator(pairs, (unshortedIndexPairs + last - first)));
-			unshortedIndexPairs++;
+			std::iter_swap(getIterator(pairs, first), getIterator(pairs, last));
 			first++;
 			last--;
 		}
-		prevGroupSize = groupSize;
+		unshortedIndexPairs += groupSize - 1;
 		saved += groupSize;
 		groupSize = pow(2, nextPowIndex) - groupSize;
 	}
@@ -310,11 +292,11 @@ void PmergeMe::insertPowerTwoGroupsByBinarySearchInSubsequences(list& src, list&
 {
 	while (!pairs.empty() && !src.empty())
 	{
-		if (*pairs.begin() == INT_MIN)
-			binarySearchInsertion(shorted, *src.begin(), 0, src.size() - 1);
+		if (*pairs.begin() < 0)
+			binarySearchInsertion(shorted, *src.begin(), 0, shorted.size() - 1);
 		else
 		{
-			list::iterator end = getIterator(shorted, *src.begin());
+			list::iterator end = getIterator(shorted, *pairs.begin());
 			binarySearchInsertion(shorted, *src.begin(), 0, getIndex(shorted, end));
 		}
 		pairs.erase(pairs.begin());
@@ -378,23 +360,24 @@ void PmergeMe::shortSecondContainer(void)
 
 void PmergeMe::binarySearchInsertion(vector& S, const unsigned int srcValue, int start, int end)
 {
-	if (start > end) {
-            S.insert(S.begin() + start, srcValue);
-            return;
-        }
-        if (end - start <= 0) {
-            if (srcValue <= S[start])
-                S.insert(S.begin() + start, srcValue);
-            else
-                S.insert(S.begin() + start + 1, srcValue);
-            return;
-        }
-        int middle = (start + end) / 2;
-
-        if (S[middle] > srcValue)
-            binarySearchInsertion(S, srcValue, start, middle - 1);
-        else
-            binarySearchInsertion(S, srcValue, middle + 1, end);
+	if (start > end)
+	{
+		S.insert(S.begin() + start, srcValue);
+		return;
+	}
+	if (end - start <= 0)
+	{
+		if (srcValue <= S[start])
+			S.insert(S.begin() + start, srcValue);
+		else
+			S.insert(S.begin() + start + 1, srcValue);
+		return;
+	}
+	int middle = (start + end) / 2;
+	if (S[middle] > srcValue)
+		binarySearchInsertion(S, srcValue, start, middle - 1);
+	else
+		binarySearchInsertion(S, srcValue, middle + 1, end);
 /*
 	if (end - start <= 0)
 		return ;
@@ -415,25 +398,53 @@ void PmergeMe::binarySearchInsertion(vector& S, const unsigned int srcValue, int
 		binarySearchInsertion(S, srcValue, middle, end); 
 */
 }
+
+std::list<unsigned int>::iterator advance(std::list<unsigned int>::iterator it, int n) {
+    while (n-- > 0) ++it;
+    return it;
+}
+
 void PmergeMe::binarySearchInsertion(list& S, const unsigned int srcValue, int start, int end)
 {
+/*
+   if (start > end) {
+        std::list<unsigned int>::iterator it = advance(S.begin(), start);
+        S.insert(it, srcValue);
+        return;
+    }
+    if (end - start <= 0) {
+        std::list<unsigned int>::iterator it = advance(S.begin(), start);
+        if (srcValue <= *it)
+            S.insert(it, srcValue);
+        else
+            S.insert(++it, srcValue);
+        return;
+    }
+    int middle = (start + end) / 2;
+    std::list<unsigned int>::iterator it = advance(S.begin(), middle);
+    if (*it > srcValue)
+        binarySearchInsertion(S, srcValue, start, middle - 1);
+    else
+        binarySearchInsertion(S, srcValue, middle + 1, end);
+*/
+	if (start > end)
+	{
+		S.insert(getIterator(S, start), srcValue);
+		return;
+	}
 	if (end - start <= 0)
-		return ;
-	if (end - start == 1)
 	{
 		if (srcValue <= *getIterator(S, start))
 			S.insert(getIterator(S, start), srcValue);
-		else if (srcValue >= *getIterator(S, end))
-			S.insert(getIterator(S, end + 1), srcValue);
 		else
-			S.insert(getIterator(S, end), srcValue);
-		return ;
+			S.insert(getIterator(S, start + 1), srcValue);
+		return;
 	}
-	int middle = (end + start) / 2;
-	if (*getIterator(S, middle) >= srcValue)
-		binarySearchInsertion(S, srcValue, start, middle); 
+	int middle = (start + end) / 2;
+	if (*getIterator(S, middle) > srcValue)
+		binarySearchInsertion(S, srcValue, start, middle - 1);
 	else
-		binarySearchInsertion(S, srcValue, middle, end); 
+		binarySearchInsertion(S, srcValue, middle + 1, end);
 }
 void PmergeMe::swap(unsigned int& nmb1, unsigned int& nmb2)
 {
@@ -477,7 +488,7 @@ std::ostream& operator << (std::ostream& os, const PmergeMe& src)
 	return os;
 }
 
-list::iterator PmergeMe::getIterator(list& src, int index)
+list::iterator PmergeMe::getIterator(list& src, unsigned int index)
 {
 	int size = src.size();
 	if (size == 0 || index < 0)
