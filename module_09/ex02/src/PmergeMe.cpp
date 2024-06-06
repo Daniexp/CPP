@@ -126,17 +126,11 @@ void PmergeMe::shortPairs(list& src)
 	    std::advance(it2, middle);
 	
 	    for (int i = 0; i < middle; i++) {
-	        list::iterator next_it1 = it1;
-	        list::iterator next_it2 = it2;
-		++next_it1;
-		++next_it2;
-
 	        if (*it1 < *it2) {
 	            std::iter_swap(it1, it2);
 	        }
-	
-	        it1 = next_it1;
-	        it2 = next_it2;
+	        ++it1;
+	        ++it2;
 	    }
 }
 
@@ -206,7 +200,9 @@ std::list<int> PmergeMe::savePairsOfUnshorted(list& src, list& shorted)
 	std::list<int> pairs;
 	for (std::size_t i = 1; i < shorted.size(); ++i)
 		pairs.insert(pairs.end(), *getIterator(shorted, i));
-	if ((src.size() + shorted.size()) % 2 != 0)
+	std::size_t S = shorted.size();
+	bool odd = S + S != S + src.size();
+	if (odd)
 		pairs.insert(pairs.end(), -1);
 	shorted.insert(shorted.begin(), *src.begin());
 	src.erase(src.begin());
@@ -296,8 +292,11 @@ void PmergeMe::insertPowerTwoGroupsByBinarySearchInSubsequences(list& src, list&
 			binarySearchInsertion(shorted, *src.begin(), 0, shorted.size() - 1);
 		else
 		{
-			list::iterator end = getIterator(shorted, *pairs.begin());
-			binarySearchInsertion(shorted, *src.begin(), 0, getIndex(shorted, end));
+			std::size_t end = 0;
+			while (end < shorted.size() && *getIterator(shorted, end) != (unsigned int) *pairs.begin())
+				end++;
+			if (end < shorted.size())
+				binarySearchInsertion(shorted, *src.begin(), 0, end);
 		}
 		pairs.erase(pairs.begin());
 		src.erase(src.begin());
@@ -313,23 +312,13 @@ void PmergeMe::shortFirstContainer(void)
 
 	shortPairs(src);
 
-	printShort(src, shorted, pairs);
-
 	splitPairs(src, shorted);
-
-	printShort(src, shorted, pairs);
 
 	orderBiggestPairs(shorted, src);
 
-	printShort(src, shorted, pairs);
-
 	pairs = savePairsOfUnshorted(src, shorted);
 
-	printShort(src, shorted, pairs);
-
 	reverseUnshortedPairsInGroupsOfPowerTwo(src, pairs);
-
-	printShort(src, shorted, pairs);
 
 	insertPowerTwoGroupsByBinarySearchInSubsequences(src, shorted, pairs);
 	
