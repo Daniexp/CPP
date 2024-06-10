@@ -26,6 +26,7 @@ PmergeMe::PmergeMe(char* argv[])
 	if (!argv)
 		return ;
 	int number;
+	clock_t startTime;
 	try
 	{
 		for (int i = 0; argv[i]; i++)
@@ -38,9 +39,12 @@ PmergeMe::PmergeMe(char* argv[])
 			}
 			if (number < 0)
 				throw std::logic_error(std::string("negative integer ") + argv[i]);
-				//save Int in both containers
+			startTime = clock();
 			this->firstContainer.insert(firstContainer.end(), number);
+			 this->timerFirstContainer += static_cast<double>(clock() - startTime) / CLOCKS_PER_SEC;
+			startTime = clock();
 			this->secondContainer.push_back(number);
+			this->timerSecondContainer += static_cast<double>(clock() - startTime) / CLOCKS_PER_SEC;
 		}
 	}
 	catch (std::exception& e)
@@ -55,6 +59,8 @@ PmergeMe& PmergeMe::operator = (const PmergeMe& src)
 	{
 		this->firstContainer = src.firstContainer;
 		this->secondContainer = src.secondContainer;
+		this->timerFirstContainer = src.timerFirstContainer;
+		this->timerSecondContainer = src.timerSecondContainer;
 	}
 	return *this;
 }
@@ -68,6 +74,17 @@ const list PmergeMe::getSecondContainer(void) const
 {
 	return this->secondContainer;
 }
+
+float PmergeMe::getTimerFirstContainer() const
+{
+	return this->timerFirstContainer;
+}
+
+float PmergeMe::getTimerSecondContainer() const
+{
+	return this->timerSecondContainer;
+}
+
 void printShort(vector& src, vector& shorted, std::vector<int>& pairs)
 {
 	std::cout << "Vector print" << std::endl;
@@ -460,6 +477,11 @@ void PmergeMe::swap(std::list<int>::iterator it1, std::list<int>::iterator it2)
 std::ostream& operator << (std::ostream& os, const PmergeMe& src)
 {
 	vector vct = src.getFirstContainer();
+	double time1 = src.getTimerFirstContainer();
+	double time2 = src.getTimerSecondContainer();
+	std::size_t size = vct.size();
+	os << "Time to process a range of " << size << " elements with std::vector<unsigned int> : " << time1 << " s" << std::endl;
+	os << "Time to process a range of " << size << " elements with std::vector<unsigned int> : " << time2 << " s" << std::endl;
 	os << "{";
 	for (std::size_t i = 0; i < vct.size(); i++)
 	{

@@ -23,6 +23,8 @@ public:
    PmergeMe& operator=(const PmergeMe& src);
 	const vector getFirstContainer(void) const;
 	const list getSecondContainer(void) const;
+	float getTimerFirstContainer() const;
+	float getTimerSecondContainer() const;
 
 	void shortFirstContainer();
 	void shortSecondContainer();
@@ -40,9 +42,11 @@ private:
 	void swap(list::iterator it1, list::iterator it2);
 	void swap(std::list<int>::iterator it1, std::list<int>::iterator it2);
 
-	vector firstContainer;
-	list secondContainer;
-	const vector originalSequence;
+	vector		firstContainer;
+	list		secondContainer;
+	const	vector 	originalSequence;
+	float	timerFirstContainer;
+	float	timerSecondContainer;
 
 	void shortPairs(vector& src);
 	void splitPairs(vector& src, vector& shorted);
