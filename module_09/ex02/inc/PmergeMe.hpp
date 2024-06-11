@@ -19,8 +19,8 @@ public:
 	~PmergeMe();
 	PmergeMe(char* argv[]);
 	PmergeMe(vector& src);
-   PmergeMe(const PmergeMe& src);
-   PmergeMe& operator=(const PmergeMe& src);
+	PmergeMe(const PmergeMe& src);
+	PmergeMe& operator=(const PmergeMe& src);
 	const vector getFirstContainer(void) const;
 	const list getSecondContainer(void) const;
 	float getTimerFirstContainer() const;
@@ -28,6 +28,7 @@ public:
 
 	void shortFirstContainer();
 	void shortSecondContainer();
+	void shortContainersWithTimers();
 
 private:
 	void saveIntegerSequence(char* argv[], void saveMethod(void));

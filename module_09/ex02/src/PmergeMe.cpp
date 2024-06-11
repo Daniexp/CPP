@@ -41,10 +41,10 @@ PmergeMe::PmergeMe(char* argv[])
 				throw std::logic_error(std::string("negative integer ") + argv[i]);
 			startTime = clock();
 			this->firstContainer.insert(firstContainer.end(), number);
-			 this->timerFirstContainer += static_cast<double>(clock() - startTime) / CLOCKS_PER_SEC;
+			this->timerFirstContainer += static_cast<float>(clock() - startTime) / CLOCKS_PER_SEC;
 			startTime = clock();
 			this->secondContainer.push_back(number);
-			this->timerSecondContainer += static_cast<double>(clock() - startTime) / CLOCKS_PER_SEC;
+			this->timerSecondContainer += static_cast<float>(clock() - startTime) / CLOCKS_PER_SEC;
 		}
 	}
 	catch (std::exception& e)
@@ -362,6 +362,16 @@ void PmergeMe::shortSecondContainer(void)
 	insertPowerTwoGroupsByBinarySearchInSubsequences(src, shorted, pairs);
 
 	this->secondContainer = shorted;
+}
+
+void	PmergeMe::shortContainersWithTimers()
+{
+	clock_t startTime = clock();
+	shortFirstContainer();
+	this->timerFirstContainer += static_cast<float>(clock() - startTime) / CLOCKS_PER_SEC;
+	startTime = clock();
+	shortSecondContainer();
+	this->timerSecondContainer += static_cast<float>(clock() - startTime) / CLOCKS_PER_SEC;
 }
 
 void PmergeMe::binarySearchInsertion(vector& S, const unsigned int srcValue, int start, int end)
