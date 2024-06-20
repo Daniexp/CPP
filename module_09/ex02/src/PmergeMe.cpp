@@ -3,6 +3,10 @@
 PmergeMe::PmergeMe()
 {
 //Const
+	timerFirst = 0;
+	timerSecond = 0;
+	timerFirstContainer = 0.0;
+	timerSecondContainer = 0.0;
 }
 
 PmergeMe::PmergeMe(const PmergeMe& src)
@@ -41,10 +45,12 @@ PmergeMe::PmergeMe(char* argv[])
 				throw std::logic_error(std::string("negative integer ") + argv[i]);
 			startTime = clock();
 			this->firstContainer.insert(firstContainer.end(), number);
-			this->timerFirstContainer += static_cast<float>(clock() - startTime) / CLOCKS_PER_SEC;
+			this->timerFirstContainer += static_cast<double>(clock() - startTime) / CLOCKS_PER_SEC;
+			timerFirst += (clock() - startTime);
 			startTime = clock();
 			this->secondContainer.push_back(number);
-			this->timerSecondContainer += static_cast<float>(clock() - startTime) / CLOCKS_PER_SEC;
+			this->timerSecondContainer += static_cast<double>(clock() - startTime) / CLOCKS_PER_SEC;
+			timerSecond += (clock() - startTime);
 		}
 	}
 	catch (std::exception& e)
@@ -75,14 +81,24 @@ const list PmergeMe::getSecondContainer(void) const
 	return this->secondContainer;
 }
 
-float PmergeMe::getTimerFirstContainer() const
+double PmergeMe::getTimerFirstContainer() const
 {
 	return this->timerFirstContainer;
 }
 
-float PmergeMe::getTimerSecondContainer() const
+double PmergeMe::getTimerSecondContainer() const
 {
 	return this->timerSecondContainer;
+}
+
+long int PmergeMe::getTimerFirst() const
+{
+	return this->timerFirst;
+}
+
+long int PmergeMe::getTimerSecond() const
+{
+	return this->timerSecond;
 }
 
 void printShort(vector& src, vector& shorted, std::vector<int>& pairs)
@@ -368,10 +384,12 @@ void	PmergeMe::shortContainersWithTimers()
 {
 	clock_t startTime = clock();
 	shortFirstContainer();
-	this->timerFirstContainer += static_cast<float>(clock() - startTime) / CLOCKS_PER_SEC;
+	this->timerFirstContainer += static_cast<double>(clock() - startTime) / CLOCKS_PER_SEC;
+	this->timerFirst += clock() - startTime;
 	startTime = clock();
 	shortSecondContainer();
-	this->timerSecondContainer += static_cast<float>(clock() - startTime) / CLOCKS_PER_SEC;
+	this->timerSecondContainer += static_cast<double>(clock() - startTime) / CLOCKS_PER_SEC;
+	this->timerSecond += (clock() - startTime);
 }
 
 void PmergeMe::binarySearchInsertion(vector& S, const unsigned int srcValue, int start, int end)
@@ -489,15 +507,20 @@ std::ostream& operator << (std::ostream& os, const PmergeMe& src)
 	vector vct = src.getFirstContainer();
 	double time1 = src.getTimerFirstContainer();
 	double time2 = src.getTimerSecondContainer();
+	long int time3 = src.getTimerFirst();
+	long int time4 = src.getTimerSecond();
 	std::size_t size = vct.size();
-	os << "Time to process a range of " << size << " elements with std::vector<unsigned int> : " << time1 << " s" << std::endl;
-	os << "Time to process a range of " << size << " elements with std::vector<unsigned int> : " << time2 << " s" << std::endl;
-	os << "{";
+	os << "Time to process a range of " << size << " elements with std::vector<unsigned int> : " << time1 << " s or " << time3 << " nmb of clocks" << std::endl;
+	os << "Time to process a range of " << size << " elements with std::vector<unsigned int> : " << time2 << " s or " << time4 << " nmb of clocks" << std::endl;
+	os << std::endl;
+/*
+	os << "After:";
 	for (std::size_t i = 0; i < vct.size(); i++)
 	{
-		os << " " << vct[i] << " ";
+		os << " " << vct[i];
 	}
-	os << "}" << std::endl;
+*/
+/*
 	list lst = src.getSecondContainer();
 	os << "{";
 	for (list::iterator it = lst.begin(); it != lst.end(); it++)
@@ -505,6 +528,7 @@ std::ostream& operator << (std::ostream& os, const PmergeMe& src)
 		os << " " << *it << " ";
 	}
 	os << "}" << std::endl;
+*/
 
 	return os;
 }
