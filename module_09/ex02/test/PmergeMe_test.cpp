@@ -3,95 +3,97 @@
 #include <iostream>
 #include <sstream>
 #include <PmergeMe.hpp>
-/*
-char **createArgumentArray(const std::size_t length)
-{
-	//char *ptr[length];
-	char **ptr;
-	for (std::size_t i = 0; length > i; i++)
-		//ptr[i] = new (char*);
-	return ptr;
-}
-*/
-TEST_CASE("Test saveIntegerSequence")
-{
-	CHECK(1 == 1);
-/*
-	char* argv[4];
-	argv[0] = new char;
-	*argv[0] = '3';
-	argv[1] = new char;
-	*argv[1] = '5';
-	argv[2] = new char;
-	*argv[2] = '1';
-	argv[3] = new char;
-	*argv[3] = '9';
-	PmergeMe example(argv);
-	std::vector<unsigned int> sequence;
-	sequence.insert(sequence.end(),3);
-	sequence.insert(sequence.end(),5);
-	sequence.insert(sequence.end(),1);
-	sequence.insert(sequence.end(),9);
-	const std::vector<unsigned int> saveSequence = example.getFirstContainer();
-	CHECK(saveSequence[0] == sequence[0]);
-	CHECK(saveSequence[1] == sequence[1]);
-	CHECK(saveSequence[2] == sequence[2]);
-	CHECK(saveSequence[3] == sequence[3]);
-	std::list<unsigned int> saveSequence2 = example.getSecondContainer();
-	CHECK(saveSequence2.front() == sequence[0]);
-	saveSequence2.pop_front();
-	CHECK(saveSequence2.front() == sequence[1]);
-	saveSequence2.pop_front();
-	CHECK(saveSequence2.front() == sequence[2]);
-	saveSequence2.pop_front();
-	CHECK(saveSequence2.front() == sequence[3]);
-	saveSequence2.pop_front();
+#include <exception>
+#include <stdexcept>
+#include <cstring>
 
-	for (int i = 0; i < 4 ; i++)
-		delete argv[i];
-*/
+void test_invalid_sequence(const char* argv[]) {
+    PmergeMe obj(const_cast<char**>(argv));
+    try {
+        obj.shortContainersWithTimers();
+        CHECK(false); // This should not be reached if an exception is thrown
+    } catch (const std::exception& e) {
+        CHECK(strcmp(e.what(), "ERROR") == 0);
+    }
 }
+void test_valid_sequence(const char* argv[]) {                                   
+    PmergeMe obj(const_cast<char**>(argv));                                      
+    try {                                                                        
+        obj.shortContainersWithTimers();                                         
+        const std::vector<unsigned int>& container = obj.getFirstContainer();
+        
+        // Check if the container is sorted
+        bool is_sorted = std::is_sorted(container.begin(), container.end());
+        CHECK(is_sorted); // This should be true if the container is sorted
+    } catch (const std::exception& e) {                                          
+        CHECK(false); // This should not be reached if an exception is not thrown
+    }                                                                            
+} 
 
 TEST_CASE("Short valid integer sequence")
 {
-/*
-	char* argv[4];
-	argv[0] = new char;
-	*argv[0] = '3';
-	argv[1] = new char;
-	*argv[1] = '5';
-	argv[2] = new char;
-	*argv[2] = '1';
-	argv[3] = new char;
-	*argv[3] = '9';
-	PmergeMe example(argv);
-	std::vector<unsigned int> sequence;
-	sequence.insert(sequence.end(),1);
-	sequence.insert(sequence.end(),3);
-	sequence.insert(sequence.end(),5);
-	sequence.insert(sequence.end(),9);
-
-	example.shortFirstContainer();
-	
-	const std::vector<unsigned int> saveSequence = example.getFirstContainer();
-	CHECK(saveSequence[0] == sequence[0]);
-	CHECK(saveSequence[1] == sequence[1]);
-	CHECK(saveSequence[2] == sequence[2]);
-	CHECK(saveSequence[3] == sequence[3]);
-
-	for (int i = 0; i < 4 ; i++)
-		delete argv[i];
-*/
-	std::vector<unsigned int> hola;
-	hola.push_back(10);
-	hola.push_back(1000);
-	hola.push_back(5);
-	hola.push_back(4);
-	PmergeMe object;
-	object.shortFirstContainer(hola);
-	std::vector<unsigned int> copy = object.getFirstContainer();
-	CHECK(copy[0] == 4);
-	CHECK(copy[1] == 5);
-	CHECK(copy[2] == 10);
-	CHECK(copy[3] == 1000);
+    const char* argv[] = {"99", "23424", "01", "11", "11", "89724", "891238427", "500", NULL};
+    test_valid_sequence(argv);
 }
+
+
+TEST_CASE("Invalid - sequence with nmb > max_int") {
+    const char* argv[] = {"999999999999999999999999999999", NULL};
+    test_invalid_sequence(argv);
+}
+
+TEST_CASE("Invalid - sequence with negative int") {
+    const char* argv[] = {"-1", "2", "3", NULL};
+    test_invalid_sequence(argv);
+}
+
+TEST_CASE("Invalid - sequence with double value") {
+    const char* argv[] = {"1.5", "2", "3", NULL};
+    test_invalid_sequence(argv);
+}
+
+TEST_CASE("Invalid - sequence with float value") {
+    const char* argv[] = {"1.0f", "2", "3", NULL};
+    test_invalid_sequence(argv);
+}
+
+TEST_CASE("Invalid - sequence with 'aaa98983'") {
+    const char* argv[] = {"aaa98983", NULL};
+    test_invalid_sequence(argv);
+}
+
+TEST_CASE("Invalid - sequence with '98983$·$&)'") {
+    const char* argv[] = {"98983$·$&)", NULL};
+    test_invalid_sequence(argv);
+}
+
+TEST_CASE("Invalid - sequence with 'dsjiowe'") {
+    const char* argv[] = {"dsjiowe", NULL};
+    test_invalid_sequence(argv);
+}
+
+TEST_CASE("Invalid - sequence with 'A'") {
+    const char* argv[] = {"A", NULL};
+    test_invalid_sequence(argv);
+}
+
+TEST_CASE("Invalid - sequence with '-10'") {
+    const char* argv[] = {"-10", NULL};
+    test_invalid_sequence(argv);
+}
+
+TEST_CASE("Invalid - sequence with '87e'") {
+    const char* argv[] = {"87e", NULL};
+    test_invalid_sequence(argv);
+}
+
+/* other usefull tests
+lengths 11 and 10
+lengths 2999 and 3000
+Short - even sequence with no repeats
+Short - odd sequence with no repeats
+Short - even sequence with two ocurrences of the same integer
+Short - odd sequence with only repeated characters
+Short - even sequence with two ocurrences of the same integer
+Short - odd sequence with only repeated characters
+*/
