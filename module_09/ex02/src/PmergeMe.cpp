@@ -18,6 +18,8 @@ PmergeMe::PmergeMe(const PmergeMe& src)
 PmergeMe::PmergeMe(vector& src): firstContainer(src)
 {
 //Copy Const
+	for (vector::iterator it = firstContainer.begin(); it != firstContainer.end(); it++)
+		secondContainer.push_back(*it);
 }
 
 PmergeMe::~PmergeMe()
@@ -31,31 +33,21 @@ PmergeMe::PmergeMe(char* argv[])
 		return ;
 	int number;
 	clock_t startTime;
-	try
+	for (int i = 0; argv[i]; i++)
 	{
-		for (int i = 0; argv[i]; i++)
-		{
-			//parse Char to Unsigned Int
-			std::stringstream ss(argv[i]);
-			ss >> number;
-			if (ss.fail()) {
-				throw std::logic_error(std::string("not a number") + argv[i]);
-			}
-			if (number < 0)
-				throw std::logic_error(std::string("negative integer ") + argv[i]);
-			startTime = clock();
-			this->firstContainer.insert(firstContainer.end(), number);
-			this->timerFirstContainer += static_cast<double>(clock() - startTime) / CLOCKS_PER_SEC;
-			timerFirst += (clock() - startTime);
-			startTime = clock();
-			this->secondContainer.push_back(number);
-			this->timerSecondContainer += static_cast<double>(clock() - startTime) / CLOCKS_PER_SEC;
-			timerSecond += (clock() - startTime);
-		}
-	}
-	catch (std::exception& e)
-	{
-		throw std::logic_error(std::string("Error: invalid positive integer sequence by ") + e.what());
+		std::string str = argv[i];
+		std::stringstream ss(argv[i]);
+		ss >> number;
+		if (ss.fail() || (str.find_first_not_of("0123456789") != std::string::npos))
+			throw std::logic_error(std::string("Error: invalid positive integer \"") + argv[i] + std::string("\""));
+		startTime = clock();
+		this->firstContainer.insert(firstContainer.end(), number);
+		this->timerFirstContainer += static_cast<double>(clock() - startTime) / CLOCKS_PER_SEC;
+		timerFirst += (clock() - startTime);
+		startTime = clock();
+		this->secondContainer.push_back(number);
+		this->timerSecondContainer += static_cast<double>(clock() - startTime) / CLOCKS_PER_SEC;
+		timerSecond += (clock() - startTime);
 	}
 }
 
