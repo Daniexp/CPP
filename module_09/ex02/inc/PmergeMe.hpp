@@ -23,6 +23,7 @@ public:
 	PmergeMe& operator=(const PmergeMe& src);
 	const vector getFirstContainer(void) const;
 	const list getSecondContainer(void) const;
+	const vector getOriginalSequence(void) const;
 	double getTimerFirstContainer() const;
 	double getTimerSecondContainer() const;
 	long int getTimerFirst() const;
@@ -44,7 +45,7 @@ private:
 
 	vector		firstContainer;
 	list		secondContainer;
-	const	vector 	originalSequence;
+	vector		originalSequence;
 	double		timerFirstContainer;
 	double		timerSecondContainer;
 	long int	timerFirst;

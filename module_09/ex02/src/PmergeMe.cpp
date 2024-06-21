@@ -73,6 +73,11 @@ const list PmergeMe::getSecondContainer(void) const
 	return this->secondContainer;
 }
 
+const vector PmergeMe::getOriginalSequence(void) const
+{
+	return this->originalSequence;
+}
+
 double PmergeMe::getTimerFirstContainer() const
 {
 	return this->timerFirstContainer;
@@ -374,6 +379,7 @@ void PmergeMe::shortSecondContainer(void)
 
 void	PmergeMe::shortContainersWithTimers()
 {
+	this->originalSequence = this->firstContainer;
 	clock_t startTime = clock();
 	shortFirstContainer();
 	this->timerFirstContainer += static_cast<double>(clock() - startTime) / CLOCKS_PER_SEC;
@@ -457,12 +463,21 @@ void PmergeMe::swap(std::list<int>::iterator it1, std::list<int>::iterator it2)
 std::ostream& operator << (std::ostream& os, const PmergeMe& src)
 {
 	vector vct = src.getFirstContainer();
+	const vector original = src.getOriginalSequence();
 	double time1 = src.getTimerFirstContainer();
 	double time2 = src.getTimerSecondContainer();
 	long int time3 = src.getTimerFirst();
 	long int time4 = src.getTimerSecond();
 	std::size_t size = vct.size();
 
+	os << "Before:";
+	for (std::size_t i = 0; i < original.size(); i++)
+		std::cout << " " << original[i];
+	os << std::endl;
+	os << "After:";
+	for (std::size_t i = 0; i < vct.size(); i++)
+		std::cout << " " << vct[i];
+	os << std::endl;
 	os << "Time to process a range of " << size << " elements with std::vector<unsigned int> : " << time1 << " s or " << time3 << " nmb of clocks" << std::endl;
 	os << "Time to process a range of " << size << " elements with std::vector<unsigned int> : " << time2 << " s or " << time4 << " nmb of clocks" << std::endl;
 
