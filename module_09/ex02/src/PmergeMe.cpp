@@ -404,25 +404,6 @@ void PmergeMe::binarySearchInsertion(vector& S, const unsigned int srcValue, int
 		binarySearchInsertion(S, srcValue, start, middle - 1);
 	else
 		binarySearchInsertion(S, srcValue, middle + 1, end);
-/*
-	if (end - start <= 0)
-		return ;
-	if (end - start == 1)
-	{
-		if (srcValue <= S[start])
-			S.insert(S.begin() + start, srcValue);
-		else if (srcValue >= S[end])
-			S.insert(S.begin() + end + 1, srcValue);
-		else
-			S.insert(S.begin() + end, srcValue);
-		return ;
-	}
-	int middle = (end + start) / 2;
-	if (S[middle] > srcValue)
-		binarySearchInsertion(S, srcValue, start, middle); 
-	else
-		binarySearchInsertion(S, srcValue, middle, end); 
-*/
 }
 
 std::list<unsigned int>::iterator advance(std::list<unsigned int>::iterator it, int n) {
@@ -432,27 +413,6 @@ std::list<unsigned int>::iterator advance(std::list<unsigned int>::iterator it, 
 
 void PmergeMe::binarySearchInsertion(list& S, const unsigned int srcValue, int start, int end)
 {
-/*
-   if (start > end) {
-        std::list<unsigned int>::iterator it = advance(S.begin(), start);
-        S.insert(it, srcValue);
-        return;
-    }
-    if (end - start <= 0) {
-        std::list<unsigned int>::iterator it = advance(S.begin(), start);
-        if (srcValue <= *it)
-            S.insert(it, srcValue);
-        else
-            S.insert(++it, srcValue);
-        return;
-    }
-    int middle = (start + end) / 2;
-    std::list<unsigned int>::iterator it = advance(S.begin(), middle);
-    if (*it > srcValue)
-        binarySearchInsertion(S, srcValue, start, middle - 1);
-    else
-        binarySearchInsertion(S, srcValue, middle + 1, end);
-*/
 	if (start > end)
 	{
 		S.insert(getIterator(S, start), srcValue);

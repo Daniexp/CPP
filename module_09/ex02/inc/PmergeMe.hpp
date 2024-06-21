@@ -34,9 +34,6 @@ public:
 
 private:
 	void saveIntegerSequence(char* argv[], void saveMethod(void));
-	void saveInfirstContainer(void);
-	void saveInSecondContainer(void);
-	void saveInAllContainers(void);
 
 	void binarySearchInsertion(vector& S, const unsigned int srcValue, int start, int end);
 	void binarySearchInsertion(list& S, const unsigned int srcValue, int start, int end);
@@ -71,4 +68,23 @@ private:
 	int getIndex(list& src, list::iterator it);
 };
 std::ostream& operator << (std::ostream& os, const PmergeMe& src);
+
+template <typename Container>
+void isSorted(const Container& container)
+{
+    if (container.empty()) return ;
+
+    typename Container::const_iterator it = container.begin();
+    typename Container::const_iterator next_it = it;
+    ++next_it;
+
+    while (next_it != container.end()) {
+        if (*next_it < *it) {
+		throw std::logic_error("The container is not correctly sorted");
+        }
+        ++it;
+        ++next_it;
+    }
+}
+
 #endif     //PMERGEME_H

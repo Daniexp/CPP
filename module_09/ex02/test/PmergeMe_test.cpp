@@ -8,10 +8,10 @@
 #include <cstring>
 #define minNmb 1
 #define maxNmb 10000
-#define oddLength 100
-#define evenLength 101
+#define oddLength 1500
+#define evenLength 1501
 #define minRandom 3
-#define maxRandom 1000
+#define maxRandom 3000
 
 static std::string error = "Error: invalid positive integer \"";
 
@@ -41,10 +41,9 @@ void test_invalid_sequence(const char* argv[], std::string error) {
     try {
     	PmergeMe obj(const_cast<char**>(argv));
         obj.shortContainersWithTimers();
-        CHECK(false); // This should not be reached if an exception is thrown
+        CHECK(false);
     } catch (const std::exception& e) {
         CHECK(std::string(e.what()) == error);
-        //CHECK(strcmp(e.what(), error) == 0);
     }
 }
 
@@ -55,13 +54,12 @@ void test_valid_sequence(const char* argv[]) {
         const std::vector<unsigned int>& container = obj.getFirstContainer();
         const std::list<unsigned int>& container2 = obj.getSecondContainer();
         
-        // Check if the container is sorted
         bool is_sorted = std::is_sorted(container.begin(), container.end());
-        CHECK(is_sorted); // This should be true if the container is sorted
+        CHECK(is_sorted);
         is_sorted = std::is_sorted(container2.begin(), container2.end());
-        CHECK(is_sorted); // This should be true if the container is sorted
+        CHECK(is_sorted);
     } catch (const std::exception& e) {                                          
-        CHECK(false); // This should not be reached if an exception is not thrown
+        CHECK(false);
     }                                                                            
 } 
 
@@ -72,13 +70,12 @@ void test_valid_sequence(vector& argv) {
         const std::vector<unsigned int>& container = obj.getFirstContainer();
         const std::list<unsigned int>& container2 = obj.getSecondContainer();
         
-        // Check if the container is sorted
         bool is_sorted = std::is_sorted(container.begin(), container.end());
-        CHECK(is_sorted); // This should be true if the container is sorted
+        CHECK(is_sorted);
         is_sorted = std::is_sorted(container2.begin(), container2.end());
-        CHECK(is_sorted); // This should be true if the container is sorted
+        CHECK(is_sorted);
     } catch (const std::exception& e) {                                          
-        CHECK(false); // This should not be reached if an exception is not thrown
+        CHECK(false);
     }                                                                            
 } 
 
@@ -166,14 +163,3 @@ TEST_CASE("Short - random length sequence with repeats and no repeats")
 	test_valid_sequence(input);
 	
 }
-/* other usefull tests
-TEST_CASE("Short - even sequence with two ocurrences of the same integer")
-{
-}
-TEST_CASE("Short - odd sequence with only repeated characters")
-{
-	vector input = generateInput(oddLength, oddLength, true);
-	test_valid_sequence(input);
-}
-
-*/
