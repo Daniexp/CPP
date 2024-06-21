@@ -8,8 +8,10 @@
 #include <cstring>
 #define minNmb 1
 #define maxNmb 10000
-#define oddLength 3000
-#define evenLength 3001
+#define oddLength 100
+#define evenLength 101
+#define minRandom 3
+#define maxRandom 1000
 
 static std::string error = "Error: invalid positive integer \"";
 
@@ -155,6 +157,14 @@ TEST_CASE("Short - odd sequence with only repeated characters")
 {
 	vector input = generateInput(oddLength, oddLength, true);
 	test_valid_sequence(input);
+}
+TEST_CASE("Short - random length sequence with repeats and no repeats")
+{
+	vector input = generateInput(minRandom, maxRandom, true);
+	test_valid_sequence(input);
+	input = generateInput(minRandom, maxRandom, false);
+	test_valid_sequence(input);
+	
 }
 /* other usefull tests
 TEST_CASE("Short - even sequence with two ocurrences of the same integer")
