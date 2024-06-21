@@ -502,25 +502,9 @@ std::ostream& operator << (std::ostream& os, const PmergeMe& src)
 	long int time3 = src.getTimerFirst();
 	long int time4 = src.getTimerSecond();
 	std::size_t size = vct.size();
+
 	os << "Time to process a range of " << size << " elements with std::vector<unsigned int> : " << time1 << " s or " << time3 << " nmb of clocks" << std::endl;
 	os << "Time to process a range of " << size << " elements with std::vector<unsigned int> : " << time2 << " s or " << time4 << " nmb of clocks" << std::endl;
-	os << std::endl;
-/*
-	os << "After:";
-	for (std::size_t i = 0; i < vct.size(); i++)
-	{
-		os << " " << vct[i];
-	}
-*/
-/*
-	list lst = src.getSecondContainer();
-	os << "{";
-	for (list::iterator it = lst.begin(); it != lst.end(); it++)
-	{
-		os << " " << *it << " ";
-	}
-	os << "}" << std::endl;
-*/
 
 	return os;
 }
