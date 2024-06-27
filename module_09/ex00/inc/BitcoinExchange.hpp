@@ -27,7 +27,6 @@ private:
 	std::ifstream csv;
 	std::ifstream input;
 	
-	//check csvPath
 	void mapContent(std::ifstream& file, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str));
 	std::map<std::string, std::string>::iterator saveLineValues(const std::string& split, std::string& line, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str));
 	template<class UnaryPred>
@@ -46,10 +45,6 @@ private:
 	bool equalFloats(const float& a, const float& b, const float& epsilon);
 	bool isLess(const float& a, const float& b, const float& epsilon);
 	bool isMore(const float& a, const float& b, const float& epsilon);
-	//check inputPath
-	//save csvData
-	//search Amount
-	//search fil
 };
 std::ostream& operator<<(std::ostream& os, const BitcoinExchange& src);
 
