@@ -85,19 +85,16 @@ void BitcoinExchange::mapContent(std::ifstream& file, std::map<std::string, std:
 }
 std::map<std::string, std::string>::iterator BitcoinExchange::saveLineValues(const std::string& split, std::string& line, std::map<std::string, std::string>& map, void (BitcoinExchange::*checkValue)(const std::string& str))
 {
-//		if (line == "")
-//			return map.end();
 		std::size_t splitPos = line.find_first_of(split);
 		if (splitPos == std::string::npos)
 			throw std::logic_error("line doesn't contain the separator => " + split);
 		std::string date = line.substr(0, splitPos);
 		checkDate(date);
-		std::string value = line.substr(splitPos + 1);//, line.length());
+		std::string value = line.substr(splitPos + 1);
 		(this->*checkValue)(value);
 		rmchr(date, ::isspace);
 		rmchr(value, ::isspace);
 		map[date] = value;
-		//return (map.insert(map.begin(), std::pair<std::string, std::string>(date, value)));
 		return map.find(date);
 }
 
@@ -139,7 +136,11 @@ void BitcoinExchange::printResults(const std::string& inputPath)
 			//if (dataBase.end() == iter)
 			//	iter = searchNearestDate(iter->first);
 			//std::string lineResult = iter->first + " => " + amount + " = ";
-			std::string lineResult = dateToSearch + " => " + amount + " = ";
+			std::string lineResult;
+			if (dateToSearch  == iter->first)
+				lineResult = dateToSearch + " => " + amount + " = ";
+			else
+				lineResult = dateToSearch + " not found, closest is " + iter->first + " => " + amount + " = ";
 			float result = std::atof(amount.c_str()) * std::atof(iter->second.c_str());
 			std::ostringstream os;
 			os << result;
@@ -168,13 +169,6 @@ std::map<std::string, std::string>::iterator BitcoinExchange::searchNearestDate(
 
 void BitcoinExchange::checkDate(const std::string& str)
 {
-/*
-	std::stringstream fecha;
-	std::tm tm;
-	fecha << str;
-	if (static_cast<bool>(fecha >> std::get_time(&tm, "%Y-%m-%d")) == false)
-		throw std::logic_error("Error : bad date => " + str);
-*/
 	tm tm = {};
 	if (std::sscanf(str.c_str(), "%4d-%2d-%2d", &tm.tm_year, &tm.tm_mon, &tm.tm_mday) != 3)
 		throw std::logic_error("bad date => " + str);
