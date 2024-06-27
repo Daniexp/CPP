@@ -4,7 +4,7 @@
 ################################################################################
 NAME		=	bst
 TEST_NAME	=	bst_test
-CXX			=	clang++
+CXX			=	c++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc
 CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
