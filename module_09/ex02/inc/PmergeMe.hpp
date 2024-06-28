@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <limits.h>
 #include <sstream>
+
 typedef std::vector<unsigned int> vector;
 typedef std::list<unsigned int> list;
 
