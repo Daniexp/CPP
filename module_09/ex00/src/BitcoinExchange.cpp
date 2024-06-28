@@ -114,28 +114,18 @@ void BitcoinExchange::printResults(const std::string& inputPath)
 	do
 	{
 		try
-		{ //el nodo ha sido guardado 
+		{ 
 			iter = saveLineValues(split, line, amounts, &BitcoinExchange::checkAmount);
-			//entrar nodo del map
 			amount = iter->second;
-			//apartir de key ( date ) buscar en database
 			dateToSearch = iter->first;
 			iter = dataBase.find(dateToSearch);
-			//si una date no existe buscar la anterior
 			if (dataBase.end() == iter)
 			{
 				iter = dataBase.lower_bound(dateToSearch);
-//				if (iter != dataBase.begin());
-//					--iter;
 				if (dataBase.begin() == iter)
 					throw std::logic_error("can't provide a exchange rate for the date => " + dateToSearch);
 				--iter;
-//				if (dataBase.end() == iter)
-//					throw std::logic_error("can't provide a exchange rate for the date => " + dateToSearch);
 			}
-			//if (dataBase.end() == iter)
-			//	iter = searchNearestDate(iter->first);
-			//std::string lineResult = iter->first + " => " + amount + " = ";
 			std::string lineResult;
 			if (dateToSearch  == iter->first)
 				lineResult = dateToSearch + " => " + amount + " = ";
@@ -145,7 +135,6 @@ void BitcoinExchange::printResults(const std::string& inputPath)
 			std::ostringstream os;
 			os << result;
 			lineResult += os.str();
-			//printear feccha amoont => amount * exchange_rate de ese día
 			std::cout << lineResult << std::endl;
 			
 		}
@@ -220,10 +209,13 @@ void BitcoinExchange::checkAmount(const std::string& str)
 		value = std::atof(str.c_str());
 	}catch(std::exception& e)
 	{
-		throw std::logic_error("bad price format => " + str);
+		throw std::logic_error("bad amount format => " + str);
 	}
-	if (isLess(value, 0.0f, 0.009) || isMore(value, 1000.0f, 0.009))
-		throw std::logic_error("bad price format => " + str);
+	if (isLess(value, 0.0f, 0.009) || isMore(value, 1000.0f, 0.009) || (value == 0.0 && str != "0" && str != "0.0" && str != "0.0f"))
+		throw std::logic_error("bad amount format => " + str);
+	for (std::size_t i = 0; i < str.size(); i++)
+		if (isalpha(str[i]))
+			throw std::logic_error("bad amount format => " + str);
 }
 
 bool BitcoinExchange::equalFloats(const float&a, const float&b, const float& epsilon)
