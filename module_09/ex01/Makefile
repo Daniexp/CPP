@@ -4,7 +4,7 @@
 ################################################################################
 NAME		=	RPN
 TEST_NAME	=	RPN_test
-CXX			=	clang++
+CXX			=	c++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc #-fsanitize=address
 CXXLFLAGS	=	-L inc -lm
 RM			=	rm -rf
@@ -25,6 +25,7 @@ TEST_OBJS	=	$(DTESTSRC:.cpp=.o)
 ifeq ($(MAKECMDGOALS), test)
 	SRCS := $(filter-out main.cpp, $(SRCS))
 	OBJS := $(filter-out $(SRCDIR)main.o, $(OBJS))
+	CXXFLAGS := $(filter-out -std=c++98, $(CXXFLAGS))
 endif
 
 all:	$(NAME)
