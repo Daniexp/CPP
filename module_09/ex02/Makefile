@@ -4,7 +4,7 @@
 ################################################################################
 NAME		=	PmergeMe
 TEST_NAME	=	PmergeMe_test
-CXX			=	clang++
+CXX			=	c++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98 -I inc
 RM			=	rm -rf
 
