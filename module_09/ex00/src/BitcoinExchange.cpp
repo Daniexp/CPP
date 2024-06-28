@@ -170,10 +170,8 @@ std::map<std::string, std::string>::iterator BitcoinExchange::searchNearestDate(
 void BitcoinExchange::checkDate(const std::string& str)
 {
 	tm tm = {};
-	if (std::sscanf(str.c_str(), "%4d-%2d-%2d", &tm.tm_year, &tm.tm_mon, &tm.tm_mday) != 3)
-		throw std::logic_error("bad date => " + str);
-	tm.tm_year -= 1009;
-	tm.tm_mon--; 
+	if (std::sscanf(str.c_str(), "%4d-%2d-%2d", &tm.tm_year, &tm.tm_mon, &tm.tm_mday) != 3 || tm.tm_year == 0 || tm.tm_mon == 0 || tm.tm_mday == 0 || tm.tm_mday > 31 || tm.tm_mon > 12)
+		throw std::logic_error("bad date format => " + str);
 }
 
 void BitcoinExchange::checkPrice(const std::string& str)
