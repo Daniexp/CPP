@@ -15,8 +15,8 @@ public:
 	BitcoinExchange();
 	~BitcoinExchange();
 	BitcoinExchange(const std::string& dataBase);
-   BitcoinExchange(const BitcoinExchange& src);
-   BitcoinExchange& operator=(const BitcoinExchange& src);
+	BitcoinExchange(const BitcoinExchange& src);
+	BitcoinExchange& operator=(const BitcoinExchange& src);
 	const std::map<std::string, std::string>& getDataBase() const;
 	const std::map<std::string, std::string>& getAmounts() const;
 	void printResults();
@@ -41,7 +41,6 @@ private:
 	const std::string parseHeader(const std::string& str);
 	const std::string parseHeader(std::ifstream& input);
 	float searchPriceByDate(const std::string& date);	
-	std::map<std::string, std::string>::iterator searchNearestDate(const std::string& date);
 	bool equalFloats(const float& a, const float& b, const float& epsilon);
 	bool isLess(const float& a, const float& b, const float& epsilon);
 	bool isMore(const float& a, const float& b, const float& epsilon);

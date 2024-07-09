@@ -146,16 +146,6 @@ void BitcoinExchange::printResults(const std::string& inputPath)
 	while (std::getline(input, line));
 }
 
-std::map<std::string, std::string>::iterator BitcoinExchange::searchNearestDate(const std::string& date)
-{
-	std::map<std::string, std::string>::iterator iter = dataBase.lower_bound(date);
-	if (dataBase.end() == iter)
-		throw std::logic_error("can't provide a exchange rate for the date => " + date);
-	if (iter != dataBase.begin())
-		iter--;
-	return iter;
-}
-
 void BitcoinExchange::checkDate(const std::string& str)
 {
 	tm tm = {};
