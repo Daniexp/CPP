@@ -4,11 +4,6 @@
 #include <sstream>
 #include <doctest.h>
 
-TEST_CASE("Example Test_Case")
-{
-	MESSAGE("Example test case is executed successfully...");
-}
-
 TEST_CASE("Subject examples")
 {
 	std::string argument = "8 9 * 9 - 9 - 9 - 4 - 1 +";
