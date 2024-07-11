@@ -11,4 +11,7 @@ long			calculatePolishExpression(std::stack<char>& expression);
 long			calculateExpression(long* nmb2, long *nmb1, char *op);
 bool			isNumber(char element);
 void			printStack(std::stack<char>& expression);
+//new Implementation with string against int
+double	calculateRPN(const std::string& src);
+double	calculateExpression(double nmb2, double nmb1, char op);
 #endif
