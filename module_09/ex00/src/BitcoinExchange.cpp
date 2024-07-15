@@ -150,7 +150,7 @@ void BitcoinExchange::checkDate(const std::string& str)
 {
 	tm tm = {};
 	if (std::sscanf(str.c_str(), "%4d-%2d-%2d", &tm.tm_year, &tm.tm_mon, &tm.tm_mday) != 3 || tm.tm_year == 0 || tm.tm_mon == 0 || tm.tm_mday == 0 || tm.tm_mday > 31 || tm.tm_mon > 12)
-		throw std::logic_error("bad date format => " + str);
+		throw std::logic_error("bad date => " + str);
 }
 
 void BitcoinExchange::checkPrice(const std::string& str)
@@ -161,10 +161,10 @@ void BitcoinExchange::checkPrice(const std::string& str)
 		value = std::atof(str.c_str());
 	}catch(std::exception& e)
 	{
-		throw std::logic_error("bad price format => " + str);
+		throw std::logic_error("bad price => " + str);
 	}
 	if (isLess(value, 0.0000f, 0.009))
-		throw std::logic_error("bad price format => " + str);
+		throw std::logic_error("bad price => " + str);
 }
 const std::string BitcoinExchange::parseHeader(const std::string& str)
 {
@@ -199,13 +199,13 @@ void BitcoinExchange::checkAmount(const std::string& str)
 		value = std::atof(str.c_str());
 	}catch(std::exception& e)
 	{
-		throw std::logic_error("bad amount format => " + str);
+		throw std::logic_error("bad amount => " + str);
 	}
 	if (isLess(value, 0.0f, 0.009) || isMore(value, 1000.0f, 0.009) || (value == 0.0 && str != "0" && str != "0.0" && str != "0.0f"))
-		throw std::logic_error("bad amount format => " + str);
+		throw std::logic_error("bad amount => " + str);
 	for (std::size_t i = 0; i < str.size(); i++)
 		if (isalpha(str[i]))
-			throw std::logic_error("bad amount format => " + str);
+			throw std::logic_error("bad amount => " + str);
 }
 
 bool BitcoinExchange::equalFloats(const float&a, const float&b, const float& epsilon)
