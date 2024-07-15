@@ -51,6 +51,9 @@ TEST_CASE("Valid argumetns - results different than a positive integer")
 	argument = "7 0 20 - +";
 	res = calculateRPN(argument);
 	CHECK(res == -13);
+	argument = ("2 5 - 8 * 09- 5 -");
+	res = calculateRPN(argument);
+	CHECK(res == 10);
 	}catch (std::exception& e)
 	{
 		std::string err = e.what();
